@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <main id="dashboard" class="flex flex-col gap-5 min-h-screen">
+      <nav class="flex items-center px-6 py-4 justify-between">
+        <h1
+          class="text-3xl font-heading tracking-tighter font-medium text-primary"
+        >
+          FairShare
+        </h1>
+
+        <ul
+          class="flex items-center gap-4 lg:w-6/12 justify-center rounded-lg bg-bg py-4 px-4"
+        >
+          <li
+            class="px-2 py-1 rounded-lg text-primary hover:text-primary/90 text-lg font-display font-medium"
+          >
+            <a href="#"> Dashboard </a>
+          </li>
+          <li
+            class="px-2 py-1 rounded-lg text-text hover:text-primary/90 text-lg font-display font-medium"
+          >
+            <a href="#"> Friends </a>
+          </li>
+          <li
+            class="px-2 py-1 rounded-lg text-text hover:text-primary/90 text-lg font-display font-medium"
+          >
+            <a href="#"> Bills </a>
+          </li>
+        </ul>
+
+        <div id="user-profile">
+          <img
+            class="rounded-avatar size-10 cursor-pointer object-cover"
+            alt="user-profile-avatar"
+            id="user-profile-avatar"
+            src="/public/images/boy_avatar.png"
+          />
+        </div>
+      </nav>
+
+      <div id="main-section" class="p-6 w-full flex flex-col">
+        <section id="greeting-section">
+          <h1
+            class="text-4xl font-heading font-normal tracking-tight text-text"
+          >
+            Hello, Obinna
+          </h1>
+        </section>
+
+        <section
+          id="stats-section"
+          class="mt-6 grid md:grid-cols-3 lg:grid-cols-3 gap-2"
+        >
+          <div
+            class="rounded-card bg-primary p-4 shadow-xs flex flex-col gap-2"
+          >
+            <h1 class="font-heading font-medium text-surface/80 text-base">
+              You have
+            </h1>
+            <h3 class="text-6xl font-normal text-surface font-body">
+              5<span class="text-lg text-surface/80 font-display mb-3"
+                >active friends</span
+              >
+            </h3>
+            <div class="flex justify-end mt-auto items-center">
+              <img
+                class="rounded-avatar object-cover size-10"
+                src="/public/images/boy_avatar.png"
+              />
+              <img
+                class="rounded-avatar object-cover size-10 -ml-1"
+                src="/public/images/girl-avatar-2-with-sunglasses.png"
+              />
+              <img
+                class="rounded-avatar object-cover size-10 -ml-1"
+                src="/public/images/girl-avatar-1-with-sunglasses.png"
+              />
+              <div
+                id="remaining-friends-count"
+                class="rounded-avatar size-10 -ml-1 bg-accent text-surface font-medium font-body flex items-center justify-center"
+              >
+                +2
+              </div>
+            </div>
+          </div>
+          <div
+            class="rounded-card bg-bg border border-border shadow-xs p-4 flex flex-col gap-2"
+          >
+            <h1 class="font-heading font-medium text-text/80 text-base">
+              You have Split
+            </h1>
+            <h3 class="text-6xl font-normal text-text font-body">
+              10<span class="text-base text-text/80 font-display mb-3"
+                >bills this month</span
+              >
+            </h3>
+            <div
+              class="flex justify-end mt-auto justify-self-end self-end items-center"
+            >
+              <svg
+                viewBox="0 0 200 200"
+                class="h-[40px]"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="var(--color-primary)"
+                  d="M28.4,-45.2C39.7,-42.7,53.6,-40.8,57.6,-33.4C61.5,-26,55.5,-13,57.4,1.1C59.3,15.2,69.2,30.4,65.8,38.9C62.5,47.3,45.9,49,32.7,48.8C19.5,48.6,9.7,46.6,-3.2,52.1C-16.1,57.7,-32.3,70.7,-38.1,66.7C-43.9,62.6,-39.3,41.3,-40.7,27.4C-42,13.4,-49.3,6.7,-54.7,-3.1C-60.1,-13,-63.8,-25.9,-60.6,-36.8C-57.5,-47.7,-47.6,-56.5,-36.4,-59C-25.1,-61.5,-12.6,-57.7,-2,-54.3C8.6,-50.8,17.1,-47.7,28.4,-45.2Z"
+                  transform="translate(100 100)"
+                />
+              </svg>
+              <svg
+                class="h-[40px]"
+                viewBox="0 0 200 200"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="var(--color-secondary)"
+                  d="M31.7,-57.2C37.4,-45.6,35.8,-30.6,35.1,-19.7C34.4,-8.8,34.6,-1.9,34.6,5.7C34.7,13.3,34.5,21.5,30,25.1C25.5,28.6,16.6,27.5,6.4,37.7C-3.8,47.9,-15.2,69.4,-22.5,70.2C-29.7,71,-32.7,51,-43.3,38C-53.8,24.9,-71.8,18.9,-75.3,9.5C-78.7,0,-67.5,-12.8,-60.3,-27.1C-53.1,-41.3,-49.8,-56.9,-40.4,-66.7C-31,-76.6,-15.5,-80.8,-1.3,-78.9C13,-76.9,26,-68.8,31.7,-57.2Z"
+                  transform="translate(100 100)"
+                />
+              </svg>
+
+              <svg
+                class="h-[40px]"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="var(--color-accent)"
+                  d="M23,-24.6C36,-27.5,57,-31.5,58.6,-27C60.2,-22.5,42.5,-9.5,35.7,1.8C28.9,13.1,33.1,22.7,31.8,31.6C30.4,40.5,23.5,48.6,15.9,48C8.3,47.4,0,38,-7.5,32.5C-14.9,27.1,-21.5,25.7,-25.2,21.7C-29,17.7,-30,11.1,-26,6.7C-22,2.3,-13.1,0.2,-16.1,-13.3C-19.2,-26.8,-34.2,-51.6,-33.5,-54.3C-32.8,-57,-16.4,-37.6,-5.7,-28.7C5,-19.9,10,-21.7,23,-24.6Z"
+                  transform="translate(20 50)"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="rounded-card bg-accent p-4 shadow-xs flex flex-col gap-2">
+            <h1 class="font-heading font-medium text-surface/80 text-base">
+              Most active friend
+            </h1>
+            <div class="flex flex-col">
+              <h3 class="text-6xl font-normal text-surface font-body">
+                Chibuzor
+              </h3>
+              <span class="text-base text-surface/80 font-display mb-3">
+                $120 split this month</span
+              >
+            </div>
+            <div class="flex justify-end mt-4 items-center">
+              <img
+                class="rounded-avatar object-cover size-10"
+                src="/public/images/boy_avatar.png"
+              />
+              <img
+                class="rounded-avatar object-cover size-10 -ml-1"
+                src="/public/images/girl-avatar-2-with-sunglasses.png"
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <script src="../dashboard.ts" type="module"></script>
+    </main>
+  </body>
+</html>

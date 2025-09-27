@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import 'tailwindcss';
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme {
+  /* Theme colors */
+  --color-primary: #6c63dd; /* Violet Pop */
+  --color-secondary: #00c9a7; /* Aqua Mint */
+  --color-accent: #ff6b6b; /* Coral Fun */
+
+  /* Supporting colors */
+  --color-success: #4caf50; /* Fresh Green */
+  --color-warning: #ffc107; /* Sunny Amber */
+  --color-error: #e63946; /* Bold Red */
+
+  /* Helper colors */
+  --color-bg: #f9fafb; /* Soft Gray Background */
+  --color-surface: #ffffff; /* Pure White Cards */
+  --color-border: #e5e7eb; /* Light Gray Border */
+  --color-text: #111827; /* Almost Black Text */
+  --color-muted: #6b7280; /* Muted Gray Text */
+
+  --font-heading: 'Poppins', sans-serif; /* Rounded, playful, modern */
+  --font-body: 'Inter', sans-serif; /* Clean, super-readable */
+  --font-display: 'Baloo 2', cursive; /* Playful vibe, use sparingly */
+
+  --radius-card: 16px;
+  --radius-avatar: 1000px;
+}
+
+#add-friend-list-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#add-friend-list-item > button {
+  background-color: #111;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 8px;
+}
