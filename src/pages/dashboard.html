@@ -26,7 +26,7 @@
           <li
             class="px-2 py-1 rounded-lg text-text hover:text-primary/90 text-lg font-display font-medium"
           >
-            <a href="#"> Friends </a>
+            <a href="friends.html"> Friends </a>
           </li>
           <li
             class="px-2 py-1 rounded-lg text-text hover:text-primary/90 text-lg font-display font-medium"
@@ -45,7 +45,7 @@
         </div>
       </nav>
 
-      <div id="main-section" class="p-6 w-full flex flex-col">
+      <div id="main-section" class="p-6 w-full flex flex-col gap-6">
         <section id="greeting-section">
           <h1
             class="text-4xl font-heading font-normal tracking-tight text-text"
@@ -97,7 +97,7 @@
               You have Split
             </h1>
             <h3 class="text-6xl font-normal text-text font-body">
-              10<span class="text-base text-text/80 font-display mb-3"
+              10<span class="text-lg text-text/80 font-display mb-3"
                 >bills this month</span
               >
             </h3>
@@ -149,7 +149,7 @@
               <h3 class="text-6xl font-normal text-surface font-body">
                 Chibuzor
               </h3>
-              <span class="text-base text-surface/80 font-display mb-3">
+              <span class="text-lg text-surface/80 font-display mb-3">
                 $120 split this month</span
               >
             </div>
@@ -164,6 +164,23 @@
               />
             </div>
           </div>
+        </section>
+
+        <section class="grid grid-cols-3">
+          <aside class="col-span-2"></aside>
+
+          <aside
+            id="friend-requests"
+            class="rounded-card border border-border gap-6 flex flex-col shadow-xs p-4"
+          >
+            <h1
+              class="text-lg font-normal text-text font-heading tracking-tight"
+            >
+              Friend Requests
+            </h1>
+
+            <ul id="friend-requests-list"></ul>
+          </aside>
         </section>
       </div>
 
