@@ -172,25 +172,19 @@ const handleGetSuggestedFriends = async () => {
 
               <button
 
-                id=${`send-request-button-${friend.id}`}
+                id=${`send-request-button`}
                 class="rounded-2xl bg-surface text-success border border-border px-4 py-1 shadow-xs font-medium font-display tracking-tight text-sm whitespace-nowrap cursor-pointer"
               >
                 Send request
               </button>
     `;
+
       suggestedFriendsListElement?.appendChild(friendCardElement);
-      const sendRequestButton = document.querySelector(
-        `#send-request-button-${friend.id}`
-      );
-      const sendRequestButtonId = sendRequestButton?.id.split(
-        'send-request-button-'
-      )[1];
-      sendRequestButton?.addEventListener('click', () => {
-        if (friend.id === sendRequestButtonId) {
-          console.log('click at button id', friend.id);
+      friendCardElement
+        .querySelector('#send-request-button')
+        ?.addEventListener('click', () => {
           handleSendFriendRequest(friend.id, user?.id!);
-        }
-      });
+        });
     });
   }
 };
