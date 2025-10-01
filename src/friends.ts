@@ -1,5 +1,4 @@
 import {
-  getFriendRequests,
   getFriends,
   getReceivedFriendRequests,
   getSentFriendRequests,

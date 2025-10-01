@@ -1,9 +1,5 @@
 import { getAuthState } from './auth/auth';
-import {
-  getFriendRequests,
-  getReceivedFriendRequests,
-  updateFriendRequest,
-} from './api/friends';
+import { getReceivedFriendRequests, updateFriendRequest } from './api/friends';
 
 const friendRequestsElement = document.querySelector(
   '#friend-requests'
@@ -47,13 +43,13 @@ const handleUpdateFriendRequest = async (
   }
 };
 
-const handleGetFriendRequests = async () => {
+const handleGetReceivedFriendRequests = async () => {
   const user = await getAuthState();
+
   const friendRequests = await getReceivedFriendRequests(user?.id!);
-  if (friendRequests.length === 0) {
-    friendRequestsListElement.style.display = 'none';
-    const friendRequestsEmptyState = document.createElement('div');
-    friendRequestsEmptyState.innerHTML = `
+  if (friendRequests?.length === 0) {
+    const emptyFriendRequestList = document.createElement('div');
+    emptyFriendRequestList.innerHTML = `
     <div class="flex flex-col gap-6 items-center justify-center">
       <div class="flex gap-0 justify-center items-center">
           <img class="rounded-avatar size-10 object-cover" src="/public/images/boy_avatar.png" alt="boy-avatar-with-sunglasses" />
@@ -62,18 +58,82 @@ const handleGetFriendRequests = async () => {
       </div>
 
       <div class="flex flex-col items-center gap-2">
-        <h1 class="font-heading text-lg text-text">No friend requests yet</h1>
+        <h1 class="font-heading text-lg text-text">No friends yet</h1>
         <p class="font-display text-base text-muted font-normal text-center">
-      Looks like your friends haven’t found you just yet. Sit tight, they’ll show up soon!</p>
+            Your friends list is looking a little lonely. Start connecting and this space will fill up fast!
+        </p>
       </div>
     </div>
     `;
+    friendRequestsElement?.appendChild(emptyFriendRequestList);
+  } else {
+    friendRequests?.forEach((friend: any) => {
+      const profile = friend.profiles;
+      const friendCardElement = document.createElement('div');
+      friendCardElement.className =
+        'flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface';
+      friendCardElement.innerHTML = `
+              <div class="flex items-center gap-4">
+                ${
+                  friend?.avatar_url
+                    ? `<img
+                  src=${profile.avatar_url ?? ''}
+                  alt=${profile.name}
+                  class="rounded-avatar size-10 object-cover"
+                />`
+                    : `<div class="rounded-avatar bg-bg size-10 flex items-center text-text font-body justify-center">
+                        ${profile.name.charAt(0)}              
+                      </div>`
+                }
+                <div>
+                  <h3
+                    class="text-base font-medium overflow-hidden w-[200px] whitespace-nowrap text-ellipsis font-heading text-text"
+                  >
+                    ${profile.name}
+                  </h3>
+                  <p
+                    class="text-sm font-normal tracking-tight text-muted font-display"
+                  >
+                    @${profile?.username ?? profile?.name}
+                  </p>
+                </div>
 
-    friendRequestsElement.appendChild(friendRequestsEmptyState);
+                       
+              </div>
+
+              <div class="flex items-center gap-2">
+                  <button id="accept-btn" class="accept-btn rounded-2xl bg-surface text-success border border-border px-4 py-1 shadow-xs font-medium font-display tracking-tight text-sm">
+                    Accept
+                  </button>
+                  <button id="decline-btn" class="decline-btn rounded-2xl bg-surface text-error border border-border px-4 py-1 shadow-xs font-medium font-display tracking-tight text-sm">
+                    Decline
+                  </button>
+              </div>     
+    `;
+      friendRequestsListElement?.append(friendCardElement);
+      friendCardElement
+        .querySelector('#accept-btn')
+        ?.addEventListener('click', () => {
+          handleUpdateFriendRequest(
+            friend.receiver_id,
+            friend.requester_id,
+            'accepted'
+          );
+        });
+      friendCardElement
+        .querySelector('#decline-btn')
+        ?.addEventListener('click', () => {
+          handleUpdateFriendRequest(
+            friend.receiver_id,
+            friend.requester_id,
+            'declined'
+          );
+        });
+    });
   }
 };
 
 window.addEventListener('DOMContentLoaded', () => {
   getUserProfile();
-  handleGetFriendRequests();
+  handleGetReceivedFriendRequests();
 });
