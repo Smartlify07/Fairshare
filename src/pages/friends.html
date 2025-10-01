@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fairshare | Friends</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <main class="min-h-screen flex flex-col">
+      <nav class="flex items-center px-6 py-4 justify-between">
+        <h1
+          class="text-3xl font-heading tracking-tighter font-medium text-primary"
+        >
+          FairShare
+        </h1>
+
+        <ul
+          class="flex items-center gap-4 lg:w-6/12 justify-center rounded-lg bg-bg py-4 px-4"
+        >
+          <li
+            class="px-2 py-1 rounded-lg text-text hover:text-primary text-lg font-display font-medium"
+          >
+            <a href="dashboard.html"> Dashboard </a>
+          </li>
+          <li
+            class="px-2 py-1 rounded-lg text-primary hover:text-primary text-lg font-display font-medium"
+          >
+            <a href="friends.html"> Friends </a>
+          </li>
+          <li
+            class="px-2 py-1 rounded-lg text-text hover:text-primary text-lg font-display font-medium"
+          >
+            <a href="#"> Bills </a>
+          </li>
+        </ul>
+
+        <div id="user-profile">
+          <img
+            class="rounded-avatar size-10 cursor-pointer object-cover"
+            alt="user-profile-avatar"
+            id="user-profile-avatar"
+            src="/public/images/boy_avatar.png"
+          />
+        </div>
+      </nav>
+
+      <section class="grid lg:grid-cols-2 px-6 py-10 gap-10">
+        <!-- Friends Section -->
+        <div id="friends-section" class="flex flex-col gap-4">
+          <h2 class="font-heading text-xl">Your Friends</h2>
+          <div
+            id="friend-list"
+            class="grid sm:grid-cols-2 lg:grid-cols-2 gap-4"
+          ></div>
+        </div>
+
+        <!-- Suggestions Section -->
+        <aside id="suggested-friends-section" class="flex flex-col gap-4">
+          <h2 class="font-heading text-xl">Suggested Friends</h2>
+          <div id="suggested-friends-list" class="grid gap-4">
+            <!-- Suggested Friend Card -->
+
+            <!-- More suggestions... -->
+          </div>
+        </aside>
+        <aside id="friend-requests-section" class="flex flex-col gap-4">
+          <h2 class="font-heading text-xl">Received Friend Requests</h2>
+          <div id="friend-requests-list" class="grid gap-4">
+            <!-- Suggested Friend Card -->
+
+            <!-- More suggestions... -->
+          </div>
+        </aside>
+        <aside id="sent-friend-requests-section" class="flex flex-col gap-4">
+          <h2 class="font-heading text-xl">Sent Friend Requests</h2>
+          <div id="sent-friend-requests-list" class="grid gap-4"></div>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="../friends.ts"></script>
+  </body>
+</html>

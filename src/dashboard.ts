@@ -1,17 +1,13 @@
-import { getAuthState } from './utils/auth';
+import { getAuthState } from './auth/auth';
 import {
-  addFriend,
   getFriendRequests,
-  getFriends,
-  getSuggestedFriends,
+  getReceivedFriendRequests,
   updateFriendRequest,
-} from './utils/friends';
+} from './api/friends';
 
-const dashboard = document.querySelector('#dashboard') as HTMLElement;
-const friendsElement = document.querySelector('#friends') as HTMLDivElement;
-const friendListElement = document.querySelector(
-  '#friend-list'
-) as HTMLUListElement;
+const friendRequestsElement = document.querySelector(
+  '#friend-requests'
+) as HTMLElement;
 const friendRequestsListElement = document.querySelector(
   '#friend-requests-list'
 ) as HTMLUListElement;
@@ -27,9 +23,6 @@ const greetingText = document.querySelector(
 
 const getUserProfile = async () => {
   const user = await getAuthState();
-
-  console.log(user?.user_metadata.name);
-
   if (user?.user_metadata?.picture) {
     userImageElement.src = user?.user_metadata?.picture;
   } else {
@@ -38,96 +31,49 @@ const getUserProfile = async () => {
       'rounded-avatar flex items-center justify-center bg-bg text-text';
     userProfileElement.textContent = user?.user_metadata.name.charAt(0);
   }
-
   greetingText.textContent = `Hello, ${user?.user_metadata?.name}`;
   return user;
 };
 
-const handleGetFriends = async () => {
-  const friends = await getFriends();
-  console.log(friends);
-  const emptyState = document.createElement('div');
-  emptyState.textContent = "You don't have any friends yet.";
-  if (friends?.length === 0) {
-    console.log('No friends');
-    friendsElement.appendChild(emptyState);
-  } else {
-    friends?.forEach((friend) => {
-      const listItemElement = document.createElement('li');
-      listItemElement.id = 'add-friend-list-item';
-
-      listItemElement.textContent = friend.name;
-      friendsElement.appendChild(listItemElement);
-    });
-  }
-};
-
 const handleUpdateFriendRequest = async (
   receiver_id: string,
-  requester_id: string
+  requester_id: string,
+  status: 'accepted' | 'declined'
 ) => {
   try {
-    await updateFriendRequest(requester_id, receiver_id, 'accepted');
-    alert('Friend request accepted!');
+    await updateFriendRequest(requester_id, receiver_id, status);
   } catch (error) {
     console.error(error);
   }
 };
 
 const handleGetFriendRequests = async () => {
-  const friendRequests = await getFriendRequests();
-  friendRequests?.forEach((friend_request) => {
-    const listItemElement = document.createElement('li');
-    const button = document.createElement('button');
-    listItemElement.id = 'add-friend-list-item';
-    button.textContent = 'Accept request';
+  const user = await getAuthState();
+  const friendRequests = await getReceivedFriendRequests(user?.id!);
+  if (friendRequests.length === 0) {
+    friendRequestsListElement.style.display = 'none';
+    const friendRequestsEmptyState = document.createElement('div');
+    friendRequestsEmptyState.innerHTML = `
+    <div class="flex flex-col gap-6 items-center justify-center">
+      <div class="flex gap-0 justify-center items-center">
+          <img class="rounded-avatar size-10 object-cover" src="/public/images/boy_avatar.png" alt="boy-avatar-with-sunglasses" />
+          <img class="rounded-avatar size-10 object-cover -ml-2" src="/public/images/girl-avatar-1-with-sunglasses.png" alt="boy-avatar-with-sunglasses" />
+          <img class="rounded-avatar size-10 object-cover -ml-2" src="/public/images/girl-avatar-2-with-sunglasses.png" alt="boy-avatar-with-sunglasses" />
+      </div>
 
-    button.addEventListener('click', () => {
-      handleUpdateFriendRequest(
-        friend_request.receiver_id,
-        friend_request.requester_id
-      );
-    });
+      <div class="flex flex-col items-center gap-2">
+        <h1 class="font-heading text-lg text-text">No friend requests yet</h1>
+        <p class="font-display text-base text-muted font-normal text-center">
+      Looks like your friends haven’t found you just yet. Sit tight, they’ll show up soon!</p>
+      </div>
+    </div>
+    `;
 
-    listItemElement.textContent = friend_request.profiles?.name;
-    listItemElement.appendChild(button);
-    friendRequestsListElement.appendChild(listItemElement);
-  });
-  console.log(friendRequests);
-};
-
-const handleAddFriend = async (friend_id: string) => {
-  const user = await getUserProfile();
-
-  try {
-    await addFriend(user?.id!, friend_id);
-    alert('Friend request sent');
-  } catch (error) {
-    console.error(error);
+    friendRequestsElement.appendChild(friendRequestsEmptyState);
   }
 };
 
-const handleGetSuggestedFriends = async () => {
-  const suggestedFriends = await getSuggestedFriends();
-  console.log(suggestedFriends);
-  suggestedFriends?.forEach((friend) => {
-    const listItemElement = document.createElement('li');
-    const button = document.createElement('button');
-    listItemElement.id = 'add-friend-list-item';
-    button.textContent = 'Add friend';
-
-    button.addEventListener('click', () => {
-      handleAddFriend(friend.id);
-    });
-
-    listItemElement.textContent = friend.name;
-    listItemElement.appendChild(button);
-    friendListElement.appendChild(listItemElement);
-  });
-};
 window.addEventListener('DOMContentLoaded', () => {
   getUserProfile();
-  handleGetFriends();
-  handleGetSuggestedFriends();
   handleGetFriendRequests();
 });
