@@ -166,12 +166,33 @@
           </div>
         </section>
 
-        <section class="grid grid-cols-3">
-          <aside class="col-span-2"></aside>
+        <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Bills -->
+          <aside
+            id="bills-section"
+            class="rounded-card border col-span-2 border-border gap-6 flex flex-col shadow-xs p-4"
+          >
+            <div class="flex items-center justify-between">
+              <h1
+                class="text-lg font-normal text-text font-heading tracking-tight"
+              >
+                Things to Settle
+              </h1>
+
+              <button
+                id="add-new-bill-btn"
+                class="rounded-2xl bg-surface text-primary border border-border px-4 py-1 shadow-xs font-medium font-display tracking-tight text-base whitespace-nowrap cursor-pointer"
+              >
+                Add a bill
+              </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4" id="bills-list"></div>
+          </aside>
 
           <aside
             id="friend-requests"
-            class="rounded-card border border-border gap-6 flex flex-col shadow-xs p-4"
+            class="rounded-card border self-start border-border gap-6 flex flex-col shadow-xs p-4"
           >
             <h1
               class="text-lg font-normal text-text font-heading tracking-tight"
@@ -182,6 +203,91 @@
             <ul id="friend-requests-list"></ul>
           </aside>
         </section>
+      </div>
+
+      <div id="bill-form-popover" class="popover hidden">
+        <div class="drawer">
+          <button class="close-button"></button>
+          <form class="bill-form">
+            <div class="grid grid-col gap-1">
+              <label for="title" class=""> Bill Name </label>
+              <input
+                type="text"
+                id="bill-title"
+                name="title"
+                placeholder="Enter your bill's name"
+              />
+            </div>
+            <div class="grid grid-col gap-1">
+              <label for="amount" class="">Bill Amount</label>
+              <input
+                type="number"
+                id="bill-amount"
+                name="amount"
+                placeholder="Enter your bill's amount"
+              />
+            </div>
+
+            <div
+              id="your-friends"
+              class="flex flex-col gap-2 items-start"
+            ></div>
+
+            <button class="primary-btn mt-6">Create bill</button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        id="settle-bill-modal"
+        class="popover hidden items-center justify-center"
+      >
+        <div
+          class="rounded-2xl border py-6 px-6 flex flex-col justify-center border-border w-[420px] h-auto max-w-[420px] bg-surface"
+        >
+          <!-- Header -->
+          <h1
+            class="text-2xl mb-4 font-heading font-medium text-text text-center"
+          >
+            Settle Your Bill
+          </h1>
+
+          <!-- Bill info -->
+          <p class="font-display text-base text-muted text-center mb-6">
+            You owe <span class="text-primary font-semibold">₦1,500</span> to
+            <span class="font-semibold text-text">Obinna</span> for
+            <span class="text-accent font-semibold">“Pizza Night”</span>
+          </p>
+
+          <!-- Amount input -->
+          <div class="flex flex-col gap-2 mb-4">
+            <label
+              for="payment-amount"
+              class="font-display text-sm font-medium text-muted"
+              >Enter amount to pay</label
+            >
+            <input
+              type="number"
+              id="payment-amount"
+              name="payment-amount"
+              placeholder="₦0.00"
+              class="rounded-lg border border-border px-3 py-2 bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary/50"
+            />
+          </div>
+
+          <!-- Info text -->
+          <p class="font-display text-sm text-muted text-center mb-4">
+            You can pay partially or settle the full amount.
+          </p>
+
+          <!-- CTA -->
+          <button
+            id="confirm-payment-btn"
+            class="primary-btn w-full font-display py-2 text-center font-medium rounded-2xl shadow-xs hover:opacity-90 transition"
+          >
+            Settle Up 💸
+          </button>
+        </div>
       </div>
 
       <script src="../dashboard.ts" type="module"></script>
