@@ -1,3 +1,4 @@
+import type { User } from '@supabase/supabase-js';
 import {
   getFriends,
   getReceivedFriendRequests,
@@ -5,9 +6,9 @@ import {
   getSuggestedFriends,
   sendFriendRequest,
   updateFriendRequest,
-} from './api/friends';
-import { getAuthState } from './auth/auth';
-import { renderProfilePicture } from './utils/user';
+} from '../api/friends';
+import { getAuthState } from '../auth/auth';
+import { renderProfilePicture } from './user';
 
 const friendSectionElement = document.querySelector('#friends-section');
 const friendsListElement = document.querySelector('#friend-list');
@@ -29,8 +30,8 @@ const sentFriendRequestsSectionElement = document.querySelector(
   '#sent-friend-requests-section'
 );
 
-const handleGetFriends = async () => {
-  const friends = await getFriends();
+const handleGetFriends = async (user_id: User['id']) => {
+  const friends = await getFriends(user_id);
 
   if (friends?.length === 0) {
     const emptyFriendList = document.createElement('div');
@@ -53,7 +54,7 @@ const handleGetFriends = async () => {
     friendSectionElement?.appendChild(emptyFriendList);
   } else {
     friends?.forEach((friend) => {
-      const profile = friend.profiles;
+      const profile = friend;
       const friendCardElement = document.createElement('div');
       friendCardElement.className =
         'flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface';
@@ -79,7 +80,7 @@ const handleGetFriends = async () => {
                   <p
                     class="text-sm font-normal tracking-tight text-muted font-display"
                   >
-                    @${profile?.username ?? profile?.name}
+                    @${profile?.name}
                   </p>
                 </div>
               </div>
@@ -95,7 +96,6 @@ const handleSendFriendRequest = async (
   receiver_id: string,
   requester_id: string
 ) => {
-  console.log('send');
   try {
     await sendFriendRequest(requester_id, receiver_id);
   } catch (error) {
@@ -350,8 +350,9 @@ const handleGetSentFriendRequests = async () => {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const user = await getAuthState();
   renderProfilePicture();
-  handleGetFriends();
+  handleGetFriends(user?.id!);
   handleGetSuggestedFriends();
   handleGetReceivedFriendRequests();
   handleGetSentFriendRequests();

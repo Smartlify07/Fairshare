@@ -9,8 +9,6 @@ const userImageElement = document.querySelector(
 
 export const renderProfilePicture = async () => {
   const user = await getAuthState();
-  console.log('render profile');
-
   if (user?.user_metadata?.picture) {
     userImageElement.src = user?.user_metadata?.picture;
   } else {

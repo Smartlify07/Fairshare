@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <main id="dashboard" class="flex flex-col gap-5 min-h-screen">
@@ -35,24 +42,14 @@
           </li>
         </ul>
 
-        <div id="user-profile">
-          <img
-            class="rounded-avatar size-10 cursor-pointer object-cover"
-            alt="user-profile-avatar"
-            id="user-profile-avatar"
-            src="/public/images/boy_avatar.png"
-          />
-        </div>
+        <div id="user-profile"></div>
       </nav>
 
       <div id="main-section" class="p-6 w-full flex flex-col gap-6">
-        <section id="greeting-section">
-          <h1
-            class="text-4xl font-heading font-normal tracking-tight text-text"
-          >
-            Hello, Obinna
-          </h1>
-        </section>
+        <section
+          id="greeting-section"
+          class="text-4xl font-heading flex font-normal tracking-tight text-text"
+        ></section>
 
         <section
           id="stats-section"
@@ -166,12 +163,16 @@
           </div>
         </section>
 
-        <section class="grid grid-cols-3">
-          <aside class="col-span-2"></aside>
+        <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Bills -->
+          <aside
+            id="bills-section"
+            class="rounded-card border col-span-2 border-border gap-6 flex flex-col shadow-xs p-4 items-center justify-center"
+          ></aside>
 
           <aside
             id="friend-requests"
-            class="rounded-card border border-border gap-6 flex flex-col shadow-xs p-4"
+            class="rounded-card border self-start border-border gap-6 flex flex-col shadow-xs p-4"
           >
             <h1
               class="text-lg font-normal text-text font-heading tracking-tight"
@@ -184,7 +185,96 @@
         </section>
       </div>
 
-      <script src="../dashboard.ts" type="module"></script>
+      <div id="bill-form-popover" class="popover hidden">
+        <div class="drawer">
+          <button class="close-button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <form class="bill-form">
+            <div class="grid grid-col gap-1">
+              <label for="title" class=""> Bill Name </label>
+              <input
+                type="text"
+                id="bill-title"
+                name="title"
+                placeholder="Enter your bill's name"
+              />
+            </div>
+            <div class="grid grid-col gap-1">
+              <label for="amount" class="">Bill Amount</label>
+              <input
+                type="number"
+                id="bill-amount"
+                name="amount"
+                placeholder="Enter your bill's amount"
+              />
+            </div>
+
+            <div
+              id="your-friends"
+              class="flex flex-col gap-2 items-start"
+            ></div>
+
+            <button class="primary-btn mt-6">Create bill</button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        id="settle-bill-modal-popover"
+        class="popover hidden items-center justify-center"
+      >
+        <div
+          id="settle-bill-modal"
+          class="rounded-2xl border relative py-6 px-6 flex flex-col justify-center border-border w-[420px] h-auto max-w-[420px] bg-surface"
+        >
+          <button class="close-button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <!-- Header -->
+          <h1
+            class="text-2xl mb-4 font-heading font-medium text-text text-center"
+          >
+            Settle Your Bill
+          </h1>
+
+          <!-- Bill info -->
+
+          <!-- Amount input -->
+
+          <form id="payment-form">
+            <div id="amount-input-wrapper" class="flex flex-col gap-2 mb-4">
+              <label
+                for="payment-amount"
+                class="font-display text-sm font-medium text-muted"
+                >Enter amount to pay</label
+              >
+              <input
+                type="number"
+                id="payment-amount"
+                name="payment-amount"
+                placeholder="₦0.00"
+                class="rounded-lg border border-border px-3 py-2 bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary/50"
+              />
+            </div>
+
+            <!-- Info text -->
+            <p class="font-display text-sm text-muted text-center mb-4">
+              You can pay partially or settle the full amount.
+            </p>
+
+            <!-- CTA -->
+            <button
+              id="confirm-payment-btn"
+              class="primary-btn w-full font-display py-2 text-center font-medium rounded-2xl shadow-xs hover:opacity-90 transition"
+            >
+              Settle Up 💸
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <script src="../scripts/dashboard.ts" type="module"></script>
     </main>
   </body>
 </html>
