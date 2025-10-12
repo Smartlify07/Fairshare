@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <main id="dashboard" class="flex flex-col gap-5 min-h-screen">
@@ -35,24 +42,14 @@
           </li>
         </ul>
 
-        <div id="user-profile">
-          <img
-            class="rounded-avatar size-10 cursor-pointer object-cover"
-            alt="user-profile-avatar"
-            id="user-profile-avatar"
-            src="/public/images/boy_avatar.png"
-          />
-        </div>
+        <div id="user-profile"></div>
       </nav>
 
       <div id="main-section" class="p-6 w-full flex flex-col gap-6">
-        <section id="greeting-section">
-          <h1
-            class="text-4xl font-heading font-normal tracking-tight text-text"
-          >
-            Hello, Obinna
-          </h1>
-        </section>
+        <section
+          id="greeting-section"
+          class="text-4xl font-heading flex font-normal tracking-tight text-text"
+        ></section>
 
         <section
           id="stats-section"
@@ -170,25 +167,8 @@
           <!-- Bills -->
           <aside
             id="bills-section"
-            class="rounded-card border col-span-2 border-border gap-6 flex flex-col shadow-xs p-4"
-          >
-            <div class="flex items-center justify-between">
-              <h1
-                class="text-lg font-normal text-text font-heading tracking-tight"
-              >
-                Things to Settle
-              </h1>
-
-              <button
-                id="add-new-bill-btn"
-                class="rounded-2xl bg-surface text-primary border border-border px-4 py-1 shadow-xs font-medium font-display tracking-tight text-base whitespace-nowrap cursor-pointer"
-              >
-                Add a bill
-              </button>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4" id="bills-list"></div>
-          </aside>
+            class="rounded-card border col-span-2 border-border gap-6 flex flex-col shadow-xs p-4 items-center justify-center"
+          ></aside>
 
           <aside
             id="friend-requests"
@@ -207,7 +187,9 @@
 
       <div id="bill-form-popover" class="popover hidden">
         <div class="drawer">
-          <button class="close-button"></button>
+          <button class="close-button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
           <form class="bill-form">
             <div class="grid grid-col gap-1">
               <label for="title" class=""> Bill Name </label>
@@ -239,12 +221,16 @@
       </div>
 
       <div
-        id="settle-bill-modal"
+        id="settle-bill-modal-popover"
         class="popover hidden items-center justify-center"
       >
         <div
-          class="rounded-2xl border py-6 px-6 flex flex-col justify-center border-border w-[420px] h-auto max-w-[420px] bg-surface"
+          id="settle-bill-modal"
+          class="rounded-2xl border relative py-6 px-6 flex flex-col justify-center border-border w-[420px] h-auto max-w-[420px] bg-surface"
         >
+          <button class="close-button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
           <!-- Header -->
           <h1
             class="text-2xl mb-4 font-heading font-medium text-text text-center"
@@ -253,44 +239,42 @@
           </h1>
 
           <!-- Bill info -->
-          <p class="font-display text-base text-muted text-center mb-6">
-            You owe <span class="text-primary font-semibold">₦1,500</span> to
-            <span class="font-semibold text-text">Obinna</span> for
-            <span class="text-accent font-semibold">“Pizza Night”</span>
-          </p>
 
           <!-- Amount input -->
-          <div class="flex flex-col gap-2 mb-4">
-            <label
-              for="payment-amount"
-              class="font-display text-sm font-medium text-muted"
-              >Enter amount to pay</label
+
+          <form id="payment-form">
+            <div id="amount-input-wrapper" class="flex flex-col gap-2 mb-4">
+              <label
+                for="payment-amount"
+                class="font-display text-sm font-medium text-muted"
+                >Enter amount to pay</label
+              >
+              <input
+                type="number"
+                id="payment-amount"
+                name="payment-amount"
+                placeholder="₦0.00"
+                class="rounded-lg border border-border px-3 py-2 bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary/50"
+              />
+            </div>
+
+            <!-- Info text -->
+            <p class="font-display text-sm text-muted text-center mb-4">
+              You can pay partially or settle the full amount.
+            </p>
+
+            <!-- CTA -->
+            <button
+              id="confirm-payment-btn"
+              class="primary-btn w-full font-display py-2 text-center font-medium rounded-2xl shadow-xs hover:opacity-90 transition"
             >
-            <input
-              type="number"
-              id="payment-amount"
-              name="payment-amount"
-              placeholder="₦0.00"
-              class="rounded-lg border border-border px-3 py-2 bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary/50"
-            />
-          </div>
-
-          <!-- Info text -->
-          <p class="font-display text-sm text-muted text-center mb-4">
-            You can pay partially or settle the full amount.
-          </p>
-
-          <!-- CTA -->
-          <button
-            id="confirm-payment-btn"
-            class="primary-btn w-full font-display py-2 text-center font-medium rounded-2xl shadow-xs hover:opacity-90 transition"
-          >
-            Settle Up 💸
-          </button>
+              Settle Up 💸
+            </button>
+          </form>
         </div>
       </div>
 
-      <script src="../dashboard.ts" type="module"></script>
+      <script src="../scripts/dashboard.ts" type="module"></script>
     </main>
   </body>
 </html>

@@ -1,4 +1,4 @@
-import { getAuthState } from './auth/auth';
+import { getAuthState } from '../auth/auth';
 
 const main = document.querySelector('#app');
 

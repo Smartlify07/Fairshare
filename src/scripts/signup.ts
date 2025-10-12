@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase } from '../supabase';
 
 const signupButton = document.querySelector(
   '#signup-with-google-button'

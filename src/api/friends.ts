@@ -1,13 +1,28 @@
 import type { User } from '@supabase/supabase-js';
 import { supabase } from '../supabase';
+import type { Friend } from '../js/store/types/friends.type';
 
-export const getFriends = async () => {
-  const { data: friends } = await supabase
+export const getFriends = async (user_id: User['id']) => {
+  const { data: sent } = await supabase
     .from('friendships')
-    .select(`*,profiles!friendships_receiver_id_fkey1(*)`)
+    .select('*, receiver:profiles!friendships_receiver_id_fkey1(*)')
+    .eq('requester_id', user_id)
     .eq('status', 'accepted');
 
-  return friends;
+  // Case 2: user is the receiver
+  const { data: received } = await supabase
+    .from('friendships')
+    .select('*, sender:profiles!friendships_requester_id_fkey1(*)')
+    .eq('receiver_id', user_id)
+    .eq('status', 'accepted');
+
+  // Merge and normalize both sides into a single list of "friends"
+  const friends = [
+    ...(sent?.map((f) => f.receiver) ?? []),
+    ...(received?.map((f) => f.sender) ?? []),
+  ];
+
+  return friends as Friend[];
 };
 
 export const getSuggestedFriends = async (user_id: User['id']) => {
@@ -54,12 +69,14 @@ export async function getSentFriendRequests(user_id: User['id']) {
 }
 
 export const sendFriendRequest = async (
-  user_id: User['id'],
-  friend_id: string
+  requester_id: User['id'],
+  receiver_id: string
 ) => {
+  console.log('receiver', receiver_id);
+  console.log('requester', requester_id);
   const { error, data } = await supabase.from('friendships').insert({
-    receiver_id: friend_id,
-    requester_id: user_id,
+    receiver_id,
+    requester_id,
     status: 'pending',
   });
 
@@ -76,6 +93,8 @@ export const updateFriendRequest = async (
   receiver_id: string,
   status: 'accepted' | 'pending' | 'declined'
 ) => {
+  console.log('receiver', receiver_id);
+  console.log('requester', requester_id);
   const { error, data } = await supabase
     .from('friendships')
     .update({
