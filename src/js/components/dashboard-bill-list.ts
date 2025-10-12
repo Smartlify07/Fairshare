@@ -2,6 +2,7 @@ import {
   findFriendWithUserId,
   getFriendsWhoHaveSettled,
 } from '../../utils/bills.utils';
+import { formatFromISOToDayMonthYear } from '../../utils/date.utils';
 import Component from '../lib/component';
 import store from '../store';
 import type { ExtendedBillWithFriends } from '../store/types/bills.type';
@@ -121,11 +122,11 @@ export default class DashboardBillList extends Component {
                     ${bill.title}
                    </h3>
                    <h5 class="font-display text-sm text-muted">
-                    ${bill.created_at}
+                    ${formatFromISOToDayMonthYear(bill.created_at)}
                    </h5>
                   </div>
                   <p class="font-display font-medium text-lg text-primary">
-                    ₦${bill.amount}
+                    ₦${bill.amount.toLocaleString()}
                   </p>
                 </div>
 
