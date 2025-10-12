@@ -12,7 +12,6 @@ export default {
 
   updateSelectedBill(state: State, payload: any) {
     state.selectedBill = payload;
-    console.log(state);
     return state;
   },
 };

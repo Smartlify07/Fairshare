@@ -72,8 +72,6 @@ export const sendFriendRequest = async (
   requester_id: User['id'],
   receiver_id: string
 ) => {
-  console.log('receiver', receiver_id);
-  console.log('requester', requester_id);
   const { error, data } = await supabase.from('friendships').insert({
     receiver_id,
     requester_id,
@@ -93,8 +91,6 @@ export const updateFriendRequest = async (
   receiver_id: string,
   status: 'accepted' | 'pending' | 'declined'
 ) => {
-  console.log('receiver', receiver_id);
-  console.log('requester', requester_id);
   const { error, data } = await supabase
     .from('friendships')
     .update({
