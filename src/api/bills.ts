@@ -87,10 +87,11 @@ export const payBill = async (payload: PayBillPayload) => {
     .update({ ...payload })
     .eq('bill_id', payload.bill_id)
     .eq('friend_id', payload.friend_id)
-    .select('*');
+    .select()
+    .maybeSingle();
   if (error) {
     console.error(error.message);
     throw new Error(error.message);
   }
-  return data;
+  return data as BillFriend;
 };

@@ -20,4 +20,8 @@ export default {
   updateSelectedBill: (context: Store, payload: any) => {
     context.commit('updateSelectedBill', payload);
   },
+
+  updateBillStatus: (context: Store, payload: any) => {
+    context.commit('updateBillStatus', payload);
+  },
 };

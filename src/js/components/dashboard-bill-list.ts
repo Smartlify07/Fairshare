@@ -1,4 +1,7 @@
-import { findFriendWithUserId } from '../../utils/bills.utils';
+import {
+  findFriendWithUserId,
+  getFriendsWhoHaveSettled,
+} from '../../utils/bills.utils';
 import Component from '../lib/component';
 import store from '../store';
 import type { ExtendedBillWithFriends } from '../store/types/bills.type';
@@ -60,6 +63,7 @@ export default class DashboardBillList extends Component {
         const billCard = document.createElement('div');
         const friendsToShow = bill.bill_friends.slice(0, 3);
         const remaining = bill.bill_friends.length - 3;
+        const settledFriends = getFriendsWhoHaveSettled(bill.bill_friends);
         let billFriendsInnerHTML = ``;
         const foundFriend = findFriendWithUserId(
           bill.bill_friends,
@@ -69,11 +73,7 @@ export default class DashboardBillList extends Component {
         <span
         class="px-2 py-0.5 text-sm rounded-2xl font-medium font-display bg-success/10 text-success"
         >
-          ${
-            bill.bill_friends.filter(
-              (friend) => friend.payment_status === 'settled'
-            ).length
-          } of ${bill.bill_friends.length} settled
+          ${settledFriends.length} of ${bill.bill_friends.length} settled
         </span>
       `;
 
@@ -157,7 +157,9 @@ export default class DashboardBillList extends Component {
                   </div>
                  ${bill.creator_id === user?.id ? general_status : user_status}
                  ${
-                   bill.creator_id !== user?.id
+                   bill.creator_id !== user?.id &&
+                   findFriendWithUserId(bill.bill_friends, user?.id)
+                     ?.payment_status === 'owing'
                      ? `<button id="settle-up-btn" class="primary-btn px-2 py-1 text-white font-medium active:scale-[0.9]">Settle up</button>`
                      : ''
                  }

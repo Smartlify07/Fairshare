@@ -23,6 +23,15 @@ const friendRequestsListElement = document.querySelector(
 
 const popOver = document.querySelector('#bill-form-popover');
 const billsForm = document.querySelector('form');
+const paymentModal = document.querySelector('#settle-bill-modal');
+const paymentModalPopover = document.querySelector(
+  '#settle-bill-modal-popover'
+);
+const inputWrapper = paymentModal?.querySelector('#amount-input-wrapper');
+const paymentAmountInput = inputWrapper?.querySelector(
+  '#payment-amount'
+) as HTMLInputElement;
+const paymentForm = paymentModal?.querySelector('#payment-form');
 
 const handleUpdateFriendRequest = async (
   receiver_id: string,
@@ -200,74 +209,85 @@ billsForm?.addEventListener('submit', async (e) => {
       handleCloseBillSheet();
     }
   }
-
-  // divide amount by friends length.
-
-  //close the modal/panel
 });
-const paymentModal = document.querySelector('#settle-bill-modal');
-const paymentModalPopover = document.querySelector(
-  '#settle-bill-modal-popover'
-);
+
 const handleClosePaymentPopover = () => {
   paymentModalPopover?.classList.add('hidden');
   paymentModalPopover?.classList.remove('flex');
+  paymentModal?.querySelector('#payment-modal-header')?.remove();
+  const inputWrapper = paymentModal?.querySelector('#amount-input-wrapper');
+  const paymentAmountInput = inputWrapper?.querySelector(
+    '#payment-amount'
+  ) as HTMLInputElement;
+  paymentAmountInput.value = '';
 };
 
 paymentModal?.querySelector('.close-button')?.addEventListener('click', () => {
   handleClosePaymentPopover();
-  paymentModal.querySelector('#payment-modal-header')?.remove();
 });
 
 const handleOpenPaymentModal = async () => {
+  requestAnimationFrame(() => paymentAmountInput?.focus());
+
   const { selectedBill } = store.state;
+
+  const you = findFriendWithUserId(
+    selectedBill.bill_friends,
+    store.state.user?.id
+  );
+  const amountOwed = Math.floor(
+    Number(you?.amount_assigned ?? 0) - Number(you?.amount_paid ?? 0)
+  );
+
   const paymentModalHeader = document.createElement('p');
   paymentModalHeader.id = 'payment-modal-header';
   paymentModalHeader.className =
     'font-display text-base text-muted text-center mb-6';
   paymentModalHeader.innerHTML = `
       You owe <span class="text-primary font-semibold">₦
-${selectedBill.amount.toLocaleString()}</span> to <span class="font-semibold text-text">${
+${amountOwed.toLocaleString()}</span> to <span class="font-semibold text-text">${
     selectedBill.creator.name
   }</span> for <span class="text-accent font-semibold">“${
     selectedBill.title
   }”</span>
   `;
-  const inputWrapper = paymentModal?.querySelector('#amount-input-wrapper');
-  const paymentForm = paymentModal?.querySelector('#payment-form');
 
   paymentModalPopover?.classList.remove('hidden');
   paymentModalPopover?.classList.add('flex');
   paymentModal?.insertBefore(paymentModalHeader, paymentForm!);
-
-  paymentForm?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const paymentAmountInput = inputWrapper?.querySelector(
-      '#payment-amount'
-    ) as HTMLInputElement;
-
-    if (paymentAmountInput.value.trim() === '') {
-      return;
-    } else {
-      const assignedAmount = findFriendWithUserId(
-        selectedBill.bill_friends,
-        store.state.user.id
-      )?.amount_assigned;
-      const amountEntered = Number(paymentAmountInput.value);
-      const payment_status: BillFriend['payment_status'] =
-        amountEntered >= assignedAmount! ? 'settled' : 'owing';
-
-      await payBill({
-        bill_id: selectedBill.id,
-        amount_paid: amountEntered,
-        friend_id: store.state.user.id,
-        creator_id: selectedBill.creator_id,
-        payment_status,
-      });
-      handleClosePaymentPopover();
-    }
-  });
 };
+
+paymentForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const { selectedBill } = store.state;
+
+  const you = findFriendWithUserId(
+    selectedBill.bill_friends,
+    store.state.user?.id
+  );
+
+  if (paymentAmountInput.value.trim() === '') {
+    return;
+  } else {
+    const assignedAmount = you?.amount_assigned;
+    const amountEntered = Number(paymentAmountInput.value);
+    const totalAmountPaid = amountEntered + Number(you?.amount_paid ?? 0);
+    const payment_status: BillFriend['payment_status'] =
+      totalAmountPaid >= assignedAmount! ? 'settled' : 'owing';
+
+    const response = await payBill({
+      bill_id: selectedBill.id,
+      amount_paid: totalAmountPaid,
+      friend_id: store.state.user.id,
+      creator_id: selectedBill.creator_id,
+      payment_status,
+    });
+
+    store.dispatch('updateBillStatus', response);
+
+    handleClosePaymentPopover();
+  }
+});
 
 document.querySelector('#bills-section')?.addEventListener('click', (e) => {
   const target = e.target as HTMLElement;

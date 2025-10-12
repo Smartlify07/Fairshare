@@ -14,3 +14,7 @@ export const findFriendWithUserId = (
 ) => {
   return bill_friends.find((friend) => friend.friend_id === user_id);
 };
+
+export const getFriendsWhoHaveSettled = (bill_friends: BillFriend[]) => {
+  return bill_friends.filter((friend) => friend.payment_status === 'settled');
+};
