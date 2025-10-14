@@ -1,7 +1,7 @@
-import { getBills } from '../../api/bills';
-import { getFriends } from '../../api/friends';
-import { supabase } from '../../supabase';
-import type { State } from './types/state.type';
+import { getBills } from "../../api/bills";
+import { getFriends } from "../../api/friends";
+import { supabase } from "../../supabase";
+import type { State } from "./types/state.type";
 
 export default {
   async getUser(state: State) {
