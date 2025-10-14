@@ -1,4 +1,4 @@
-import type { User } from '@supabase/supabase-js';
+import type { User } from "@supabase/supabase-js";
 import {
   getFriends,
   getReceivedFriendRequests,
@@ -6,35 +6,35 @@ import {
   getSuggestedFriends,
   sendFriendRequest,
   updateFriendRequest,
-} from '../api/friends';
-import { getAuthState } from '../auth/auth';
-import { renderProfilePicture } from './user';
+} from "../../api/friends";
+import { getAuthState } from "../../api/auth";
+import { renderProfilePicture } from "./user";
 
-const friendSectionElement = document.querySelector('#friends-section');
-const friendsListElement = document.querySelector('#friend-list');
+const friendSectionElement = document.querySelector("#friends-section");
+const friendsListElement = document.querySelector("#friend-list");
 const suggestedFriendsListElement = document.querySelector(
-  '#suggested-friends-list'
+  "#suggested-friends-list"
 );
 const suggestedFriendsSectionElement = document.querySelector(
-  '#suggested-friends-section'
+  "#suggested-friends-section"
 );
-const friendRequestsList = document.querySelector('#friend-requests-list');
+const friendRequestsList = document.querySelector("#friend-requests-list");
 const friendRequestsSectionElement = document.querySelector(
-  '#friend-requests-section'
+  "#friend-requests-section"
 );
 
 const sentFriendRequestsList = document.querySelector(
-  '#sent-friend-requests-list'
+  "#sent-friend-requests-list"
 );
 const sentFriendRequestsSectionElement = document.querySelector(
-  '#sent-friend-requests-section'
+  "#sent-friend-requests-section"
 );
 
-const handleGetFriends = async (user_id: User['id']) => {
+const handleGetFriends = async (user_id: User["id"]) => {
   const friends = await getFriends(user_id);
 
   if (friends?.length === 0) {
-    const emptyFriendList = document.createElement('div');
+    const emptyFriendList = document.createElement("div");
     emptyFriendList.innerHTML = `
     <div class="flex flex-col gap-6 items-center justify-center">
       <div class="flex gap-0 justify-center items-center">
@@ -55,9 +55,9 @@ const handleGetFriends = async (user_id: User['id']) => {
   } else {
     friends?.forEach((friend) => {
       const profile = friend;
-      const friendCardElement = document.createElement('div');
+      const friendCardElement = document.createElement("div");
       friendCardElement.className =
-        'flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface';
+        "flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface";
       friendCardElement.innerHTML = `
               <div class="flex items-center gap-4">
                 ${
@@ -106,7 +106,7 @@ const handleSendFriendRequest = async (
 const handleUpdateFriendRequest = async (
   receiver_id: string,
   requester_id: string,
-  status: 'accepted' | 'declined'
+  status: "accepted" | "declined"
 ) => {
   try {
     await updateFriendRequest(requester_id, receiver_id, status);
@@ -120,7 +120,7 @@ const handleGetSuggestedFriends = async () => {
 
   const suggestedFriends = await getSuggestedFriends(user?.id!);
   if (suggestedFriends?.length === 0) {
-    const emptyFriendList = document.createElement('div');
+    const emptyFriendList = document.createElement("div");
     emptyFriendList.innerHTML = `
     <div class="flex flex-col gap-6 items-center justify-center">
       <div class="flex gap-0 justify-center items-center">
@@ -140,15 +140,15 @@ const handleGetSuggestedFriends = async () => {
     suggestedFriendsSectionElement?.appendChild(emptyFriendList);
   } else {
     suggestedFriends?.forEach((friend: any) => {
-      const friendCardElement = document.createElement('div');
+      const friendCardElement = document.createElement("div");
       friendCardElement.className =
-        'flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface';
+        "flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface";
       friendCardElement.innerHTML = `
               <div class="flex items-center gap-4">
                 ${
                   friend?.avatar_url
                     ? `<img
-                  src=${friend?.avatar_url ?? ''}
+                  src=${friend?.avatar_url ?? ""}
                   alt=${friend.name}
                   class="rounded-avatar size-10 object-cover"
                 />`
@@ -181,8 +181,8 @@ const handleGetSuggestedFriends = async () => {
 
       suggestedFriendsListElement?.appendChild(friendCardElement);
       friendCardElement
-        .querySelector('#send-request-button')
-        ?.addEventListener('click', () => {
+        .querySelector("#send-request-button")
+        ?.addEventListener("click", () => {
           handleSendFriendRequest(friend.id, user?.id!);
         });
     });
@@ -194,7 +194,7 @@ const handleGetReceivedFriendRequests = async () => {
 
   const friendRequests = await getReceivedFriendRequests(user?.id!);
   if (friendRequests?.length === 0) {
-    const emptyFriendRequestList = document.createElement('div');
+    const emptyFriendRequestList = document.createElement("div");
     emptyFriendRequestList.innerHTML = `
     <div class="flex flex-col gap-6 items-center justify-center">
       <div class="flex gap-0 justify-center items-center">
@@ -215,15 +215,15 @@ const handleGetReceivedFriendRequests = async () => {
   } else {
     friendRequests?.forEach((friend: any) => {
       const profile = friend.profiles;
-      const friendCardElement = document.createElement('div');
+      const friendCardElement = document.createElement("div");
       friendCardElement.className =
-        'flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface';
+        "flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface";
       friendCardElement.innerHTML = `
               <div class="flex items-center gap-4">
                 ${
                   friend?.avatar_url
                     ? `<img
-                  src=${profile.avatar_url ?? ''}
+                  src=${profile.avatar_url ?? ""}
                   alt=${profile.name}
                   class="rounded-avatar size-10 object-cover"
                 />`
@@ -258,21 +258,21 @@ const handleGetReceivedFriendRequests = async () => {
     `;
       friendRequestsList?.append(friendCardElement);
       friendCardElement
-        .querySelector('#accept-btn')
-        ?.addEventListener('click', () => {
+        .querySelector("#accept-btn")
+        ?.addEventListener("click", () => {
           handleUpdateFriendRequest(
             friend.receiver_id,
             friend.requester_id,
-            'accepted'
+            "accepted"
           );
         });
       friendCardElement
-        .querySelector('#decline-btn')
-        ?.addEventListener('click', () => {
+        .querySelector("#decline-btn")
+        ?.addEventListener("click", () => {
           handleUpdateFriendRequest(
             friend.receiver_id,
             friend.requester_id,
-            'declined'
+            "declined"
           );
         });
     });
@@ -284,7 +284,7 @@ const handleGetSentFriendRequests = async () => {
 
   const friendRequests = await getSentFriendRequests(user?.id!);
   if (friendRequests?.length === 0) {
-    const emptyFriendRequestList = document.createElement('div');
+    const emptyFriendRequestList = document.createElement("div");
     emptyFriendRequestList.innerHTML = `
     <div class="flex flex-col gap-6 items-center justify-center">
       <div class="flex gap-0 justify-center items-center">
@@ -305,15 +305,15 @@ const handleGetSentFriendRequests = async () => {
   } else {
     friendRequests?.forEach((friend: any) => {
       const profile = friend.profiles;
-      const friendCardElement = document.createElement('div');
+      const friendCardElement = document.createElement("div");
       friendCardElement.className =
-        'flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface';
+        "flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface";
       friendCardElement.innerHTML = `
               <div class="flex items-center gap-4">
                 ${
                   friend?.avatar_url
                     ? `<img
-                  src=${profile.avatar_url ?? ''}
+                  src=${profile.avatar_url ?? ""}
                   alt=${profile.name}
                   class="rounded-avatar size-10 object-cover"
                 />`
@@ -337,11 +337,11 @@ const handleGetSentFriendRequests = async () => {
                 
               </div>
               <div class="rounded-2xl items-center flex justify-center text-sm font-medium font-display px-2 py-1 ${
-                friend.status === 'declined'
-                  ? 'bg-error/20 text-error'
-                  : friend.status === 'pending'
-                  ? 'bg-primary/20 text-primary'
-                  : 'bg-success/20 text-success'
+                friend.status === "declined"
+                  ? "bg-error/20 text-error"
+                  : friend.status === "pending"
+                  ? "bg-primary/20 text-primary"
+                  : "bg-success/20 text-success"
               }">${friend.status}</div>
     `;
       sentFriendRequestsList?.append(friendCardElement);
@@ -349,7 +349,7 @@ const handleGetSentFriendRequests = async () => {
   }
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const user = await getAuthState();
   renderProfilePicture();
   handleGetFriends(user?.id!);

@@ -1,42 +1,45 @@
-import { getAuthState } from '../auth/auth';
-import store from '../js/store';
-import { getReceivedFriendRequests, updateFriendRequest } from '../api/friends';
+import { getAuthState } from "../../api/auth";
+import store from "../store";
+import {
+  getReceivedFriendRequests,
+  updateFriendRequest,
+} from "../../api/friends";
 import {
   createBill,
   createBillFriends,
   payBill,
   type Payload,
-} from '../api/bills';
-import UserAvatar from '../js/components/user-avatar';
-import DashboardGreeting from '../js/components/dashboard-greeting';
-import DashboardBillList from '../js/components/dashboard-bill-list';
-import type { Friend } from '../js/store/types/friends.type';
-import { findFriendWithUserId } from '../utils/bills.utils';
-import type { BillFriend } from '../js/store/types/bills.type';
+} from "../../api/bills";
+import UserAvatar from "../components/user-avatar";
+import DashboardGreeting from "../components/dashboard-greeting";
+import DashboardBillList from "../components/dashboard-bill-list";
+import type { Friend } from "../store/types/friends.type";
+import { findFriendWithUserId } from "../../utils/bills.utils";
+import type { BillFriend } from "../store/types/bills.type";
 
 const friendRequestsElement = document.querySelector(
-  '#friend-requests'
+  "#friend-requests"
 ) as HTMLElement;
 const friendRequestsListElement = document.querySelector(
-  '#friend-requests-list'
+  "#friend-requests-list"
 ) as HTMLUListElement;
 
-const popOver = document.querySelector('#bill-form-popover');
-const billsForm = document.querySelector('form');
-const paymentModal = document.querySelector('#settle-bill-modal');
+const popOver = document.querySelector("#bill-form-popover");
+const billsForm = document.querySelector("form");
+const paymentModal = document.querySelector("#settle-bill-modal");
 const paymentModalPopover = document.querySelector(
-  '#settle-bill-modal-popover'
+  "#settle-bill-modal-popover"
 );
-const inputWrapper = paymentModal?.querySelector('#amount-input-wrapper');
+const inputWrapper = paymentModal?.querySelector("#amount-input-wrapper");
 const paymentAmountInput = inputWrapper?.querySelector(
-  '#payment-amount'
+  "#payment-amount"
 ) as HTMLInputElement;
-const paymentForm = paymentModal?.querySelector('#payment-form');
+const paymentForm = paymentModal?.querySelector("#payment-form");
 
 const handleUpdateFriendRequest = async (
   receiver_id: string,
   requester_id: string,
-  status: 'accepted' | 'declined'
+  status: "accepted" | "declined"
 ) => {
   try {
     await updateFriendRequest(requester_id, receiver_id, status);
@@ -50,7 +53,7 @@ const handleGetReceivedFriendRequests = async () => {
 
   const friendRequests = await getReceivedFriendRequests(user?.id!);
   if (friendRequests?.length === 0) {
-    const emptyFriendRequestList = document.createElement('div');
+    const emptyFriendRequestList = document.createElement("div");
     emptyFriendRequestList.innerHTML = `
     <div class="flex flex-col gap-6 items-center justify-center">
       <div class="flex gap-0 justify-center items-center">
@@ -71,15 +74,15 @@ const handleGetReceivedFriendRequests = async () => {
   } else {
     friendRequests?.forEach((friend: any) => {
       const profile = friend.profiles;
-      const friendCardElement = document.createElement('div');
+      const friendCardElement = document.createElement("div");
       friendCardElement.className =
-        'flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface';
+        "flex items-center rounded-card p-4 justify-between border shadow-xs border-border bg-surface";
       friendCardElement.innerHTML = `
               <div class="flex items-center gap-4">
                 ${
                   friend?.avatar_url
                     ? `<img
-                  src=${profile.avatar_url ?? ''}
+                  src=${profile.avatar_url ?? ""}
                   alt=${profile.name}
                   class="rounded-avatar size-10 object-cover"
                 />`
@@ -114,21 +117,21 @@ const handleGetReceivedFriendRequests = async () => {
     `;
       friendRequestsListElement?.append(friendCardElement);
       friendCardElement
-        .querySelector('#accept-btn')
-        ?.addEventListener('click', () => {
+        .querySelector("#accept-btn")
+        ?.addEventListener("click", () => {
           handleUpdateFriendRequest(
             friend.receiver_id,
             friend.requester_id,
-            'accepted'
+            "accepted"
           );
         });
       friendCardElement
-        .querySelector('#decline-btn')
-        ?.addEventListener('click', () => {
+        .querySelector("#decline-btn")
+        ?.addEventListener("click", () => {
           handleUpdateFriendRequest(
             friend.receiver_id,
             friend.requester_id,
-            'declined'
+            "declined"
           );
         });
     });
@@ -136,39 +139,39 @@ const handleGetReceivedFriendRequests = async () => {
 };
 
 const handleCloseBillSheet = () => {
-  popOver?.classList.add('hidden');
+  popOver?.classList.add("hidden");
   billsForm
-    ?.querySelectorAll('#friend-checkbox')
+    ?.querySelectorAll("#friend-checkbox")
     .forEach((element) => element.remove());
 };
 
 const handleOpenBillSheet = () => {
-  popOver?.classList.remove('hidden');
+  popOver?.classList.remove("hidden");
 
   store.state.friends?.forEach((friend: Friend) => {
-    const friendCheckBox = document.createElement('div');
-    friendCheckBox.id = 'friend-checkbox';
-    friendCheckBox.className = 'flex items-center gap-1';
+    const friendCheckBox = document.createElement("div");
+    friendCheckBox.id = "friend-checkbox";
+    friendCheckBox.className = "flex items-center gap-1";
     friendCheckBox.innerHTML = `
       <label for="friend-checkbox-${friend.name}">${friend.name}</label>
       <input name="friend" id="friend-checkbox-${friend.name}" value="${friend.id}" type="checkbox"/>
     `;
-    billsForm?.insertBefore(friendCheckBox, billsForm.querySelector('button'));
+    billsForm?.insertBefore(friendCheckBox, billsForm.querySelector("button"));
   });
 };
 
-popOver?.querySelector('.close-button')?.addEventListener('click', () => {
+popOver?.querySelector(".close-button")?.addEventListener("click", () => {
   handleCloseBillSheet();
 });
 
-billsForm?.addEventListener('submit', async (e) => {
+billsForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (e.target instanceof HTMLElement) {
     const billTitleInput = e.target!.querySelector(
-      '#bill-title'
+      "#bill-title"
     ) as HTMLInputElement;
     const amountInput = e.target!.querySelector(
-      '#bill-amount'
+      "#bill-amount"
     ) as HTMLInputElement;
     const checkboxes = e.target!.querySelectorAll(
       'input[type="checkbox"]'
@@ -178,11 +181,11 @@ billsForm?.addEventListener('submit', async (e) => {
       .map((checkbox) => checkbox)
       .some((checkbox) => checkbox.checked);
     if (
-      billTitleInput.value.trim() === '' ||
-      amountInput.value.trim() === '' ||
+      billTitleInput.value.trim() === "" ||
+      amountInput.value.trim() === "" ||
       !isFriendSelected
     ) {
-      alert('Fill in all fields');
+      alert("Fill in all fields");
       return;
     } else {
       const response = await createBill(
@@ -196,33 +199,33 @@ billsForm?.addEventListener('submit', async (e) => {
         creator_id: store.state.user?.id!,
         amount_assigned:
           Number(amountInput.value) / store.state.friends?.length!,
-        payment_status: 'owing' as Payload['payment_status'],
+        payment_status: "owing" as Payload["payment_status"],
       }));
       const billFriendsResponse = await createBillFriends(payload);
       const combinedResponse = {
         ...response,
         bill_friends: billFriendsResponse,
       };
-      store.dispatch('createBill', combinedResponse);
-      billTitleInput.value = '';
-      amountInput.value = '';
+      store.dispatch("createBill", combinedResponse);
+      billTitleInput.value = "";
+      amountInput.value = "";
       handleCloseBillSheet();
     }
   }
 });
 
 const handleClosePaymentPopover = () => {
-  paymentModalPopover?.classList.add('hidden');
-  paymentModalPopover?.classList.remove('flex');
-  paymentModal?.querySelector('#payment-modal-header')?.remove();
-  const inputWrapper = paymentModal?.querySelector('#amount-input-wrapper');
+  paymentModalPopover?.classList.add("hidden");
+  paymentModalPopover?.classList.remove("flex");
+  paymentModal?.querySelector("#payment-modal-header")?.remove();
+  const inputWrapper = paymentModal?.querySelector("#amount-input-wrapper");
   const paymentAmountInput = inputWrapper?.querySelector(
-    '#payment-amount'
+    "#payment-amount"
   ) as HTMLInputElement;
-  paymentAmountInput.value = '';
+  paymentAmountInput.value = "";
 };
 
-paymentModal?.querySelector('.close-button')?.addEventListener('click', () => {
+paymentModal?.querySelector(".close-button")?.addEventListener("click", () => {
   handleClosePaymentPopover();
 });
 
@@ -239,10 +242,10 @@ const handleOpenPaymentModal = async () => {
     Number(you?.amount_assigned ?? 0) - Number(you?.amount_paid ?? 0)
   );
 
-  const paymentModalHeader = document.createElement('p');
-  paymentModalHeader.id = 'payment-modal-header';
+  const paymentModalHeader = document.createElement("p");
+  paymentModalHeader.id = "payment-modal-header";
   paymentModalHeader.className =
-    'font-display text-base text-muted text-center mb-6';
+    "font-display text-base text-muted text-center mb-6";
   paymentModalHeader.innerHTML = `
       You owe <span class="text-primary font-semibold">₦
 ${amountOwed.toLocaleString()}</span> to <span class="font-semibold text-text">${
@@ -252,12 +255,12 @@ ${amountOwed.toLocaleString()}</span> to <span class="font-semibold text-text">$
   }”</span>
   `;
 
-  paymentModalPopover?.classList.remove('hidden');
-  paymentModalPopover?.classList.add('flex');
+  paymentModalPopover?.classList.remove("hidden");
+  paymentModalPopover?.classList.add("flex");
   paymentModal?.insertBefore(paymentModalHeader, paymentForm!);
 };
 
-paymentForm?.addEventListener('submit', async (e) => {
+paymentForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
   const { selectedBill } = store.state;
 
@@ -266,14 +269,14 @@ paymentForm?.addEventListener('submit', async (e) => {
     store.state.user?.id
   );
 
-  if (paymentAmountInput.value.trim() === '') {
+  if (paymentAmountInput.value.trim() === "") {
     return;
   } else {
     const assignedAmount = you?.amount_assigned;
     const amountEntered = Number(paymentAmountInput.value);
     const totalAmountPaid = amountEntered + Number(you?.amount_paid ?? 0);
-    const payment_status: BillFriend['payment_status'] =
-      totalAmountPaid >= assignedAmount! ? 'settled' : 'owing';
+    const payment_status: BillFriend["payment_status"] =
+      totalAmountPaid >= assignedAmount! ? "settled" : "owing";
 
     const response = await payBill({
       bill_id: selectedBill.id,
@@ -283,29 +286,29 @@ paymentForm?.addEventListener('submit', async (e) => {
       payment_status,
     });
 
-    store.dispatch('updateBillStatus', response);
+    store.dispatch("updateBillStatus", response);
 
     handleClosePaymentPopover();
   }
 });
 
-document.querySelector('#bills-section')?.addEventListener('click', (e) => {
+document.querySelector("#bills-section")?.addEventListener("click", (e) => {
   const target = e.target as HTMLElement;
 
-  if (target.matches('#add-new-bill-btn')) {
+  if (target.matches("#add-new-bill-btn")) {
     handleOpenBillSheet();
   }
 
-  if (target.matches('#settle-up-btn')) {
+  if (target.matches("#settle-up-btn")) {
     handleOpenPaymentModal();
   }
 });
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener("DOMContentLoaded", () => {
   handleGetReceivedFriendRequests();
-  store.query('getUser');
-  store.query('getBills');
-  store.query('getFriends');
+  store.query("getUser");
+  store.query("getBills");
+  store.query("getFriends");
 });
 
 const UserProfileInstance = new UserAvatar();
