@@ -30,6 +30,19 @@
   margin-bottom: var(--space-lg);
 }
 
+.auth-content .have-an-account {
+  margin-top: var(--space-lg);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-size-sm);
+  font-weight: var(--font-weight-normal);
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+  }
+}
+
 .auth-right {
   background: var(--color-primary);
   display: flex;
