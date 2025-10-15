@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@import "./components.css";
+
+:root {
+  /* 🎨 Colors */
+  --color-primary: #7065f0;
+  --color-primary-light: #a59df7;
+  --color-primary-bg: #f4f3ff;
+  --color-accent: #ff6b6b;
+  --color-success: #56d88a;
+  --color-warning: #ffca3a;
+  --color-text: #1e1e1e;
+  --color-text-muted: #6b6b6b;
+  --color-border: #e5e5e5;
+  --color-surface: #ffffff;
+  --color-bg: #fafafb;
+
+  /* 🔠 Typography */
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --text-size-xs: 12px;
+  --text-size-sm: 14px;
+  --text-size-base: 16px;
+  --text-size-lg: 20px;
+  --text-size-xl: 28px;
+  --text-size-2xl: 36px;
+  --text-size-3xl: 48px;
+  --text-size-4xl: 64px;
+  --text-size-5xl: 96px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* 🧱 Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+
+  /* 🟣 Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* ✨ Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.12);
+
+  /* ⚡ Motion */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+}
+
+@theme {
+  /* Colors */
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-success: var(--color-success);
+  --warning: var(--color-warning);
+  --error: var(--color-error);
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --border: var(--color-border);
+  --text: var(--color-text);
+  --muted: var(--color-muted);
+
+  /* Fonts */
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+
+  /* Radius */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+
+  /* Spacing */
+  --space-xs: var(--space-xs);
+  --space-sm: var(--space-sm);
+  --space-md: var(--space-md);
+  --space-lg: var(--space-lg);
+  --space-xl: var(--space-xl);
+
+  /* Typography */
+  --text-size-xs: var(--text-size-xs);
+  --text-size-sm: var(--text-size-sm);
+  --text-size-base: var(--text-size-base);
+  --text-size-lg: var(--text-size-lg);
+  --text-size-xl: var(--text-size-xl);
+  --text-size-2xl: var(--text-size-2xl);
+
+  /* Shadows */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  /* ⚡ Motion */
+  --ease-default: var(--ease-default);
+  --duration-fast: var(--duration-fast);
+  --duration-normal: var(--duration-normal);
+  --duration-slow: var(--duration-slow);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

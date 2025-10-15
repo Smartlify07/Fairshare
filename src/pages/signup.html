@@ -4,135 +4,127 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fairshare | Signup</title>
-    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <main class="min-h-screen flex items-center justify-center">
-      <div class="flex items-stretch w-full h-full">
-        <aside class="flex flex-col gap-4 w-1/2 justify-center items-center">
-          <div class="flex flex-col gap-6 w-[350px] items-center">
-            <div
-              class="flex flex-col gap-2 w-full border-b border-b-neutral-200 pb-4"
-            >
-              <h1 class="text-4xl font-medium font-heading text-primary">
-                Sign up
-              </h1>
-              <p class="text-base font-display text-muted">
-                Welcome to Fairshare - let's create your account
-              </p>
-            </div>
+    <div class="auth-page">
+      <div class="auth-left">
+        <div class="auth-content">
+          <h1>Get Started with FairShare</h1>
+          <p>Split bills easily with your friends, fair and fast.</p>
 
-            <form id="signup-form" class="flex flex-col w-full gap-4">
-              <div class="flex-col flex gap-1 items-start w-full">
-                <label
-                  for="email"
-                  class="text-sm text-text font-display font-medium cursor-pointer"
-                  >Email address</label
-                >
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="johndoe@example.com"
-                  class="text-text font-display rounded-lg w-full placeholder:text-sm text-sm px-4 py-2 border border-border focus:border-border focus:outline-border"
-                />
-              </div>
-              <div class="flex-col flex gap-1 items-start w-full">
-                <label
-                  for="password"
-                  class="text-sm text-text font-display font-medium cursor-pointer"
-                  >Password</label
-                >
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  class="text-text font-display rounded-lg w-full placeholder:text-sm text-sm px-4 py-2 border border-border focus:border-border focus:outline-border"
-                />
-              </div>
+          <button
+            id="auth-signup-google"
+            class="button button-outline w-full text-size-sm"
+          >
+            <img
+              src="../../public/images/google-icon.svg"
+              alt=""
+              class="size-4"
+            />
+            Continue with Google
+          </button>
 
-              <button
-                class="bg-primary rounded-lg py-2 px-4 font-body text-sm cursor-pointer shadow-xs w-full text-surface font-medium"
-              >
-                Sign up
-              </button>
-            </form>
+          <div class="divider">or</div>
 
-            <div class="flex items-center gap-2 w-full">
-              <hr class="w-1/2 border-neutral-200" />
-              <span>OR</span>
-              <hr class="w-1/2 border-neutral-200" />
-            </div>
-            <button
-              id="signup-with-google-button"
-              class="text-neutral-950 shadow-xs font-medium w-full text-sm cursor-pointer rounded-lg py-2 font-body px-4 flex items-center justify-center gap-2 border border-border"
-            >
-            <img alt="google-icon" src="/public/images/google-icon.svg" class="size-4"/>
-              Sign in with Google
-            </button>
-          </div>
-        </aside>
-
-        <aside
-          class="w-1/2 bg-bg px-6 rounded-tl-3xl rounded-bl-3xl h-screen flex flex-col gap-10 items-center justify-center"
-        >
-
-        <header>
-<h1 class="text-6xl text-center font-heading font-medium tracking-tighter text-primary">
-  You Can Just Split Bills!
-</h1>
-<p class="mt-4 text-lg text-center text-muted font-display">
-  Join your friends to start splitting them bills
-</p>
-        </header>
-          <div class="flex flex-col gap-10 w-full self-end items-center">
-            <div class="flex gap-14">
-              <div class="relative">
-                <img
-                  class="rounded-full size-12 object-cover"
-                  alt="boy-avatar-wearing-sunshades"
-                  src="/public/images/boy_avatar.png"
-                />
-
-                <div
-                  class="rounded-lg text-xs font-display text-surface bg-primary px-1 py-0.5 font-semibold absolute -top-2 -right-7"
-                >
-                  $12.00
-                </div>
-              </div>
-
-              <div class="relative">
-                <img
-                  class="rounded-full size-12 object-cover"
-                  alt="boy-avatar-wearing-sunshades"
-                  src="/public/images/girl-avatar-1-with-sunglasses.png"
-                />
-
-                <div
-                  class="rounded-lg text-xs font-display text-surface bg-secondary px-1 py-0.5 font-semibold absolute -top-2 -right-7"
-                >
-                  $24.00
-                </div>
-              </div>
-            </div>
-            <div class="relative">
-              <img
-                class="rounded-full size-12 object-cover"
-                alt="boy-avatar-wearing-sunshades"
-                src="/public/images/girl-avatar-2-with-sunglasses.png"
-              />
-
-              <div
-                class="rounded-lg text-xs font-display text-surface bg-accent px-1 py-0.5 font-semibold absolute -top-2 -right-7"
-              >
-                $24.00
-              </div>
-            </div>
-          </div>
+          <form>
+            <label for="email-address">Email address</label>
+            <input
+              name="email-address"
+              id="email-address"
+              type="email"
+              placeholder="you@example.com"
+            />
+            <label for="password">Password</label>
+            <input
+              name="password"
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+            />
+            <button class="button button-primary w-full">Sign up</button>
+          </form>
         </div>
       </div>
-    </main>
-  <script type="module" src="../js/scripts/signup.ts"></script>
+
+      <div class="auth-right">
+        <!-- Add fun illustration or abstract shape -->
+        <div class="auth-illustration">
+          <!-- <h1>Fair bills. Happy friendships.</h1> -->
+          <div class="avatars">
+            <div class="avatar" style="--clr: #a78b11">
+              <img
+                src="https://api.dicebear.com/9.x/avataaars/svg"
+                alt="avatar"
+              />
+              <span class="badge">₦2,500</span>
+            </div>
+            <div class="avatar" style="--clr: #60a5fa">
+              <img
+                src="https://api.dicebear.com/9.x/avataaars/svg?seed=female"
+                alt="avatar"
+              />
+              <span class="badge">₦1,000</span>
+            </div>
+            <div class="avatar" style="--clr: #f472b6">
+              <img
+                src="https://api.dicebear.com/9.x/avataaars/svg?seed=mega"
+                alt="avatar"
+              />
+              <span class="badge">₦5,000</span>
+            </div>
+            <div class="avatar" style="--clr: #745232">
+              <img
+                src="https://api.dicebear.com/9.x/avataaars/svg?seed=obinna"
+                alt="avatar"
+              />
+              <span class="badge">₦1,200</span>
+            </div>
+
+            <div class="avatar" style="--clr: #34d399">
+              <img
+                src="https://api.dicebear.com/9.x/avataaars/svg?seed=james"
+                alt="avatar"
+              />
+              <span class="badge">₦6,200</span>
+            </div>
+            <div class="avatar" style="--clr: #1a5ee2">
+              <img
+                src="https://api.dicebear.com/9.x/avataaars/svg?seed=nwebie"
+                alt="avatar"
+              />
+              <span class="badge">₦2,500</span>
+            </div>
+            <div class="avatar" style="--clr: #1a3de2">
+              <img
+                src="https://api.dicebear.com/9.x/avataaars/svg?seed=nwebie"
+                alt="avatar"
+              />
+              <span class="badge">₦6,000</span>
+            </div>
+          </div>
+
+          <h1>
+            Fair bills.<br />
+            Happy friendships.
+          </h1>
+          <p class="caption">
+            Split bills easily with friends.<br />
+            Track who owes what — stress-free 💸
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../js/scripts/signup.ts"></script>
   </body>
 </html>

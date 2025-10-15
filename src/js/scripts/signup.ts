@@ -1,7 +1,7 @@
 import { supabase } from "../../supabase";
 
 const signupButton = document.querySelector(
-  "#signup-with-google-button"
+  "#auth-signup-google"
 ) as HTMLButtonElement;
 
 const handleSignUpWithGoogle = async () => {
