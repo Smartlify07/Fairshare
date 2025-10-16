@@ -5,7 +5,8 @@ type Props = {
   element: HTMLElement | null;
 };
 export default class Component {
-  element: HTMLElement | null;
+  element: HTMLElement | null = null;
+  render: () => void = () => {};
   constructor(props = {} as Props) {
     let self = this;
     this.render = this.render || function () {};
@@ -15,8 +16,9 @@ export default class Component {
     }
 
     if (props.hasOwnProperty("element")) {
-      this.element = props.element;
+      if (props.element !== null) {
+        this.element = props.element;
+      }
     }
   }
-  render() {}
 }

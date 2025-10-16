@@ -10,10 +10,14 @@
   --color-success: #56d88a;
   --color-warning: #ffca3a;
   --color-text: #1e1e1e;
-  --color-text-muted: #6b6b6b;
+  --color-muted: #6b6b6b;
   --color-border: #e5e5e5;
   --color-surface: #ffffff;
   --color-bg: #fafafb;
+  --color-accent-1: #7c3aed; /* fun purple */
+  --color-accent-2: #f59e0b; /* warm orange */
+  --color-accent-3: #10b981; /* mint green */
+  --color-accent-4: #3b82f6; /* vibrant blue */
 
   /* 🔠 Typography */
   --font-heading: "Poppins", sans-serif;
@@ -64,16 +68,22 @@
 @theme {
   /* Colors */
   --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
   --color-secondary: var(--color-secondary);
   --color-accent: var(--color-accent);
   --color-success: var(--color-success);
-  --warning: var(--color-warning);
-  --error: var(--color-error);
-  --bg: var(--color-bg);
-  --surface: var(--color-surface);
-  --border: var(--color-border);
-  --text: var(--color-text);
-  --muted: var(--color-muted);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-muted);
+
+  --color-accent-1: var(--color-accent-1);
+  --color-accent-2: var(--color-accent-2);
+  --color-accent-3: var(--color-accent-3);
+  --color-accent-4: var(--color-accent-4);
 
   /* Fonts */
   --font-heading: var(--font-heading);
@@ -98,6 +108,9 @@
   --text-size-lg: var(--text-size-lg);
   --text-size-xl: var(--text-size-xl);
   --text-size-2xl: var(--text-size-2xl);
+  --text-size-3xl: var(--text-size-3xl);
+  --text-size-4xl: var(--text-size-4xl);
+  --text-size-5xl: var(--text-size-5xl);
 
   /* Shadows */
   --shadow-sm: var(--shadow-sm);
@@ -113,7 +126,6 @@
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-bg);
   color: var(--color-text);
   margin: 0;
   padding: 0;
