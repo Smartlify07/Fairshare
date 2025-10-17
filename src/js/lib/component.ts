@@ -6,7 +6,7 @@ type Props = {
 };
 export default class Component {
   element: HTMLElement | null = null;
-  render: () => void = () => {};
+  render(): void {}
   constructor(props = {} as Props) {
     let self = this;
     this.render = this.render || function () {};
