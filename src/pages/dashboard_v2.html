@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/dashboard.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <main class="min-h-screen bg-bg">
+      <!-- Top Nav -->
+      <nav class="top-nav">
+        <div class="nav-left flex items-center gap-2">
+          <div
+            class="rounded-sm bg-neutral-100 size-10 justify-center items-center flex"
+          >
+            F
+          </div>
+          <h1 class="font-heading text-size-lg font-medium text-text">
+            Fairshare
+          </h1>
+        </div>
+
+        <div class="nav-links">
+          <a class="active" href="#">Dashboard</a>
+          <a href="bills.html">Bills</a>
+          <a href="friends.html">Friends</a>
+        </div>
+
+        <div class="nav-right flex items-center gap-4">
+          <div id="user-avatar">
+            <div class="avatar">A</div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <section class="main-content">
+        <div class="flex items-start justify-between">
+          <div
+            class="grid gap-[var(--space-sm)] w-fit max-w-[400px] mb-[var(--space-lg)]"
+          >
+            <h2
+              class="text-size-2xl font-medium font-heading tracking-tight text-text"
+            >
+              Hey, Obinna
+            </h2>
+            <p class="text-size-md text-muted">
+              You've shared
+              <strong class="text-primary">₦55,250.00</strong> with friends this
+              month
+            </p>
+          </div>
+
+          <button
+            class="button button-outline new-bill-btn w-[150px] font-body font-medium"
+          >
+            <i class="fa-solid fa-plus"></i> New Bill
+          </button>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-md)]"
+        >
+          <!-- Summary Cards -->
+
+          <div data-summary-type="bills" class="card summary-card">
+            <div class="card__content gap-[var(--space-md)]">
+              <div class="flex items-center gap-2">
+                <div class="card-icon bg-primary/10 size-8 text-primary">
+                  <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+                <p class="text-muted text-size-sm">Total Splits</p>
+              </div>
+
+              <div class="card__info">
+                <h3
+                  class="text-size-xl/[100%] font-medium flex items-center gap-1 font-heading text-text"
+                >
+                  5
+                  <sub
+                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                    >bills split this month</sub
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div data-summary-type="total-shared" class="card summary-card">
+            <div class="card__content gap-[var(--space-md)]">
+              <div class="flex items-center gap-2">
+                <div class="card-icon bg-accent-2/10 size-8 text-accent-2">
+                  <i class="fa-solid fa-handshake"></i>
+                </div>
+                <p class="text-muted text-size-sm">Total Amount Shared</p>
+              </div>
+
+              <div class="card__info">
+                <h3
+                  class="text-size-xl/[100%] font-medium flex items-center gap-1 font-heading text-text"
+                >
+                  ₦55,250
+                  <sub
+                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                    >shared this month</sub
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div data-summary-type="total-share-paid" class="card summary-card">
+            <div class="card__content gap-[var(--space-md)]">
+              <div class="flex items-center gap-2">
+                <div class="card-icon bg-accent-3/10 size-8 text-accent-3">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <p class="text-muted text-size-sm">Total Amount Paid</p>
+              </div>
+
+              <div class="card__info">
+                <h3
+                  class="text-size-xl/[100%] font-medium flex items-center gap-1 font-heading text-text"
+                >
+                  ₦15,250
+                  <sub
+                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                  >
+                    this month</sub
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div data-summary-type="total-share-paid" class="card summary-card">
+            <div class="card__content gap-[var(--space-md)]">
+              <div class="flex items-center gap-2">
+                <div class="card-icon bg-accent-4/10 size-8 text-accent-4">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+                <p class="text-muted text-size-sm">Pending Balance</p>
+              </div>
+
+              <div class="card__info">
+                <h3
+                  class="text-size-xl/[100%] font-medium flex items-center gap-1 font-heading text-text"
+                >
+                  ₦1,250
+                  <sub
+                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                  >
+                    left to clear</sub
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-2 items-start lg:grid-cols-3 gap-[var(--space-md)]"
+        >
+          <div class="card bg-surface/10! col-span-2 row-span-1 mt-10">
+            <h1 class="text-size-base font-heading font-normal text-muted">
+              Most Splits Together
+            </h1>
+
+            <div
+              class="card__content gap-[var(--space-md)] mt-4 bg-accent-1/5 rounded-md p-[var(--space-md)]"
+            >
+              <h2 class="text-size-2xl text-muted font-body tracking">
+                <span class="text-text font-semibold inline-flex"
+                  >You
+                  <div
+                    class="bg-accent-3 border-border border rounded-full self-end size-8 flex items-center justify-center"
+                  >
+                    <img
+                      src="https://api.dicebear.com/9.x/avataaars/svg?seed=you"
+                      class="object-cover w-full h-full rounded-full"
+                    /></div
+                ></span>
+                and
+                <strong
+                  class="text-accent-1 font-semibold inline-flex items-center gap-1"
+                  >Chioma
+
+                  <div
+                    class="bg-primary rounded-full self-end size-8 flex items-center justify-center"
+                  >
+                    <img
+                      src="https://api.dicebear.com/9.x/avataaars/svg?seed=chioma"
+                      class="object-cover w-full h-full rounded-full"
+                    />
+                  </div>
+                </strong>
+                have Shared
+                <em class="text-text font-semibold">5</em> bills this month
+              </h2>
+
+              <p class="text-accent-1">
+                <span class="text-text">-</span> Your two are on fire!
+              </p>
+            </div>
+          </div>
+
+          <div class="card bg-surface/10! max-w-[420px] mt-10">
+            <h1 class="text-size-base font-heading font-normal text-muted">
+              Most Generous Friend
+            </h1>
+
+            <div
+              class="card__content gap-[var(--space-md)] mt-4 bg-accent-3/5 rounded-md p-[var(--space-md)]"
+            >
+              <h2 class="text-size-2xl text-muted font-body tracking">
+                <span class="text-text font-semibold inline-flex"
+                  >David
+                  <div
+                    class="bg-accent-3 border-border border rounded-full self-end size-8 flex items-center justify-center"
+                  >
+                    <img
+                      src="https://api.dicebear.com/9.x/avataaars/svg?seed=david"
+                      class="object-cover w-full h-full rounded-full"
+                    /></div
+                ></span>
+                paid
+                <strong
+                  class="text-accent-3 font-semibold inline-flex items-center gap-1"
+                  >₦25,000
+                </strong>
+                worth of
+                <strong class="text-text font-semibold inline-flex">
+                  bills
+                </strong>
+                covered this month
+              </h2>
+
+              <p class="text-accent-3 font-medium text-sm self-end">
+                <span class="text-text">-</span>Maybe he deserves a medal?
+              </p>
+            </div>
+          </div>
+
+          <div class="card bg-surface/10! max-w-[420px] mt-10">
+            <h1 class="text-size-base font-heading font-normal text-muted">
+              Biggest Night Out
+            </h1>
+
+            <div
+              class="card__content gap-[var(--space-md)] mt-4 bg-accent-2/5 rounded-md p-[var(--space-md)]"
+            >
+              <h2 class="text-size-2xl text-muted font-body tracking">
+                Your
+                <span class="text-text font-semibold inline-flex"
+                  >Dinner Night</span
+                >
+                bill was worth
+                <strong
+                  class="text-accent-2 font-semibold inline-flex items-center gap-1"
+                  >₦25,000
+                </strong>
+                this month
+              </h2>
+
+              <p class="text-accent-2 text-size-sm font-body self-end">
+                <span class="text-text font-medium">-</span> Was it worth it?
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
