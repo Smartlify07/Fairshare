@@ -165,7 +165,7 @@ input:focus {
   position: absolute;
   bottom: -4px;
   right: -6px;
-  background: var(--surface);
+  background: var(--color-surface);
   color: var(--color-text);
   border-radius: 999px;
   font-size: 0.7rem;
