@@ -50,11 +50,9 @@
       </nav>
 
       <!-- Main Content -->
-      <section class="main-content">
-        <div class="flex items-start justify-between">
-          <div
-            class="grid gap-[var(--space-sm)] w-fit max-w-[400px] mb-[var(--space-lg)]"
-          >
+      <section class="main-content max-w-[1440px] mx-auto">
+        <div class="flex items-start justify-between mb-[var(--space-lg)]">
+          <div class="grid gap-[var(--space-sm)] w-fit max-w-[400px]">
             <h2
               class="text-size-2xl font-medium font-heading tracking-tight text-text"
             >
@@ -75,7 +73,7 @@
         </div>
 
         <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-md)]"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-md)] mb-[var(--space-lg)]"
         >
           <!-- Summary Cards -->
 
@@ -174,116 +172,151 @@
           </div>
         </div>
 
-        <div
-          class="grid grid-cols-2 items-start lg:grid-cols-3 gap-[var(--space-md)]"
-        >
-          <div class="card bg-surface/10! col-span-2 row-span-1 mt-10">
-            <h1 class="text-size-base font-heading font-normal text-muted">
-              Most Splits Together
-            </h1>
-
+        <section class="grid gap-[var(--space-lg)]" id="social-stats">
+          <h1 class="text-size-2xl font-medium text-text">
+            The Split
+            <span class="text-accent-2 recap-text font-heading"> Recap </span>
+          </h1>
+          <div
+            class="grid grid-cols-2 items-start lg:grid-cols-2 gap-[var(--space-lg)]"
+          >
             <div
-              class="card__content gap-[var(--space-md)] mt-4 bg-accent-1/5 rounded-md p-[var(--space-md)]"
+              data-type="most-splits"
+              class="card social-card bg-surface/10! row-span-1"
             >
-              <h2 class="text-size-2xl text-muted font-body tracking">
-                <span class="text-text font-semibold inline-flex"
-                  >You
-                  <div
-                    class="bg-accent-3 border-border border rounded-full self-end size-8 flex items-center justify-center"
-                  >
-                    <img
-                      src="https://api.dicebear.com/9.x/avataaars/svg?seed=you"
-                      class="object-cover w-full h-full rounded-full"
-                    /></div
-                ></span>
-                and
-                <strong
-                  class="text-accent-1 font-semibold inline-flex items-center gap-1"
-                  >Chioma
+              <h1>Most Splits Together</h1>
 
-                  <div
-                    class="bg-primary rounded-full self-end size-8 flex items-center justify-center"
-                  >
-                    <img
-                      src="https://api.dicebear.com/9.x/avataaars/svg?seed=chioma"
-                      class="object-cover w-full h-full rounded-full"
-                    />
-                  </div>
-                </strong>
-                have Shared
-                <em class="text-text font-semibold">5</em> bills this month
-              </h2>
+              <div style="--color: var(--color-accent-1)" class="card__content">
+                <h2 class="text-size-2xl text-muted font-body tracking">
+                  <strong style="--color: var(--color-text)"
+                    >You
+                    <div
+                      style="--color: var(--color-accent-3)"
+                      class="participant-image-container"
+                    >
+                      <img
+                        src="https://api.dicebear.com/9.x/avataaars/svg?seed=you"
+                      /></div
+                  ></strong>
+                  and
+                  <strong style="--color: var(--color-accent-1)"
+                    >Chioma
 
-              <p class="text-accent-1">
-                <span class="text-text">-</span> Your two are on fire!
-              </p>
+                    <div
+                      style="--color: var(--color-accent-1)"
+                      class="participant-image-container"
+                    >
+                      <img
+                        src="https://api.dicebear.com/9.x/avataaars/svg?seed=eve"
+                      />
+                    </div>
+                  </strong>
+                  have Shared
+                  <em>5</em> bills this month
+                </h2>
+
+                <p class="footer" style="--color: var(--color-accent-1)">
+                  <span class="text-text">-</span> Your two are on fire! 🔥🔥
+                </p>
+              </div>
+            </div>
+
+            <div class="card social-card">
+              <h1>Most Generous Friend</h1>
+
+              <div
+                style="--color: var(--color-accent-3)"
+                class="card__content social-card"
+              >
+                <h2 class="text-size-2xl text-muted font-body tracking">
+                  <strong style="--color: var(--color-text)"
+                    >David
+                    <div
+                      style="--color: var(--color-accent-2)"
+                      class="participant-image-container"
+                    >
+                      <img
+                        src="https://api.dicebear.com/9.x/avataaars/svg?seed=david"
+                      /></div
+                  ></strong>
+                  paid
+                  <strong
+                    class="text-accent-3 font-semibold inline-flex items-center gap-1"
+                    >₦25,000
+                  </strong>
+                  worth of
+                  <strong style="--color: var(--color-text)"> bills </strong>
+                  covered this month
+                </h2>
+
+                <p class="footer">
+                  <span class="text-text">-</span> Maybe he deserves a medal🥇?
+                </p>
+              </div>
+            </div>
+
+            <div class="card social-card">
+              <h1 class="text-size-base font-heading font-normal text-muted">
+                Biggest Night Out
+              </h1>
+
+              <div style="--color: var(--color-accent-2)" class="card__content">
+                <h2 class="text-size-2xl text-muted font-body tracking">
+                  Your
+                  <span class="text-text font-semibold inline-flex"
+                    >Dinner Night</span
+                  >
+                  worth at
+                  <strong
+                    class="text-accent-2 font-semibold inline-flex items-center gap-1"
+                    >₦25,000
+                  </strong>
+                  this month
+                </h2>
+
+                <p class="footer" style="--color: var(--color-accent-2)">
+                  <span class="text-text font-medium">-</span> Was it worth it
+                  💭?
+                </p>
+              </div>
+            </div>
+
+            <div class="card social-card">
+              <h1 class="text-size-base font-heading font-normal text-muted">
+                This Week in splits
+              </h1>
+
+              <div style="--color: var(--color-accent-4)" class="card__content">
+                <ul class="grid gap-[var(--space-sm)]">
+                  <li class="flex items-center">
+                    <strong style="--color: var(--color-text)"> +3 </strong>
+                    &nbsp;new bills added
+                  </li>
+
+                  <li class="flex items-center">
+                    <strong style="--color: var(--color-text)"> 2 </strong>
+                    &nbsp;friends settled up
+                  </li>
+
+                  <li class="flex items-center">
+                    New invite from
+                    <strong style="--color: var(--color-accent-1)"
+                      >&nbsp;Ada
+                      <div
+                        style="--color: var(--color-accent-2)"
+                        class="participant-image-container"
+                      >
+                        <img
+                          alt="avatar-for-ada"
+                          src="https://api.dicebear.com/9.x/avataaars/svg?seed=ada"
+                        /></div
+                    ></strong>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-
-          <div class="card bg-surface/10! max-w-[420px] mt-10">
-            <h1 class="text-size-base font-heading font-normal text-muted">
-              Most Generous Friend
-            </h1>
-
-            <div
-              class="card__content gap-[var(--space-md)] mt-4 bg-accent-3/5 rounded-md p-[var(--space-md)]"
-            >
-              <h2 class="text-size-2xl text-muted font-body tracking">
-                <span class="text-text font-semibold inline-flex"
-                  >David
-                  <div
-                    class="bg-accent-3 border-border border rounded-full self-end size-8 flex items-center justify-center"
-                  >
-                    <img
-                      src="https://api.dicebear.com/9.x/avataaars/svg?seed=david"
-                      class="object-cover w-full h-full rounded-full"
-                    /></div
-                ></span>
-                paid
-                <strong
-                  class="text-accent-3 font-semibold inline-flex items-center gap-1"
-                  >₦25,000
-                </strong>
-                worth of
-                <strong class="text-text font-semibold inline-flex">
-                  bills
-                </strong>
-                covered this month
-              </h2>
-
-              <p class="text-accent-3 font-medium text-sm self-end">
-                <span class="text-text">-</span>Maybe he deserves a medal?
-              </p>
-            </div>
-          </div>
-
-          <div class="card bg-surface/10! max-w-[420px] mt-10">
-            <h1 class="text-size-base font-heading font-normal text-muted">
-              Biggest Night Out
-            </h1>
-
-            <div
-              class="card__content gap-[var(--space-md)] mt-4 bg-accent-2/5 rounded-md p-[var(--space-md)]"
-            >
-              <h2 class="text-size-2xl text-muted font-body tracking">
-                Your
-                <span class="text-text font-semibold inline-flex"
-                  >Dinner Night</span
-                >
-                bill was worth
-                <strong
-                  class="text-accent-2 font-semibold inline-flex items-center gap-1"
-                  >₦25,000
-                </strong>
-                this month
-              </h2>
-
-              <p class="text-accent-2 text-size-sm font-body self-end">
-                <span class="text-text font-medium">-</span> Was it worth it?
-              </p>
-            </div>
-          </div>
-        </div>
+        </section>
       </section>
     </main>
   </body>
