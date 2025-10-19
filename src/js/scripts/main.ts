@@ -1,14 +1,12 @@
 import { getAuthState } from "../../api/auth.ts";
 
-const main = document.querySelector("#app");
-
 const getUser = async () => {
   const user = await getAuthState();
 
   if (user) {
-    window.location.href = "src/pages/dashboard.html";
+    window.location.href = "src/pages/dashboard_v2.html";
   } else {
-    main!.innerHTML = "<h1>No user</h1>";
+    window.location.href = "/signup.html";
   }
 };
 

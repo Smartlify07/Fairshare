@@ -1,27 +1,30 @@
-import type Store from './store';
+import type Store from "./store";
 
 export default {
   getUser: (context: Store) => {
-    context.query('getUser');
+    context.query("getUser");
   },
 
+  getProfile: (context: Store) => {
+    context.query("getUserProfile");
+  },
   getBills: (context: Store) => {
-    context.query('getBills');
+    context.query("getBills");
   },
 
   getFriends: (context: Store) => {
-    context.query('getFriends');
+    context.query("getFriends");
   },
 
   createBill: (context: Store, payload: any) => {
-    context.commit('createBill', payload);
+    context.commit("createBill", payload);
   },
 
   updateSelectedBill: (context: Store, payload: any) => {
-    context.commit('updateSelectedBill', payload);
+    context.commit("updateSelectedBill", payload);
   },
 
   updateBillStatus: (context: Store, payload: any) => {
-    context.commit('updateBillStatus', payload);
+    context.commit("updateBillStatus", payload);
   },
 };

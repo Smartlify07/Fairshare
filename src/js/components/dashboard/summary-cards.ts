@@ -1,0 +1,126 @@
+import Component from "../../lib/component";
+import store from "../../store";
+import {
+  getPendingBalanceForThisMonth,
+  getTotalAmountPaidThisMonth,
+  getTotalAmountShared,
+  getTotalBillsSplitThisMonth,
+} from "../../utils/dashboard.utils";
+
+export default class SummaryCards extends Component {
+  constructor() {
+    super({
+      element: document.querySelector("#summary-cards"),
+      store: store,
+    });
+  }
+
+  render(): void {
+    const { bills, user } = store.state;
+    const totalBills = getTotalBillsSplitThisMonth(bills);
+    const totalAmountShared = getTotalAmountShared(bills);
+    const totalAmountPaid = getTotalAmountPaidThisMonth(bills, user?.id!);
+    const pendingBalance = getPendingBalanceForThisMonth(bills, user?.id);
+    const totalBillsSummaryCard = ` <div data-summary-type="bills" class="card summary-card">
+            <div class="card__content gap-[var(--space-md)]">
+              <div class="flex items-center gap-2">
+                <div class="card-icon bg-primary/10 size-8 text-primary">
+                  <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+                <p class="text-muted text-size-sm">Total Splits</p>
+              </div>
+
+              <div class="card__info">
+                <h3
+                  class="text-size-xl/[100%] font-medium flex items-center gap-1 font-heading text-text"
+                >
+                 ${totalBills}
+                  <sub
+                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                    >splits this month</sub
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>`;
+
+    const totalAmountSharedSummaryCard = `<div data-summary-type="total-shared" class="card summary-card">
+            <div class="card__content gap-[var(--space-md)]">
+              <div class="flex items-center gap-2">
+                <div class="card-icon bg-accent-2/10 size-8 text-accent-2">
+                  <i class="fa-solid fa-handshake"></i>
+                </div>
+                <p class="text-muted text-size-sm">Total Amount Shared</p>
+              </div>
+
+              <div class="card__info">
+                <h3
+                  class="text-size-xl/[100%] font-medium flex items-center gap-1 font-heading text-text"
+                >
+                  ₦${totalAmountShared.toLocaleString()}
+                  <sub
+                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                    >shared this month</sub
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+`;
+
+    const totalSharePaidCard = `<div data-summary-type="total-share-paid" class="card summary-card">
+            <div class="card__content gap-[var(--space-md)]">
+              <div class="flex items-center gap-2">
+                <div class="card-icon bg-accent-3/10 size-8 text-accent-3">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <p class="text-muted text-size-sm">Total Amount Paid</p>
+              </div>
+
+              <div class="card__info">
+                <h3
+                  class="text-size-xl/[100%] font-medium flex items-center gap-1 font-heading text-text"
+                >
+                  ₦${totalAmountPaid?.toLocaleString()}
+                  <sub
+                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                  >
+                    this month</sub
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+`;
+    const totalPendingBalanceCard = `<div
+            data-summary-type="total-pending-balance"
+            class="card summary-card"
+          >
+            <div class="card__content gap-[var(--space-md)]">
+              <div class="flex items-center gap-2">
+                <div class="card-icon bg-accent-4/10 size-8 text-accent-4">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+                <p class="text-muted text-size-sm">Pending Balance</p>
+              </div>
+
+              <div class="card__info">
+                <h3
+                  class="text-size-xl/[100%] font-medium flex items-center gap-1 font-heading text-text"
+                >
+                  ₦${pendingBalance.toLocaleString()}
+                  <sub
+                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                  >
+                    left to clear</sub
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+`;
+    this.element!.innerHTML = `
+        ${totalBillsSummaryCard} ${totalAmountSharedSummaryCard} ${totalSharePaidCard} ${totalPendingBalanceCard}
+    `;
+  }
+}

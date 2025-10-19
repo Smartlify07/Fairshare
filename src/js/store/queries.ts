@@ -1,3 +1,4 @@
+import { getProfile } from "../../api/auth";
 import { getBills } from "../../api/bills";
 import { getFriends } from "../../api/friends";
 import { supabase } from "../../supabase";
@@ -7,6 +8,13 @@ export default {
   async getUser(state: State) {
     const { data } = await supabase.auth.getUser();
     const newState = { ...state, user: data.user };
+    return newState;
+  },
+
+  async getUserProfile(state: State) {
+    await this.getUser(state);
+    const data = await getProfile(state.user?.id!);
+    const newState = { ...state, profile: data };
     return newState;
   },
 

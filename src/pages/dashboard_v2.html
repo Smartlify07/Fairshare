@@ -73,6 +73,7 @@
         </div>
 
         <div
+          id="summary-cards"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-md)] mb-[var(--space-lg)]"
         >
           <!-- Summary Cards -->
@@ -147,7 +148,10 @@
             </div>
           </div>
 
-          <div data-summary-type="total-share-paid" class="card summary-card">
+          <div
+            data-summary-type="total-pending-balance"
+            class="card summary-card"
+          >
             <div class="card__content gap-[var(--space-md)]">
               <div class="flex items-center gap-2">
                 <div class="card-icon bg-accent-4/10 size-8 text-accent-4">
@@ -319,5 +323,7 @@
         </section>
       </section>
     </main>
+
+    <script src="../js/scripts/dashboard_v2.ts" type="module"></script>
   </body>
 </html>

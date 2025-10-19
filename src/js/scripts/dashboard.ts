@@ -14,7 +14,7 @@ import UserAvatar from "../components/user-avatar";
 import DashboardGreeting from "../components/dashboard-greeting";
 import DashboardBillList from "../components/dashboard-bill-list";
 import type { Friend } from "../store/types/friends.type";
-import { findFriendWithUserId } from "../../utils/bills.utils";
+import { findFriendWithUserId } from "../utils/bills.utils";
 import type { BillFriend } from "../store/types/bills.type";
 
 const friendRequestsElement = document.querySelector(
@@ -147,8 +147,8 @@ const handleCloseBillSheet = () => {
 
 const handleOpenBillSheet = () => {
   popOver?.classList.remove("hidden");
-
-  store.state.friends?.forEach((friend: Friend) => {
+  console.log(store.state);
+  [...store.state.friends, store.state.profile]?.forEach((friend: Friend) => {
     const friendCheckBox = document.createElement("div");
     friendCheckBox.id = "friend-checkbox";
     friendCheckBox.className = "flex items-center gap-1";
@@ -309,6 +309,7 @@ window.addEventListener("DOMContentLoaded", () => {
   store.query("getUser");
   store.query("getBills");
   store.query("getFriends");
+  store.query("getUserProfile");
 });
 
 const UserProfileInstance = new UserAvatar();
