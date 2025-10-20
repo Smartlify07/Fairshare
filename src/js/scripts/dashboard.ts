@@ -147,8 +147,8 @@ const handleCloseBillSheet = () => {
 
 const handleOpenBillSheet = () => {
   popOver?.classList.remove("hidden");
-  console.log(store.state);
-  [...store.state.friends, store.state.profile]?.forEach((friend: Friend) => {
+  console.log(store.state.friends, store.state.profile);
+  [...store.state.friends, store.state.profile!]?.forEach((friend: Friend) => {
     const friendCheckBox = document.createElement("div");
     friendCheckBox.id = "friend-checkbox";
     friendCheckBox.className = "flex items-center gap-1";
@@ -235,8 +235,8 @@ const handleOpenPaymentModal = async () => {
   const { selectedBill } = store.state;
 
   const you = findFriendWithUserId(
-    selectedBill.bill_friends,
-    store.state.user?.id
+    selectedBill?.bill_friends!,
+    store.state.user?.id!
   );
   const amountOwed = Math.floor(
     Number(you?.amount_assigned ?? 0) - Number(you?.amount_paid ?? 0)
@@ -249,9 +249,9 @@ const handleOpenPaymentModal = async () => {
   paymentModalHeader.innerHTML = `
       You owe <span class="text-primary font-semibold">₦
 ${amountOwed.toLocaleString()}</span> to <span class="font-semibold text-text">${
-    selectedBill.creator.name
+    selectedBill?.creator.name ?? "Unknown"
   }</span> for <span class="text-accent font-semibold">“${
-    selectedBill.title
+    selectedBill?.title ?? "Unknown"
   }”</span>
   `;
 
@@ -265,8 +265,8 @@ paymentForm?.addEventListener("submit", async (e) => {
   const { selectedBill } = store.state;
 
   const you = findFriendWithUserId(
-    selectedBill.bill_friends,
-    store.state.user?.id
+    selectedBill?.bill_friends!,
+    store.state.user?.id!
   );
 
   if (paymentAmountInput.value.trim() === "") {
@@ -279,10 +279,10 @@ paymentForm?.addEventListener("submit", async (e) => {
       totalAmountPaid >= assignedAmount! ? "settled" : "owing";
 
     const response = await payBill({
-      bill_id: selectedBill.id,
+      bill_id: selectedBill?.id!,
       amount_paid: totalAmountPaid,
-      friend_id: store.state.user.id,
-      creator_id: selectedBill.creator_id,
+      friend_id: store.state.user?.id!,
+      creator_id: selectedBill?.creator_id!,
       payment_status,
     });
 

@@ -1,30 +1,32 @@
 import type Store from "./store";
+import type { State } from "./types/state.type";
 
+type StoreType = Store<State>;
 export default {
-  getUser: (context: Store) => {
+  getUser: (context: StoreType) => {
     context.query("getUser");
   },
 
-  getProfile: (context: Store) => {
+  getProfile: (context: StoreType) => {
     context.query("getUserProfile");
   },
-  getBills: (context: Store) => {
+  getBills: (context: StoreType) => {
     context.query("getBills");
   },
 
-  getFriends: (context: Store) => {
+  getFriends: (context: StoreType) => {
     context.query("getFriends");
   },
 
-  createBill: (context: Store, payload: any) => {
+  createBill: (context: StoreType, payload: any) => {
     context.commit("createBill", payload);
   },
 
-  updateSelectedBill: (context: Store, payload: any) => {
+  updateSelectedBill: (context: StoreType, payload: any) => {
     context.commit("updateSelectedBill", payload);
   },
 
-  updateBillStatus: (context: Store, payload: any) => {
+  updateBillStatus: (context: StoreType, payload: any) => {
     context.commit("updateBillStatus", payload);
   },
 };

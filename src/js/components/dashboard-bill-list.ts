@@ -68,7 +68,7 @@ export default class DashboardBillList extends Component {
         let billFriendsInnerHTML = ``;
         const foundFriend = findFriendWithUserId(
           bill.bill_friends,
-          store.state.user.id
+          store.state.user?.id!
         );
         let general_status = `
         <span
@@ -159,7 +159,7 @@ export default class DashboardBillList extends Component {
                  ${bill.creator_id === user?.id ? general_status : user_status}
                  ${
                    bill.creator_id !== user?.id &&
-                   findFriendWithUserId(bill.bill_friends, user?.id)
+                   findFriendWithUserId(bill.bill_friends, user?.id!)
                      ?.payment_status === "owing"
                      ? `<button id="settle-up-btn" class="primary-btn px-2 py-1 text-white font-medium active:scale-[0.9]">Settle up</button>`
                      : ""
