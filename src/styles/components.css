@@ -231,6 +231,10 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.avatar .avatar-fallback {
   background-color: var(--color-primary);
   display: inline-flex;
   align-items: center;
