@@ -1,16 +1,16 @@
 import {
   findFriendWithUserId,
   getFriendsWhoHaveSettled,
-} from '../../utils/bills.utils';
-import { formatFromISOToDayMonthYear } from '../../utils/date.utils';
-import Component from '../lib/component';
-import store from '../store';
-import type { ExtendedBillWithFriends } from '../store/types/bills.type';
+} from "../utils/bills.utils";
+import { formatFromISOToDayMonthYear } from "../utils/date.utils";
+import Component from "../lib/component";
+import store from "../store";
+import type { ExtendedBillWithFriends } from "../store/types/bills.type";
 
 export default class DashboardBillList extends Component {
   constructor() {
     super({
-      element: document.querySelector('#bills-section'),
+      element: document.querySelector("#bills-section"),
       store: store,
     });
   }
@@ -22,11 +22,11 @@ export default class DashboardBillList extends Component {
     const element = self.element;
     element!.innerHTML = ``;
     if (state.bills.length === 0) {
-      if (element!.querySelector('#empty-state')) return;
+      if (element!.querySelector("#empty-state")) return;
 
-      const billsEmptyState = document.createElement('div');
-      billsEmptyState.className = 'flex flex-col gap-2 items-center';
-      billsEmptyState.id = 'bills-empty-state';
+      const billsEmptyState = document.createElement("div");
+      billsEmptyState.className = "flex flex-col gap-2 items-center";
+      billsEmptyState.id = "bills-empty-state";
       billsEmptyState.innerHTML = `
         <div class="flex justify-center items-center">
           <img class="rounded-avatar size-10 object-cover" src="/public/images/boy_avatar.png" alt="boy-avatar-with-sunglasses" />
@@ -46,29 +46,29 @@ export default class DashboardBillList extends Component {
       element!.appendChild(billsEmptyState);
       return;
     } else {
-      const billsList = document.createElement('div') as HTMLDivElement;
-      billsList.className = 'grid grid-cols-2 gap-4 w-full';
-      billsList.id = 'bill-list';
+      const billsList = document.createElement("div") as HTMLDivElement;
+      billsList.className = "grid grid-cols-2 gap-4 w-full";
+      billsList.id = "bill-list";
       (
-        document.querySelector('#bills-empty-state') as HTMLDivElement
+        document.querySelector("#bills-empty-state") as HTMLDivElement
       )?.remove();
-      const topSection = document.createElement('div');
+      const topSection = document.createElement("div");
       topSection.innerHTML = `
           <h1 class="text-lg font-normal text-text font-heading tracking-tight">Things to Settle</h1>
           <button
             id="add-new-bill-btn"
             class="rounded-2xl bg-surface text-primary border border-border px-4 py-1 shadow-xs font-medium font-display tracking-tight text-base whitespace-nowrap cursor-pointer">Add a bill</button>
       `;
-      topSection.className = 'flex items-center w-full justify-between';
+      topSection.className = "flex items-center w-full justify-between";
       store.state.bills.forEach((bill: ExtendedBillWithFriends) => {
-        const billCard = document.createElement('div');
+        const billCard = document.createElement("div");
         const friendsToShow = bill.bill_friends.slice(0, 3);
         const remaining = bill.bill_friends.length - 3;
         const settledFriends = getFriendsWhoHaveSettled(bill.bill_friends);
         let billFriendsInnerHTML = ``;
         const foundFriend = findFriendWithUserId(
           bill.bill_friends,
-          store.state.user.id
+          store.state.user?.id!
         );
         let general_status = `
         <span
@@ -81,9 +81,9 @@ export default class DashboardBillList extends Component {
         let user_status = `
         <span
         class="px-2 py-0.5 text-sm rounded-2xl truncate font-medium font-display ${
-          foundFriend?.payment_status === 'settled'
-            ? 'bg-success/10 text-success'
-            : 'bg-error/10 text-error'
+          foundFriend?.payment_status === "settled"
+            ? "bg-success/10 text-success"
+            : "bg-error/10 text-error"
         }"
         >
           ${
@@ -91,13 +91,13 @@ export default class DashboardBillList extends Component {
               ? `${bill.creator?.name} owes you ₦${
                   foundFriend?.amount_paid! - foundFriend?.amount_assigned!
                 }`
-              : foundFriend?.payment_status === 'owing'
+              : foundFriend?.payment_status === "owing"
               ? `You owe ₦${
                   foundFriend?.amount_assigned - (foundFriend?.amount_paid ?? 0)
                 } to ${bill.creator?.name}`
-              : foundFriend?.payment_status === 'settled'
+              : foundFriend?.payment_status === "settled"
               ? `All settled — you're square with ${bill.creator?.name}`
-              : 'Pending'
+              : "Pending"
           }
         </span>
       `;
@@ -138,7 +138,7 @@ export default class DashboardBillList extends Component {
                       ${
                         bill.creator_id === store.state.user?.id
                           ? billFriendsInnerHTML
-                          : ''
+                          : ""
                       }
                     </div>
                        <div class="flex -space-x-2">
@@ -151,7 +151,7 @@ export default class DashboardBillList extends Component {
                               >
                               ${remaining}
                             </div>`
-                              : ''
+                              : ""
                           }
                         `}
                       </div>
@@ -159,19 +159,19 @@ export default class DashboardBillList extends Component {
                  ${bill.creator_id === user?.id ? general_status : user_status}
                  ${
                    bill.creator_id !== user?.id &&
-                   findFriendWithUserId(bill.bill_friends, user?.id)
-                     ?.payment_status === 'owing'
+                   findFriendWithUserId(bill.bill_friends, user?.id!)
+                     ?.payment_status === "owing"
                      ? `<button id="settle-up-btn" class="primary-btn px-2 py-1 text-white font-medium active:scale-[0.9]">Settle up</button>`
-                     : ''
+                     : ""
                  }
                 </div>
               </div>`;
 
         billsList.appendChild(billCard);
         billCard
-          ?.querySelector('#settle-up-btn')
-          ?.addEventListener('click', () => {
-            store.dispatch('updateSelectedBill', bill);
+          ?.querySelector("#settle-up-btn")
+          ?.addEventListener("click", () => {
+            store.dispatch("updateSelectedBill", bill);
           });
       });
       element?.appendChild(topSection);

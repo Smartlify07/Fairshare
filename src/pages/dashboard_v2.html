@@ -52,18 +52,10 @@
       <!-- Main Content -->
       <section class="main-content max-w-[1440px] mx-auto">
         <div class="flex items-start justify-between mb-[var(--space-lg)]">
-          <div class="grid gap-[var(--space-sm)] w-fit max-w-[400px]">
-            <h2
-              class="text-size-2xl font-medium font-heading tracking-tight text-text"
-            >
-              Hey, Obinna
-            </h2>
-            <p class="text-size-md text-muted">
-              You've shared
-              <strong class="text-primary">₦55,250.00</strong> with friends this
-              month
-            </p>
-          </div>
+          <div
+            id="greeting-section"
+            class="grid gap-[var(--space-sm)] w-fit max-w-[400px]"
+          ></div>
 
           <button
             class="button button-outline new-bill-btn w-[150px] font-body font-medium"
@@ -73,6 +65,7 @@
         </div>
 
         <div
+          id="summary-cards"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-md)] mb-[var(--space-lg)]"
         >
           <!-- Summary Cards -->
@@ -147,7 +140,10 @@
             </div>
           </div>
 
-          <div data-summary-type="total-share-paid" class="card summary-card">
+          <div
+            data-summary-type="total-pending-balance"
+            class="card summary-card"
+          >
             <div class="card__content gap-[var(--space-md)]">
               <div class="flex items-center gap-2">
                 <div class="card-icon bg-accent-4/10 size-8 text-accent-4">
@@ -319,5 +315,7 @@
         </section>
       </section>
     </main>
+
+    <script src="../js/scripts/dashboard_v2.ts" type="module"></script>
   </body>
 </html>
