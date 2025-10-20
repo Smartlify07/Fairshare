@@ -20,7 +20,8 @@ export default class SummaryCards extends Component {
     const totalBills = getTotalBillsSplitThisMonth(bills);
     const totalAmountShared = getTotalAmountShared(bills);
     const totalAmountPaid = getTotalAmountPaidThisMonth(bills, user?.id!);
-    const pendingBalance = getPendingBalanceForThisMonth(bills, user?.id);
+    const pendingBalance = getPendingBalanceForThisMonth(bills, user?.id!);
+
     const totalBillsSummaryCard = ` <div data-summary-type="bills" class="card summary-card">
             <div class="card__content gap-[var(--space-md)]">
               <div class="flex items-center gap-2">
@@ -119,8 +120,28 @@ export default class SummaryCards extends Component {
             </div>
           </div>
 `;
-    this.element!.innerHTML = `
+    if (!user) {
+      const skeleton = `
+<div class="card summary-card animate-pulse h-[109px]">
+  <div class="card__content gap-[var(--space-md)]">
+    <div class="flex items-center gap-2">
+      <div class="card-icon bg-muted/10 size-8 rounded-md"></div>
+      <div class="h-3 w-20 bg-muted/10 rounded"></div>
+    </div>
+
+    <div class="card__info">
+      <div class="flex items-center gap-1">
+        <div class="h-6 w-40 bg-muted/10 rounded"></div>
+        <div class="h-3 w-16 bg-muted/10 rounded mt-2"></div>
+      </div>
+    </div>
+  </div>
+</div>`;
+      this.element!.innerHTML = `${skeleton} ${skeleton} ${skeleton}${skeleton}`;
+    } else {
+      this.element!.innerHTML = `
         ${totalBillsSummaryCard} ${totalAmountSharedSummaryCard} ${totalSharePaidCard} ${totalPendingBalanceCard}
     `;
+    }
   }
 }

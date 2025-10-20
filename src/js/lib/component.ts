@@ -1,7 +1,8 @@
 import Store from "../store/store";
+import type { State } from "../store/types/state.type";
 
 type Props = {
-  store: Store;
+  store: Store<State>;
   element: HTMLElement | null;
 };
 export default class Component {
