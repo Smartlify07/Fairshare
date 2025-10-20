@@ -6,7 +6,7 @@ const getUser = async () => {
   if (user) {
     window.location.href = "src/pages/dashboard_v2.html";
   } else {
-    window.location.href = "/signup.html";
+    window.location.href = "/src/pages/signup.html";
   }
 };
 
