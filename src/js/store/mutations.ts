@@ -1,5 +1,5 @@
-import type { BillFriend } from './types/bills.type';
-import type { State } from './types/state.type';
+import type { BillFriend } from "./types/bills.type";
+import type { State } from "./types/state.type";
 
 export default {
   setQueryResult(state: State, payload: any) {
@@ -15,7 +15,13 @@ export default {
     state.selectedBill = payload;
     return state;
   },
-
+  updateSelectedFriendsToSplitWith(
+    state: State,
+    payload: State["selectedFriendsToSplitWith"]
+  ) {
+    state.selectedFriendsToSplitWith = payload;
+    return state;
+  },
   updateBillStatus(state: State, payload: BillFriend) {
     const updatedBills = state.bills.map((bill) => {
       return bill.id === payload.bill_id

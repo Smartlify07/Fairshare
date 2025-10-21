@@ -6,4 +6,5 @@ export default {
   bills: [],
   friends: [],
   selectedBill: null,
+  selectedFriendsToSplitWith: [],
 } satisfies State;

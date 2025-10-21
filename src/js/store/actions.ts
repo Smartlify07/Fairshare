@@ -26,6 +26,13 @@ export default {
     context.commit("updateSelectedBill", payload);
   },
 
+  updateSelectedFriendsToSplitWith: (
+    context: StoreType,
+    payload: State["selectedFriendsToSplitWith"]
+  ) => {
+    context.commit("updateSelectedFriendsToSplitWith", payload);
+  },
+
   updateBillStatus: (context: StoreType, payload: any) => {
     context.commit("updateBillStatus", payload);
   },
