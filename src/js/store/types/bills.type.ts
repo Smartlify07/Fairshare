@@ -1,4 +1,5 @@
-import type { Profile } from './profile.type';
+import type { Friend } from "./friends.type";
+import type { Profile } from "./profile.type";
 
 export type Bill = {
   id: number;
@@ -9,10 +10,10 @@ export type Bill = {
 };
 export type BillFriend = {
   id: string;
-  bill_id: Bill['id'];
+  bill_id: Bill["id"];
   creator_id: string;
   amount_assigned: number;
-  payment_status: 'settled' | 'owing';
+  payment_status: "settled" | "owing";
   friend_id: string;
   amount_paid: null | number;
   friend: Profile;
@@ -21,4 +22,19 @@ export type BillFriend = {
 export type ExtendedBillWithFriends = Bill & {
   bill_friends: BillFriend[];
   creator: Profile;
+};
+
+export type BillFriendCreationPayload = {
+  bill_id: string;
+  friend_id: string;
+  amount_assigned: number;
+  payment_status: "owing" | "paid";
+};
+
+export type PayBillPayload = {
+  bill_id: Bill["id"];
+  amount_paid: number;
+  friend_id: Friend["id"];
+  creator_id: Bill["creator_id"];
+  payment_status: BillFriend["payment_status"];
 };

@@ -1,9 +1,9 @@
 import type {
-  Bill,
+  BillFriendCreationPayload,
   BillFriend,
   ExtendedBillWithFriends,
+  PayBillPayload,
 } from "../js/store/types/bills.type";
-import type { Friend } from "../js/store/types/friends.type";
 import { supabase } from "../supabase";
 
 export const getBills = async () => {
@@ -55,13 +55,9 @@ export const getBillFriends = async () => {
   return data;
 };
 
-export type Payload = {
-  bill_id: string;
-  friend_id: string;
-  amount_assigned: number;
-  payment_status: "owing" | "paid";
-};
-export const createBillFriends = async (payload: Payload[]) => {
+export const createBillFriends = async (
+  payload: BillFriendCreationPayload[]
+) => {
   const { data, error } = await supabase
     .from("bill_friends")
     .insert(payload)
@@ -71,14 +67,6 @@ export const createBillFriends = async (payload: Payload[]) => {
     throw new Error(error.message);
   }
   return data;
-};
-
-export type PayBillPayload = {
-  bill_id: Bill["id"];
-  amount_paid: number;
-  friend_id: Friend["id"];
-  creator_id: Bill["creator_id"];
-  payment_status: BillFriend["payment_status"];
 };
 
 export const payBill = async (payload: PayBillPayload) => {

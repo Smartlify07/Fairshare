@@ -204,6 +204,86 @@
   color: var(--color-primary);
 }
 
+/* Drawers */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(420px, 90%);
+  height: 100vh;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--duration-normal) var(--ease-default);
+  z-index: 1000;
+}
+
+.drawer[data-state="open"] {
+  transform: translateX(0);
+}
+
+.drawer__header {
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.drawer__title {
+  font-size: var(--text-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.drawer__body {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  flex: 1;
+  overflow-y: auto;
+}
+
+.drawer__footer {
+  padding: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end;
+  background: var(--color-surface);
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+  display: block;
+  font-size: var(--text-size-sm);
+}
+
+.form-group input {
+  width: 100%;
+  padding-right: var(--space-md);
+  padding-left: var(--space-md);
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: var(--text-size-sm);
+  transition: border var(--duration-fast) var(--ease-default);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-bg);
+}
+
 .divider {
   display: flex;
   align-items: center;
@@ -228,19 +308,42 @@
 }
 
 .avatar {
+  border-radius: var(--radius-sm);
+}
+.avatar img {
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-sm);
   object-fit: cover;
 }
 
 .avatar .avatar-fallback {
-  background-color: var(--color-primary);
+  background-color: color-mix(in oklab, var(--color-muted) 10%, transparent);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: var(--font-weight-medium);
-  color: var(--color-surface);
+  color: var(--color-text);
   font-size: var(--text-size-sm);
   user-select: none;
+  width: var(--width, 24px);
+  height: var(--height, 24px);
+  border-radius: var(--radius-sm);
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--ease-default) var(--duration-normal);
+  height: 100vh;
+}
+
+.backdrop[data-state="open"] {
+  opacity: 1;
+  z-index: 100;
 }

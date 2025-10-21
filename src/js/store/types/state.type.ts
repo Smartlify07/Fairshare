@@ -9,4 +9,5 @@ export type State = {
   friends: Friend[];
   selectedBill: ExtendedBillWithFriends | null;
   profile: Profile | null;
+  selectedFriendsToSplitWith: Friend["id"][];
 };

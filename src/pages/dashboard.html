@@ -4,7 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+    <link rel="stylesheet" href="../styles/dashboard.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -14,267 +22,256 @@
     />
   </head>
   <body>
-    <main id="dashboard" class="flex flex-col gap-5 min-h-screen">
-      <nav class="flex items-center px-6 py-4 justify-between">
-        <h1
-          class="text-3xl font-heading tracking-tighter font-medium text-primary"
-        >
-          FairShare
-        </h1>
+    <main class="min-h-screen bg-bg">
+      <!-- Top Nav -->
+      <nav class="top-nav">
+        <div class="nav-left flex items-center gap-2">
+          <div
+            class="rounded-sm bg-neutral-100 size-10 justify-center items-center flex"
+          >
+            F
+          </div>
+          <h1 class="font-heading text-size-lg font-medium text-text">
+            Fairshare
+          </h1>
+        </div>
 
-        <ul
-          class="flex items-center gap-4 lg:w-6/12 justify-center rounded-lg bg-bg py-4 px-4"
-        >
-          <li
-            class="px-2 py-1 rounded-lg text-primary hover:text-primary/90 text-lg font-display font-medium"
-          >
-            <a href="#"> Dashboard </a>
-          </li>
-          <li
-            class="px-2 py-1 rounded-lg text-text hover:text-primary/90 text-lg font-display font-medium"
-          >
-            <a href="friends.html"> Friends </a>
-          </li>
-          <li
-            class="px-2 py-1 rounded-lg text-text hover:text-primary/90 text-lg font-display font-medium"
-          >
-            <a href="#"> Bills </a>
-          </li>
-        </ul>
+        <div class="nav-links">
+          <a class="active" href="#">Dashboard</a>
+          <a href="bills.html">Bills</a>
+          <a href="friends.html">Friends</a>
+        </div>
 
-        <div id="user-profile"></div>
+        <div class="nav-right flex items-center gap-4">
+          <div id="user-avatar"></div>
+        </div>
       </nav>
 
-      <div id="main-section" class="p-6 w-full flex flex-col gap-6">
-        <section
-          id="greeting-section"
-          class="text-4xl font-heading flex font-normal tracking-tight text-text"
-        ></section>
-
-        <section
-          id="stats-section"
-          class="mt-6 grid md:grid-cols-3 lg:grid-cols-3 gap-2"
-        >
+      <!-- Main Content -->
+      <section class="main-content max-w-[1440px] mx-auto">
+        <div class="flex items-start justify-between mb-[var(--space-lg)]">
           <div
-            class="rounded-card bg-primary p-4 shadow-xs flex flex-col gap-2"
+            id="greeting-section"
+            class="grid gap-[var(--space-sm)] w-fit max-w-[400px]"
+          ></div>
+
+          <button
+            id="add-new-bill-btn"
+            class="button button-outline new-bill-btn w-[150px] font-body font-medium"
           >
-            <h1 class="font-heading font-medium text-surface/80 text-base">
-              You have
-            </h1>
-            <h3 class="text-6xl font-normal text-surface font-body">
-              5<span class="text-lg text-surface/80 font-display mb-3"
-                >active friends</span
-              >
-            </h3>
-            <div class="flex justify-end mt-auto items-center">
-              <img
-                class="rounded-avatar object-cover size-10"
-                src="/public/images/boy_avatar.png"
-              />
-              <img
-                class="rounded-avatar object-cover size-10 -ml-1"
-                src="/public/images/girl-avatar-2-with-sunglasses.png"
-              />
-              <img
-                class="rounded-avatar object-cover size-10 -ml-1"
-                src="/public/images/girl-avatar-1-with-sunglasses.png"
-              />
+            <i class="fa-solid fa-plus"></i> New Bill
+          </button>
+        </div>
+
+        <div
+          id="summary-cards"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-md)] mb-[var(--space-lg)]"
+        >
+          <!-- Summary Cards -->
+        </div>
+
+        <section class="grid gap-[var(--space-lg)]" id="social-stats">
+          <h1 class="text-size-2xl font-medium text-text">
+            The Split
+            <span class="text-accent-2 recap-text font-heading"> Recap </span>
+          </h1>
+          <div
+            class="grid grid-cols-2 items-start lg:grid-cols-2 gap-[var(--space-lg)]"
+          >
+            <div
+              data-type="most-splits"
+              class="card social-card bg-surface/10! row-span-1"
+            >
+              <h1>Most Splits Together</h1>
+
+              <div style="--color: var(--color-accent-1)" class="card__content">
+                <h2 class="text-size-2xl text-muted font-body tracking">
+                  <strong style="--color: var(--color-text)"
+                    >You
+                    <div
+                      style="--color: var(--color-accent-3)"
+                      class="participant-image-container"
+                    >
+                      <img
+                        src="https://api.dicebear.com/9.x/avataaars/svg?seed=you"
+                      /></div
+                  ></strong>
+                  and
+                  <strong style="--color: var(--color-accent-1)"
+                    >Chioma
+
+                    <div
+                      style="--color: var(--color-accent-1)"
+                      class="participant-image-container"
+                    >
+                      <img
+                        src="https://api.dicebear.com/9.x/avataaars/svg?seed=eve"
+                      />
+                    </div>
+                  </strong>
+                  have Shared
+                  <em>5</em> bills this month
+                </h2>
+
+                <p class="footer" style="--color: var(--color-accent-1)">
+                  <span class="text-text">-</span> Your two are on fire! 🔥🔥
+                </p>
+              </div>
+            </div>
+
+            <div class="card social-card">
+              <h1>Most Generous Friend</h1>
+
               <div
-                id="remaining-friends-count"
-                class="rounded-avatar size-10 -ml-1 bg-accent text-surface font-medium font-body flex items-center justify-center"
+                style="--color: var(--color-accent-3)"
+                class="card__content social-card"
               >
-                +2
+                <h2 class="text-size-2xl text-muted font-body tracking">
+                  <strong style="--color: var(--color-text)"
+                    >David
+                    <div
+                      style="--color: var(--color-accent-2)"
+                      class="participant-image-container"
+                    >
+                      <img
+                        src="https://api.dicebear.com/9.x/avataaars/svg?seed=david"
+                      /></div
+                  ></strong>
+                  paid
+                  <strong
+                    class="text-accent-3 font-semibold inline-flex items-center gap-1"
+                    >₦25,000
+                  </strong>
+                  worth of
+                  <strong style="--color: var(--color-text)"> bills </strong>
+                  covered this month
+                </h2>
+
+                <p class="footer">
+                  <span class="text-text">-</span> Maybe he deserves a medal🥇?
+                </p>
+              </div>
+            </div>
+
+            <div class="card social-card">
+              <h1 class="text-size-base font-heading font-normal text-muted">
+                Biggest Night Out
+              </h1>
+
+              <div style="--color: var(--color-accent-2)" class="card__content">
+                <h2 class="text-size-2xl text-muted font-body tracking">
+                  Your
+                  <span class="text-text font-semibold inline-flex"
+                    >Dinner Night</span
+                  >
+                  worth at
+                  <strong
+                    class="text-accent-2 font-semibold inline-flex items-center gap-1"
+                    >₦25,000
+                  </strong>
+                  this month
+                </h2>
+
+                <p class="footer" style="--color: var(--color-accent-2)">
+                  <span class="text-text font-medium">-</span> Was it worth it
+                  💭?
+                </p>
+              </div>
+            </div>
+
+            <div class="card social-card">
+              <h1 class="text-size-base font-heading font-normal text-muted">
+                This Week in splits
+              </h1>
+
+              <div style="--color: var(--color-accent-4)" class="card__content">
+                <ul class="grid gap-[var(--space-sm)]">
+                  <li class="flex items-center">
+                    <strong style="--color: var(--color-text)"> +3 </strong>
+                    &nbsp;new bills added
+                  </li>
+
+                  <li class="flex items-center">
+                    <strong style="--color: var(--color-text)"> 2 </strong>
+                    &nbsp;friends settled up
+                  </li>
+
+                  <li class="flex items-center">
+                    New invite from
+                    <strong style="--color: var(--color-accent-1)"
+                      >&nbsp;Ada
+                      <div
+                        style="--color: var(--color-accent-2)"
+                        class="participant-image-container"
+                      >
+                        <img
+                          alt="avatar-for-ada"
+                          src="https://api.dicebear.com/9.x/avataaars/svg?seed=ada"
+                        /></div
+                    ></strong>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div
-            class="rounded-card bg-bg border border-border shadow-xs p-4 flex flex-col gap-2"
-          >
-            <h1 class="font-heading font-medium text-text/80 text-base">
-              You have Split
-            </h1>
-            <h3 class="text-6xl font-normal text-text font-body">
-              10<span class="text-lg text-text/80 font-display mb-3"
-                >bills this month</span
-              >
-            </h3>
-            <div
-              class="flex justify-end mt-auto justify-self-end self-end items-center"
-            >
-              <svg
-                viewBox="0 0 200 200"
-                class="h-[40px]"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="var(--color-primary)"
-                  d="M28.4,-45.2C39.7,-42.7,53.6,-40.8,57.6,-33.4C61.5,-26,55.5,-13,57.4,1.1C59.3,15.2,69.2,30.4,65.8,38.9C62.5,47.3,45.9,49,32.7,48.8C19.5,48.6,9.7,46.6,-3.2,52.1C-16.1,57.7,-32.3,70.7,-38.1,66.7C-43.9,62.6,-39.3,41.3,-40.7,27.4C-42,13.4,-49.3,6.7,-54.7,-3.1C-60.1,-13,-63.8,-25.9,-60.6,-36.8C-57.5,-47.7,-47.6,-56.5,-36.4,-59C-25.1,-61.5,-12.6,-57.7,-2,-54.3C8.6,-50.8,17.1,-47.7,28.4,-45.2Z"
-                  transform="translate(100 100)"
-                />
-              </svg>
-              <svg
-                class="h-[40px]"
-                viewBox="0 0 200 200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="var(--color-secondary)"
-                  d="M31.7,-57.2C37.4,-45.6,35.8,-30.6,35.1,-19.7C34.4,-8.8,34.6,-1.9,34.6,5.7C34.7,13.3,34.5,21.5,30,25.1C25.5,28.6,16.6,27.5,6.4,37.7C-3.8,47.9,-15.2,69.4,-22.5,70.2C-29.7,71,-32.7,51,-43.3,38C-53.8,24.9,-71.8,18.9,-75.3,9.5C-78.7,0,-67.5,-12.8,-60.3,-27.1C-53.1,-41.3,-49.8,-56.9,-40.4,-66.7C-31,-76.6,-15.5,-80.8,-1.3,-78.9C13,-76.9,26,-68.8,31.7,-57.2Z"
-                  transform="translate(100 100)"
-                />
-              </svg>
-
-              <svg
-                class="h-[40px]"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="var(--color-accent)"
-                  d="M23,-24.6C36,-27.5,57,-31.5,58.6,-27C60.2,-22.5,42.5,-9.5,35.7,1.8C28.9,13.1,33.1,22.7,31.8,31.6C30.4,40.5,23.5,48.6,15.9,48C8.3,47.4,0,38,-7.5,32.5C-14.9,27.1,-21.5,25.7,-25.2,21.7C-29,17.7,-30,11.1,-26,6.7C-22,2.3,-13.1,0.2,-16.1,-13.3C-19.2,-26.8,-34.2,-51.6,-33.5,-54.3C-32.8,-57,-16.4,-37.6,-5.7,-28.7C5,-19.9,10,-21.7,23,-24.6Z"
-                  transform="translate(20 50)"
-                />
-              </svg>
-            </div>
-          </div>
-
-          <div class="rounded-card bg-accent p-4 shadow-xs flex flex-col gap-2">
-            <h1 class="font-heading font-medium text-surface/80 text-base">
-              Most active friend
-            </h1>
-            <div class="flex flex-col">
-              <h3 class="text-6xl font-normal text-surface font-body">
-                Chibuzor
-              </h3>
-              <span class="text-lg text-surface/80 font-display mb-3">
-                $120 split this month</span
-              >
-            </div>
-            <div class="flex justify-end mt-4 items-center">
-              <img
-                class="rounded-avatar object-cover size-10"
-                src="/public/images/boy_avatar.png"
-              />
-              <img
-                class="rounded-avatar object-cover size-10 -ml-1"
-                src="/public/images/girl-avatar-2-with-sunglasses.png"
-              />
-            </div>
-          </div>
         </section>
+        <div class="backdrop">
+          <div class="drawer" id="add-bill-drawer" aria-label="Add a new bill">
+            <header class="drawer__header">
+              <h2 class="drawer__title">Add New Bill</h2>
+              <button class="icon-btn" aria-label="Close drawer">✕</button>
+            </header>
 
-        <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Bills -->
-          <aside
-            id="bills-section"
-            class="rounded-card border col-span-2 border-border gap-6 flex flex-col shadow-xs p-4 items-center justify-center"
-          ></aside>
+            <form id="bill-form" class="drawer__body">
+              <!-- Bill Name -->
+              <div class="form-group">
+                <label for="bill-name">Bill Name</label>
+                <input
+                  type="text"
+                  id="bill-name"
+                  placeholder="e.g., Dinner at Yellow Plate"
+                  required
+                />
+              </div>
 
-          <aside
-            id="friend-requests"
-            class="rounded-card border self-start border-border gap-6 flex flex-col shadow-xs p-4"
-          >
-            <h1
-              class="text-lg font-normal text-text font-heading tracking-tight"
-            >
-              Friend Requests
-            </h1>
+              <!-- Amount -->
+              <div class="form-group">
+                <label for="bill-amount">Total Amount</label>
+                <input
+                  type="number"
+                  id="bill-amount"
+                  placeholder="₦0.00"
+                  inputmode="decimal"
+                  required
+                />
+              </div>
 
-            <ul id="friend-requests-list"></ul>
-          </aside>
-        </section>
-      </div>
+              <!-- Split Between -->
+              <div class="form-group">
+                <label>Split Between</label>
+                <div class="friend-selector">
+                  <button
+                    type="button"
+                    class="friend add"
+                    aria-label="Add friend"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
 
-      <div id="bill-form-popover" class="popover hidden">
-        <div class="drawer">
-          <button class="close-button">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <form class="bill-form">
-            <div class="grid grid-col gap-1">
-              <label for="title" class=""> Bill Name </label>
-              <input
-                type="text"
-                id="bill-title"
-                name="title"
-                placeholder="Enter your bill's name"
-              />
-            </div>
-            <div class="grid grid-col gap-1">
-              <label for="amount" class="">Bill Amount</label>
-              <input
-                type="number"
-                id="bill-amount"
-                name="amount"
-                placeholder="Enter your bill's amount"
-              />
-            </div>
-
-            <div
-              id="your-friends"
-              class="flex flex-col gap-2 items-start"
-            ></div>
-
-            <button class="primary-btn mt-6">Create bill</button>
-          </form>
+              <!-- Actions -->
+              <div class="drawer__footer px-0!">
+                <button type="submit" class="button w-full button-primary">
+                  Create Bill
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-
-      <div
-        id="settle-bill-modal-popover"
-        class="popover hidden items-center justify-center"
-      >
-        <div
-          id="settle-bill-modal"
-          class="rounded-2xl border relative py-6 px-6 flex flex-col justify-center border-border w-[420px] h-auto max-w-[420px] bg-surface"
-        >
-          <button class="close-button">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <!-- Header -->
-          <h1
-            class="text-2xl mb-4 font-heading font-medium text-text text-center"
-          >
-            Settle Your Bill
-          </h1>
-
-          <!-- Bill info -->
-
-          <!-- Amount input -->
-
-          <form id="payment-form">
-            <div id="amount-input-wrapper" class="flex flex-col gap-2 mb-4">
-              <label
-                for="payment-amount"
-                class="font-display text-sm font-medium text-muted"
-                >Enter amount to pay</label
-              >
-              <input
-                type="number"
-                id="payment-amount"
-                name="payment-amount"
-                placeholder="₦0.00"
-                class="rounded-lg border border-border px-3 py-2 bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
-            </div>
-
-            <!-- Info text -->
-            <p class="font-display text-sm text-muted text-center mb-4">
-              You can pay partially or settle the full amount.
-            </p>
-
-            <!-- CTA -->
-            <button
-              id="confirm-payment-btn"
-              class="primary-btn w-full font-display py-2 text-center font-medium rounded-2xl shadow-xs hover:opacity-90 transition"
-            >
-              Settle Up 💸
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <script src="../js/scripts/dashboard.ts" type="module"></script>
+      </section>
     </main>
+
+    <script src="../js/scripts/dashboard.ts" type="module"></script>
   </body>
 </html>
