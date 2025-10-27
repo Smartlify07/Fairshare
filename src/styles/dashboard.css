@@ -62,7 +62,7 @@ main {
   }
 }
 
-.new-bill-btn {
+#add-new-bill-btn {
   background: linear-gradient(
     -45deg,
     var(--color-surface) 90%,
@@ -75,7 +75,7 @@ main {
     transform var(--duration-normal) var(--ease-default);
 }
 
-.new-bill-btn:hover {
+#add-new-bill-btn:hover {
   background-size: 200% auto;
   color: var(--color-text);
   transform: translateY(-1px);
@@ -192,7 +192,7 @@ main {
   background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
 }
 
-.friend[data-state="active"] {
+.friend[data-state='active'] {
   background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
   color: var(--color-text);
   border: 1px solid var(--color-primary);
