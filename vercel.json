@@ -1,8 +1,22 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/dashboard",
+      "destination": "/src/pages/dashboard.html"
+    },
+    {
+      "source": "/",
+      "destination": "index.html"
+    },
+
+    {
+      "source": "/signup",
+      "destination": "/src/pages/signup.html"
+    },
+
+    {
+      "source": "/login",
+      "destination": "/src/pages/login.html"
     }
   ]
 }
