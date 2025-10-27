@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/dashboard",
-      "destination": "/src/pages/dashboard.html"
-    },
-    {
       "source": "/",
       "destination": "index.html"
     },
@@ -17,6 +13,18 @@
     {
       "source": "/login",
       "destination": "/src/pages/login.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/src/pages/dashboard.html"
+    },
+    {
+      "source": "/bills",
+      "destination": "/src/pages/bills.html"
+    },
+    {
+      "source": "/friends",
+      "destination": "/src/pages/friends.html"
     }
   ]
 }
