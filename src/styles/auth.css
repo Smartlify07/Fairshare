@@ -118,11 +118,11 @@ input:focus {
   border-radius: 50%;
 }
 
-.avatar {
+.auth-avatar {
   position: absolute;
   width: 64px;
   height: 64px;
-  border-radius: 50%;
+  border-radius: 50% !important;
   background: color-mix(in srgb, var(--clr) 100%, black 50%);
   color: #fff;
   font-weight: 600;
