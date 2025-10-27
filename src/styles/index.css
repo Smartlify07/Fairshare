@@ -1,5 +1,6 @@
-@import "tailwindcss";
-@import "./components.css";
+@import 'tailwindcss';
+@import './components.css';
+@import './dashboard.css';
 
 :root {
   /* 🎨 Colors */
@@ -20,8 +21,8 @@
   --color-accent-4: #3b82f6; /* vibrant blue */
 
   /* 🔠 Typography */
-  --font-heading: "Poppins", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
 
   --text-size-xs: 12px;
   --text-size-sm: 14px;
