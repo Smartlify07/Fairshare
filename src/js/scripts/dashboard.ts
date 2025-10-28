@@ -17,7 +17,7 @@ const openDrawer = () => {
   popover!.dataset.state = 'open';
   drawer!.dataset.state = 'open';
   let selectedFriends: string[] = [];
-  const { friends } = store.state;
+  const { friends, profile } = store.state;
 
   let innerHTML = '';
   friends.forEach(async (friend) => {
@@ -33,7 +33,19 @@ const openDrawer = () => {
       </div>
      <span>${friend.name}</span> 
     </button>`;
-    document.querySelector('.friend-selector')!.innerHTML = innerHTML;
+    document.querySelector('.friend-selector')!.innerHTML =
+      `<button type="button" id="${profile?.id}" class="friend">
+      <div class="avatar flex items-center justify-center gap-1">
+      ${
+        isImageBroken
+          ? `<img src=${profile?.avatar_url} alt=${
+              profile?.name + "'s avatar"
+            }/>`
+          : `<div class=${'avatar-fallback'}>${profile?.name.charAt(0)}</div>`
+      }
+      </div>
+     <span>${profile?.name}</span> 
+    </button>` + innerHTML;
 
     document.querySelectorAll('.friend').forEach((element) => {
       const button = element as HTMLButtonElement;
