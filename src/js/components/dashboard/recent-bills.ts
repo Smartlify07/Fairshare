@@ -78,7 +78,7 @@ export default class RecentBills extends Component {
                        <div
                         class="size-8 avatar -bottom-4 text-text text-sm flex items-center justify-center left-5 bg-neutral-200 text-center rounded-full! border-border border -ml-3 z-10"
                       >
-                        +2
+                        +${bill.bill_friends.length - 2}
                       </div>
                     </div>
                   </div>
