@@ -1,51 +1,53 @@
-import SummaryCards from "../components/dashboard/summary-cards";
-import SummaryText from "../components/dashboard/greeting-section";
-import store from "../store";
-import UserAvatar from "../components/dashboard/user-avatar";
-import { checkIsBrokenImage } from "../utils/images.utils";
-import { createBill, createBillFriends } from "../../api/bills";
-import type { BillFriendCreationPayload } from "../store/types/bills.type";
+import SummaryCards from '../components/dashboard/summary-cards';
+import SummaryText from '../components/dashboard/greeting-section';
+import store from '../store';
+import UserAvatar from '../components/dashboard/user-avatar';
+import { checkIsBrokenImage } from '../utils/images.utils';
+import { createBill, createBillFriends } from '../../api/bills';
+import type { BillFriendCreationPayload } from '../store/types/bills.type';
+import RecentBills from '../components/dashboard/recent-bills';
+import NeedToPay from '../components/dashboard/need-to-pay';
 
-const newBillBtn = document.querySelector("#add-new-bill-btn");
-const drawer = document.querySelector(".drawer") as HTMLDivElement;
-const closeBtn = document.querySelector(".icon-btn") as HTMLButtonElement;
-const popover = document.querySelector(".backdrop") as HTMLDivElement;
+const newBillBtn = document.querySelector('#add-new-bill-btn');
+const drawer = document.querySelector('.drawer') as HTMLDivElement;
+const closeBtn = document.querySelector('.icon-btn') as HTMLButtonElement;
+const popover = document.querySelector('.backdrop') as HTMLDivElement;
 
 const openDrawer = () => {
-  popover!.dataset.state = "open";
-  drawer!.dataset.state = "open";
+  popover!.dataset.state = 'open';
+  drawer!.dataset.state = 'open';
   let selectedFriends: string[] = [];
   const { friends } = store.state;
 
-  let innerHTML = "";
+  let innerHTML = '';
   friends.forEach(async (friend) => {
-    const isImageBroken = await checkIsBrokenImage(friend?.avatar_url ?? "");
+    const isImageBroken = await checkIsBrokenImage(friend?.avatar_url ?? '');
     innerHTML += `
     <button type="button" id="${friend.id}" class="friend">
       <div class="avatar flex items-center justify-center gap-1">
       ${
         isImageBroken
           ? `<img src=${friend?.avatar_url} alt=${friend.name + "'s avatar"}/>`
-          : `<div class=${"avatar-fallback"}>${friend.name.charAt(0)}</div>`
+          : `<div class=${'avatar-fallback'}>${friend.name.charAt(0)}</div>`
       }
       </div>
-     <span>${friend.name}</span>
+     <span>${friend.name}</span> 
     </button>`;
-    document.querySelector(".friend-selector")!.innerHTML = innerHTML;
+    document.querySelector('.friend-selector')!.innerHTML = innerHTML;
 
-    document.querySelectorAll(".friend").forEach((element) => {
+    document.querySelectorAll('.friend').forEach((element) => {
       const button = element as HTMLButtonElement;
-      button.addEventListener("click", () => {
-        if (button.dataset.state === "active") {
-          button.dataset.state = "inactive";
+      button.addEventListener('click', () => {
+        if (button.dataset.state === 'active') {
+          button.dataset.state = 'inactive';
           selectedFriends = selectedFriends.filter(
             (friend) => friend !== element.id
           );
-          store.dispatch("updateSelectedFriendsToSplitWith", selectedFriends);
+          store.dispatch('updateSelectedFriendsToSplitWith', selectedFriends);
         } else {
-          button.dataset.state = "active";
+          button.dataset.state = 'active';
           selectedFriends.push(element.id);
-          store.dispatch("updateSelectedFriendsToSplitWith", selectedFriends);
+          store.dispatch('updateSelectedFriendsToSplitWith', selectedFriends);
         }
       });
     });
@@ -53,26 +55,26 @@ const openDrawer = () => {
 };
 
 const closeDrawer = () => {
-  popover!.dataset.state = "close";
-  drawer!.dataset.state = "close";
+  popover!.dataset.state = 'close';
+  drawer!.dataset.state = 'close';
 };
 
-const billsForm = document.querySelector("#bill-form");
+const billsForm = document.querySelector('#bill-form');
 
-billsForm?.addEventListener("submit", async (e) => {
+billsForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   if (e.target instanceof HTMLElement) {
     const billTitleInput = e.target!.querySelector(
-      "#bill-name"
+      '#bill-name'
     ) as HTMLInputElement;
     const amountInput = e.target!.querySelector(
-      "#bill-amount"
+      '#bill-amount'
     ) as HTMLInputElement;
     const { selectedFriendsToSplitWith, user } = store.state;
 
     if (
-      billTitleInput.value.trim() === "" ||
-      amountInput.value.trim() === "" ||
+      billTitleInput.value.trim() === '' ||
+      amountInput.value.trim() === '' ||
       selectedFriendsToSplitWith.length === 0
     ) {
       return;
@@ -88,24 +90,24 @@ billsForm?.addEventListener("submit", async (e) => {
         creator_id: user?.id!,
         amount_assigned:
           Number(amountInput.value) / selectedFriendsToSplitWith?.length!,
-        payment_status: "owing" as BillFriendCreationPayload["payment_status"],
+        payment_status: 'owing' as BillFriendCreationPayload['payment_status'],
       }));
       const billFriendsResponse = await createBillFriends(payload);
       const combinedResponse = {
         ...response,
         bill_friends: billFriendsResponse,
       };
-      store.dispatch("createBill", combinedResponse);
-      billTitleInput.value = "";
-      amountInput.value = "";
-      store.dispatch("updateSelectedFriendsToSplitWith", []);
+      store.dispatch('createBill', combinedResponse);
+      billTitleInput.value = '';
+      amountInput.value = '';
+      store.dispatch('updateSelectedFriendsToSplitWith', []);
       closeDrawer();
     }
   }
 });
 
-newBillBtn?.addEventListener("click", openDrawer);
-closeBtn?.addEventListener("click", closeDrawer);
+newBillBtn?.addEventListener('click', openDrawer);
+closeBtn?.addEventListener('click', closeDrawer);
 
 const SummaryCardsInstance = new SummaryCards();
 SummaryCardsInstance.render();
@@ -116,9 +118,15 @@ SummaryTextInstance.render();
 const AvatarInstance = new UserAvatar();
 AvatarInstance.render();
 
-window.addEventListener("DOMContentLoaded", () => {
-  store.query("getBills");
-  store.query("getUser");
-  store.query("getUserProfile");
-  store.query("getFriends");
+const RecentBillsInstance = new RecentBills();
+RecentBillsInstance.render();
+
+const NeedToPayInstance = new NeedToPay();
+NeedToPayInstance.render();
+
+window.addEventListener('DOMContentLoaded', () => {
+  store.query('getBills');
+  store.query('getUser');
+  store.query('getUserProfile');
+  store.query('getFriends');
 });
