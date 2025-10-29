@@ -27,7 +27,6 @@ document!.addEventListener('click', (e) => {
         trigger!.setAttribute('aria-expanded', 'false');
         options!.dataset.state = 'closed';
         // TODO: Hook this into your filtering logic
-        console.log('Selected:', item.dataset.value);
         store.dispatch('updateSelectedFilter', item.dataset.value);
         document.querySelector('#filter-selected')!.textContent =
           item.textContent;
