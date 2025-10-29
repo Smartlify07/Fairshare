@@ -89,10 +89,10 @@ export default class NeedToPay extends Component {
 
               <div class="border-t border-t-border w-full flex items-center justify-between pt-4">
                 <p class="text-muted text-sm font-medium">
-                  You owe <span class="text-accent-1">₦${owedAmount.toLocaleString()}</span>
+                Total <span class="text-text">₦${bill.amount.toLocaleString()}</span>
                 </p>
                 <p class="text-muted text-sm font-medium">
-                  Total <span class="text-text">₦${bill.amount.toLocaleString()}</span>
+                  You owe <span class="text-accent-1">₦${owedAmount.toLocaleString()}</span>
                 </p>
               </div>
             </div>`;

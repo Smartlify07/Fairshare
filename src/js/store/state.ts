@@ -1,4 +1,4 @@
-import type { State } from "./types/state.type";
+import type { State } from './types/state.type';
 
 export default {
   user: null,
@@ -7,4 +7,5 @@ export default {
   friends: [],
   selectedBill: null,
   selectedFriendsToSplitWith: [],
+  selectedFilter: 'all',
 } satisfies State;

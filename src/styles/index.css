@@ -10,7 +10,7 @@
   --color-accent: #ff6b6b;
   --color-success: #56d88a;
   --color-warning: #ffca3a;
-  --color-error: #ff4d4d;
+  --color-error: #ec1d1d;
   --color-text: #1e1e1e;
   --color-muted: #6b6b6b;
   --color-border: #e5e5e5;
@@ -133,4 +133,14 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#filter-dropdown[data-state='open'] #filter-options {
+  opacity: 1;
+  scale: 1;
+  pointer-events: auto;
+}
+
+#filter-dropdown[data-state='open'] [data-chevron] {
+  transform: rotate(180deg);
 }
