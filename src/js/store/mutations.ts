@@ -1,5 +1,5 @@
-import type { BillFriend } from "./types/bills.type";
-import type { State } from "./types/state.type";
+import type { BillFriend } from './types/bills.type';
+import type { State } from './types/state.type';
 
 export default {
   setQueryResult(state: State, payload: any) {
@@ -17,7 +17,7 @@ export default {
   },
   updateSelectedFriendsToSplitWith(
     state: State,
-    payload: State["selectedFriendsToSplitWith"]
+    payload: State['selectedFriendsToSplitWith']
   ) {
     state.selectedFriendsToSplitWith = payload;
     return state;
@@ -36,6 +36,10 @@ export default {
         : bill;
     });
     state.bills = updatedBills;
+    return state;
+  },
+  updateSelectedFilter(state: State, payload: State['selectedFilter']) {
+    state.selectedFilter = payload;
     return state;
   },
 };

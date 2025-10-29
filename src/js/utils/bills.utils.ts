@@ -44,5 +44,30 @@ export const calculateUserOwedAmount = (
 ): number => {
   const userEntry = findFriendWithUserId(billFriends, currentUserId);
   if (!userEntry) return 0;
-  return userEntry.amount_assigned - (userEntry?.amount_paid || 0) || 0; // assuming your table tracks how much each person owes
+  return userEntry.amount_assigned - (userEntry?.amount_paid || 0) || 0;
+};
+
+export const filterBills = (
+  bills: ExtendedBillWithFriends[],
+  filter: 'all' | 'as_creator' | 'you_owe',
+  currentUserId: User['id']
+): ExtendedBillWithFriends[] => {
+  switch (filter) {
+    case 'as_creator':
+      return bills.filter((bill) => bill.creator_id === currentUserId);
+    case 'you_owe':
+      return bills.filter((bill) => {
+        const userEntry = findFriendWithUserId(
+          bill.bill_friends,
+          currentUserId
+        );
+        return userEntry
+          ? userEntry.amount_assigned - (userEntry.amount_paid || 0) > 0
+          : false;
+      });
+    case 'all':
+      return bills;
+    default:
+      return bills;
+  }
 };

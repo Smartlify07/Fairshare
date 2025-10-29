@@ -12,7 +12,6 @@ const newBillBtn = document.querySelector('#add-new-bill-btn');
 const drawer = document.querySelector('.drawer') as HTMLDivElement;
 const closeBtn = document.querySelector('.icon-btn') as HTMLButtonElement;
 const popover = document.querySelector('.backdrop') as HTMLDivElement;
-
 const openDrawer = () => {
   popover!.dataset.state = 'open';
   drawer!.dataset.state = 'open';

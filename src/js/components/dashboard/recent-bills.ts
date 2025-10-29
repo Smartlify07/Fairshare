@@ -18,15 +18,15 @@ export default class RecentBills extends Component {
     const { bills } = store.state;
     const billsToShow = sortBillsByRecent(bills).slice(0, 3);
     let innerHTML = '';
-
+    const pathname = window.location.pathname;
     if (billsToShow.length === 0) {
       innerHTML = `
          <div class="card grid gap-[var(--space-lg)] recent-bills-card">
             <div class="flex items-center justify-between">
-              <h1 class="text-size-base font-heading text-text">
+            <h1 class="text-size-lg font-heading text-text">
                 Recent Bills
               </h1>
-              <button class="text-sm text-muted">See more</button>
+              <a href="bills.html" id="see-more-bills" class="text-sm text-muted">See more</a>
             </div>
             <div class="card__content">
               <p class="text-muted text-center">
@@ -100,10 +100,16 @@ export default class RecentBills extends Component {
       innerHTML = `
      <div class="card grid gap-[var(--space-lg)] recent-bills-card">
             <div class="flex items-center justify-between">
-              <h1 class="text-size-base font-heading text-text">
+            <h1 class="text-size-lg font-heading text-text">
                 Recent Bills
               </h1>
-              <button class="text-sm text-muted">See more</button>
+              ${
+                pathname.includes('dashboard.html')
+                  ? `
+              <a href="bills.html" class="text-sm text-muted">See more</a>
+                `
+                  : ''
+              }
             </div>
             <div class="card__content">
               <ul id="recent-bills-list" class="grid gap-[var(--space-sm)]">
