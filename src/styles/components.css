@@ -219,6 +219,7 @@
   transform: translateX(100%);
   transition: transform var(--duration-normal) var(--ease-default);
   z-index: 1000;
+  overflow-y: auto;
 }
 
 .drawer[data-state='open'] {

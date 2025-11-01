@@ -44,6 +44,7 @@ export default class RecentBills extends Component {
             bill.bill_friends,
             bill.amount
           );
+          const remainingFriends = bill.bill_friends.length - 2;
 
           // Format: "Dec 15, 2023"
           const formattedDate = format(now, 'MMM dd, yyyy');
@@ -76,7 +77,9 @@ export default class RecentBills extends Component {
                       ${friendsAvatars}
 
                        <div
-                        class="size-8 avatar -bottom-4 text-text text-sm flex items-center justify-center left-5 bg-neutral-200 text-center rounded-full! border-border border -ml-3 z-10"
+                        class="size-8 avatar -bottom-4 text-text text-sm flex items-center justify-center left-5 bg-neutral-200 text-center rounded-full! border-border border -ml-3 z-10 ${
+                          remainingFriends <= 0 ? 'hidden' : ''
+                        }"
                       >
                         +${bill.bill_friends.length - 2}
                       </div>
