@@ -50,7 +50,7 @@ export default class NeedToPay extends Component {
           const now = new Date(bill.created_at);
           const formattedDate = format(now, 'MMM dd, yyyy');
           const formattedTime = format(now, 'hh:mma');
-
+          const remainingFriends = bill.bill_friends.length - 2;
           const owedAmount = calculateUserOwedAmount(
             bill.bill_friends,
             user?.id!
@@ -80,7 +80,9 @@ export default class NeedToPay extends Component {
                 <div class="relative friends-avatars flex items-center">
                   ${friendsAvatars}
                   <div
-                    class="size-8 avatar -bottom-4 text-text text-sm flex items-center justify-center left-5 bg-neutral-200 text-center rounded-full! border-border border -ml-3 z-10"
+                    class="size-8 avatar -bottom-4 text-text text-sm flex items-center justify-center left-5 bg-neutral-200 text-center rounded-full! border-border border -ml-3 z-10 ${
+                      remainingFriends <= 0 ? 'hidden' : ''
+                    }"
                   >
                     +${bill.bill_friends.length - 2}
                   </div>

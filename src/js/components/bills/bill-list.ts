@@ -30,7 +30,7 @@ export default class BillList extends Component {
             data-state="closed"
             class="flex items-center justify-between gap-2 bg-surface border border-border rounded-md px-[var(--space-md)] py-[var(--space-sm)] text-sm font-medium text-text hover:bg-surface-hover focus:outline-none"
           >
-            <span id="filter-selected">All Bills</span>
+            <span id="filter-selected">Everything</span>
             <svg
               class="w-4 h-4 text-muted transition-transform duration-200"
               data-chevron
@@ -54,19 +54,19 @@ export default class BillList extends Component {
               class="dropdown-item px-[var(--space-md)] py-[var(--space-sm)] rounded-md cursor-pointer text-sm text-text hover:bg-surface-hover"
               data-value="all"
             >
-              All Bills
+              Everything
             </li>
             <li
               class="dropdown-item px-[var(--space-md)] py-[var(--space-sm)] rounded-md cursor-pointer text-sm text-text hover:bg-surface-hover"
               data-value="you_owe"
             >
-              You Owe
+              What You Owe
             </li>
             <li
               class="dropdown-item px-[var(--space-md)] py-[var(--space-sm)] rounded-md cursor-pointer text-sm text-text hover:bg-surface-hover"
               data-value="as_creator"
             >
-              You Created
+              Created by You
             </li>
           </ul>   
         </div>`;

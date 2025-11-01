@@ -1,7 +1,9 @@
-import { getMonth } from "date-fns";
-import type { ExtendedBillWithFriends } from "../store/types/bills.type";
-import { getMonthFromIsoString } from "./date.utils";
-import type { User } from "@supabase/supabase-js";
+import { getMonth, getYear } from 'date-fns';
+import type { ExtendedBillWithFriends } from '../store/types/bills.type';
+import { getMonthFromIsoString } from './date.utils';
+import type { User } from '@supabase/supabase-js';
+import currency from 'currency.js';
+import { findFriendWithUserId } from './bills.utils';
 
 export const getTotalBillsSplitThisMonth = (
   bills: ExtendedBillWithFriends[]
@@ -12,51 +14,75 @@ export const getTotalBillsSplitThisMonth = (
   ).length;
 };
 
-export const getTotalAmountShared = (bills: ExtendedBillWithFriends[]) => {
-  const currentMonth = getMonth(new Date());
+export const getTotalAmountShared = (
+  bills: ExtendedBillWithFriends[]
+): number => {
+  const now = new Date();
+  const currentMonth = getMonth(now);
+  const currentYear = getYear(now);
 
-  return bills
-    .filter((bill) => getMonthFromIsoString(bill.created_at) === currentMonth)
-    .reduce((acc, curr) => acc + curr.amount, 0);
+  return bills.reduce((total, bill) => {
+    const billDate = new Date(bill.created_at);
+    if (
+      getMonth(billDate) !== currentMonth ||
+      getYear(billDate) !== currentYear
+    ) {
+      return total;
+    }
+
+    return total.add(bill.amount || 0);
+  }, currency(0)).value;
 };
 
 export const getTotalAmountPaidThisMonth = (
   bills: ExtendedBillWithFriends[],
-  user_id: User["id"]
-) => {
-  const currentMonth = getMonth(new Date());
+  user_id: User['id']
+): number => {
+  const now = new Date();
+  const currentMonth = getMonth(now);
+  const currentYear = getYear(now);
 
   return bills.reduce((total, bill) => {
-    if (getMonthFromIsoString(bill.created_at) !== currentMonth) {
+    const billDate = new Date(bill.created_at);
+    if (
+      getMonth(billDate) !== currentMonth ||
+      getYear(billDate) !== currentYear
+    ) {
       return total;
     }
 
-    for (let friend of bill.bill_friends) {
-      if (friend.amount_paid !== null && friend.friend_id === user_id) {
-        total += friend.amount_paid;
-      }
-    }
-    return total;
-  }, 0);
+    const friend = findFriendWithUserId(bill.bill_friends, user_id);
+    if (!friend || friend.amount_paid == null) return total;
+
+    return total.add(friend.amount_paid);
+  }, currency(0)).value;
 };
 
 export const getPendingBalanceForThisMonth = (
   bills: ExtendedBillWithFriends[],
-  user_id: User["id"]
+  user_id: User['id']
 ) => {
-  const currentMonth = getMonth(new Date());
+  const now = new Date();
+  const currentMonth = getMonth(now);
+  const currentYear = getYear(now);
+
   return bills.reduce((total, bill) => {
-    if (getMonthFromIsoString(bill.created_at) !== currentMonth) {
+    const billDate = new Date(bill.created_at);
+
+    if (
+      getMonthFromIsoString(bill.created_at) !== currentMonth ||
+      getYear(billDate) !== currentYear
+    ) {
       return total;
     }
-    for (let friend of bill.bill_friends) {
-      if (
-        friend.friend_id === user_id &&
-        friend.amount_paid! <= friend.amount_assigned
-      ) {
-        total += friend.amount_assigned - (friend.amount_paid ?? 0);
-      }
-    }
-    return total;
-  }, 0);
+
+    const userFriend = findFriendWithUserId(bill.bill_friends, user_id);
+    if (!userFriend) return total;
+
+    const assigned = currency(userFriend.amount_assigned || 0);
+    const paid = currency(userFriend.amount_paid || 0);
+    const pending = assigned.subtract(paid);
+
+    return total.add(Math.max(0, pending.value));
+  }, currency(0)).value;
 };

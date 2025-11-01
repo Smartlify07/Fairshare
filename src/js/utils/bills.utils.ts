@@ -3,6 +3,7 @@ import type {
   BillFriend,
   ExtendedBillWithFriends,
 } from '../store/types/bills.type';
+import currency from 'currency.js';
 
 export const getRemainingFriends = (friends: BillFriend[], max: number) => {
   if (!friends || !max) {
@@ -32,11 +33,14 @@ export const calculateTotalPaidPercentage = (
   bill_friends: BillFriend[],
   totalAmount: number
 ) => {
-  const totalPaidAmount = bill_friends.reduce(
-    (acc, curr) => acc + (curr.amount_paid || 0),
-    0
+  if (!totalAmount || totalAmount <= 0) return 0;
+  const totalPaid = bill_friends.reduce(
+    (acc, curr) => acc.add(curr.amount_paid || 0),
+    currency(0)
   );
-  return ((totalPaidAmount / totalAmount) * 100).toFixed(2);
+  const percentage = totalPaid.divide(totalAmount).multiply(100);
+
+  return Number(percentage.value.toFixed(2));
 };
 
 export const calculateUserOwedAmount = (
@@ -45,7 +49,35 @@ export const calculateUserOwedAmount = (
 ): number => {
   const userEntry = findFriendWithUserId(billFriends, currentUserId);
   if (!userEntry) return 0;
-  return userEntry.amount_assigned - (userEntry?.amount_paid || 0) || 0;
+  const assigned = currency(userEntry.amount_assigned || 0);
+  const paid = currency(userEntry.amount_paid || 0);
+  const owed = assigned.subtract(paid);
+  return Math.max(0, owed.value);
+};
+
+export const splitBill = (totalAmount: number, friendsCount: number) => {
+  const total = currency(totalAmount, { precision: 2 });
+  const baseShare = total.divide(friendsCount); // evenly divides
+  const payments = [];
+
+  // Step 1: Compute base shares (floored to smallest unit)
+  for (let i = 0; i < friendsCount; i++) {
+    payments.push(baseShare);
+  }
+
+  // Step 2: Compute correction for rounding drift
+  const sumShares = payments.reduce((sum, p) => sum.add(p), currency(0));
+
+  const diff = total.subtract(sumShares);
+
+  // Step 3: Distribute any leftover cents/kobo
+  let remainderCents = Math.round(diff.intValue); // in cents/kobo
+  for (let i = 0; remainderCents > 0; i++, remainderCents--) {
+    payments[i] = payments[i].add(currency(0.01));
+  }
+
+  // Step 4: Return clean formatted strings
+  return payments.map((p) => p.value);
 };
 
 export const filterBills = (

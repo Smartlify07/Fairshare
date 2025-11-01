@@ -3,10 +3,11 @@ import SummaryText from '../components/dashboard/greeting-section';
 import store from '../store';
 import UserAvatar from '../components/dashboard/user-avatar';
 import { checkIsBrokenImage } from '../utils/images.utils';
-import { createBill, createBillFriends } from '../../api/bills';
+import { createBill, createBillFriends } from '../../api/bills.api';
 import type { BillFriendCreationPayload } from '../store/types/bills.type';
 import RecentBills from '../components/dashboard/recent-bills';
 import NeedToPay from '../components/dashboard/need-to-pay';
+import { splitBill } from '../utils/bills.utils';
 
 const newBillBtn = document.querySelector('#add-new-bill-btn');
 const drawer = document.querySelector('.drawer') as HTMLDivElement;
@@ -95,14 +96,18 @@ billsForm?.addEventListener('submit', async (e) => {
         billTitleInput.value,
         Number(amountInput.value)
       );
-      const payload = [...selectedFriendsToSplitWith].map((id) => ({
+      const amount_assigned = splitBill(
+        Number(amountInput.value),
+        selectedFriendsToSplitWith.length
+      );
+      const payload = [...selectedFriendsToSplitWith].map((id, index) => ({
         friend_id: id as string,
         bill_id: response.id,
         creator_id: user?.id!,
-        amount_assigned:
-          Number(amountInput.value) / selectedFriendsToSplitWith?.length!,
+        amount_assigned: amount_assigned[index],
         payment_status: 'owing' as BillFriendCreationPayload['payment_status'],
       }));
+
       const billFriendsResponse = await createBillFriends(payload);
       const combinedResponse = {
         ...response,

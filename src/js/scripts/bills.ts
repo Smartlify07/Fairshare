@@ -1,4 +1,4 @@
-import { payBill } from '../../api/bills';
+import { payBill } from '../../api/bills.api';
 import BillList from '../components/bills/bill-list';
 import UserAvatar from '../components/dashboard/user-avatar';
 import store from '../store';
@@ -16,8 +16,6 @@ import {
   getMonthDayYearFromIsoString,
   getTimeFromIsoString,
 } from '../utils/date.utils';
-
-// const trigger = document.getElementById('filter-trigger');
 
 document!.addEventListener('click', (e) => {
   const trigger =
