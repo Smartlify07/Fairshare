@@ -32,10 +32,11 @@ export const calculateTotalPaidPercentage = (
   bill_friends: BillFriend[],
   totalAmount: number
 ) => {
-  const totalPaidAmount = bill_friends
-    .filter((friend) => friend.payment_status === 'settled')
-    .reduce((acc, curr) => acc + (curr.amount_paid || 0), 0);
-  return (totalPaidAmount / totalAmount) * 100;
+  const totalPaidAmount = bill_friends.reduce(
+    (acc, curr) => acc + (curr.amount_paid || 0),
+    0
+  );
+  return ((totalPaidAmount / totalAmount) * 100).toFixed(2);
 };
 
 export const calculateUserOwedAmount = (
@@ -70,4 +71,11 @@ export const filterBills = (
     default:
       return bills;
   }
+};
+
+export const getBillOwner = (
+  bill_friends: BillFriend[],
+  creator_id: string
+) => {
+  return bill_friends.find((friend) => friend.friend_id === creator_id);
 };
