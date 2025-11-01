@@ -67,8 +67,8 @@ const openDrawer = () => {
 };
 
 const closeDrawer = () => {
-  popover!.dataset.state = 'close';
-  drawer!.dataset.state = 'close';
+  popover!.dataset.state = 'closed';
+  drawer!.dataset.state = 'closed';
 };
 
 const billsForm = document.querySelector('#bill-form');
@@ -122,8 +122,19 @@ billsForm?.addEventListener('submit', async (e) => {
   }
 });
 
-newBillBtn?.addEventListener('click', openDrawer);
 closeBtn?.addEventListener('click', closeDrawer);
+newBillBtn?.addEventListener('click', openDrawer);
+document.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement;
+  if (
+    target instanceof Node &&
+    !drawer.contains(target) &&
+    !target.matches('#add-new-bill-btn') &&
+    popover.dataset.state === 'open'
+  ) {
+    closeDrawer();
+  }
+});
 
 const SummaryCardsInstance = new SummaryCards();
 SummaryCardsInstance.render();

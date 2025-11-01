@@ -338,13 +338,14 @@
   width: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
-  z-index: -1;
+  z-index: 100;
   opacity: 0;
-  transition: opacity var(--ease-default) var(--duration-normal);
+  transition: opacity var(--duration-normal) var(--ease-default);
   height: 100vh;
+  pointer-events: none;
 }
 
 .backdrop[data-state='open'] {
   opacity: 1;
-  z-index: 100;
+  pointer-events: auto;
 }
