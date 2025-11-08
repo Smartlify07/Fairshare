@@ -1,11 +1,11 @@
-import Component from "../../lib/component";
-import store from "../../store";
-import { getTotalAmountShared } from "../../utils/dashboard.utils";
+import Component from '../../lib/component';
+import store from '../../store';
+import { getTotalAmountShared } from '../../utils/dashboard.utils';
 
 export default class SummaryText extends Component {
   constructor() {
     super({
-      element: document.querySelector("#greeting-section"),
+      element: document.querySelector('#greeting-section'),
       store: store,
     });
   }
@@ -17,7 +17,7 @@ export default class SummaryText extends Component {
       if (store.state.user) {
         this.element.innerHTML = `
              <h2
-              class="text-size-2xl font-medium font-heading tracking-tight text-text"
+              class="text-size-2xl font-medium font-heading text-text"
             >
               Hey, ${store.state.user?.user_metadata.name}
             </h2>

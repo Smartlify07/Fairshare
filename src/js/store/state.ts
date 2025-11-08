@@ -5,7 +5,9 @@ export default {
   profile: null,
   bills: [],
   friends: [],
+  suggestedFriends: [],
   selectedBill: null,
   selectedFriendsToSplitWith: [],
   selectedFilter: 'all',
+  friendRequests: [],
 } satisfies State;

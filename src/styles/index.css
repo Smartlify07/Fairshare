@@ -144,3 +144,22 @@ body {
 #filter-dropdown[data-state='open'] [data-chevron] {
   transform: rotate(180deg);
 }
+
+.peeling-btn {
+  background: linear-gradient(
+    -45deg,
+    var(--color-surface) 90%,
+    var(--color-primary) 0%
+  );
+  background-size: 150% auto;
+  color: var(--color-text);
+  transition: background-size var(--duration-normal) var(--ease-default),
+    color var(--duration-normal) var(--ease-default),
+    transform var(--duration-normal) var(--ease-default);
+}
+
+.peeling-btn:hover {
+  background-size: 200% auto;
+  color: var(--color-text);
+  transform: translateY(-1px);
+}

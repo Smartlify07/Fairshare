@@ -72,13 +72,13 @@ export default class BillList extends Component {
         </div>`;
     if (sortedBills.length === 0) {
       innerHTML = `
-         <div class="card grid gap-[var(--space-lg)] recent-bills-card">
-            <div class="flex items-center justify-between">
-              <h1 class="text-size-2xl font-heading text-text">
+          <div class="flex items-center mb-[var(--space-lg)] justify-between">
+              <h1 class="text-size-xl font-heading text-text">
                 Your Bills
               </h1>
               ${triggerInner}
             </div>
+         <div class="card grid recent-bills-card">
             <div class="card__content">
               <p class="text-muted text-center">
               ${
@@ -172,13 +172,17 @@ export default class BillList extends Component {
       });
 
       innerHTML = `
-     <div class="card grid gap-[var(--space-lg)] recent-bills-card">
-            <div id="header-container" class="flex items-center justify-between">
-            <h1 class="text-size-2xl font-heading text-text">
+      <div id="header-container" class="flex mb-[var(--space-lg)] items-center justify-between">
+      
+              <h1 class="text-size-xl font-heading text-text">
                 Your Bills
               </h1>
-                ${triggerInner}
+      ${triggerInner}
+
             </div>
+                
+     <div class="card grid recent-bills-card">
+         
             <div class="card__content">
               <ul id="recent-bills-list" class="grid md:grid-cols-2 gap-[var(--space-md)]">
                 ${billsListHTML}

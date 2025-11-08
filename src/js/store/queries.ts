@@ -1,6 +1,10 @@
 import { getProfile } from '../../api/auth';
 import { getBills } from '../../api/bills.api';
-import { getFriends } from '../../api/friends';
+import {
+  getFriendRequests,
+  getFriends,
+  getSuggestedFriends,
+} from '../../api/friends.api';
 import { supabase } from '../../supabase';
 import type { State } from './types/state.type';
 
@@ -28,6 +32,20 @@ export default {
     await this.getUser(state);
     const friends = await getFriends(state.user?.id!);
     const newState = { ...state, friends };
+    return newState;
+  },
+
+  async getSuggestedFriends(state: State) {
+    await this.getUser(state);
+    const suggestedFriends = await getSuggestedFriends(state?.user?.id ?? '');
+    const newState = { ...state, suggestedFriends };
+    return newState;
+  },
+
+  async getFriendRequests(state: State) {
+    await this.getUser(state);
+    const friendRequests = await getFriendRequests(state?.user?.id ?? '');
+    const newState = { ...state, friendRequests };
     return newState;
   },
 };
