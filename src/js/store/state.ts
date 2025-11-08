@@ -9,4 +9,5 @@ export default {
   selectedBill: null,
   selectedFriendsToSplitWith: [],
   selectedFilter: 'all',
+  friendRequests: [],
 } satisfies State;
