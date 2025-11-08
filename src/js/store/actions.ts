@@ -18,6 +18,14 @@ export default {
     context.query('getFriends');
   },
 
+  getSuggestedFriends: (context: StoreType) => {
+    context.query('getSuggestedFriends');
+  },
+
+  getFriendRequests: (context: StoreType) => {
+    context.query('getFriendRequests');
+  },
+
   createBill: (context: StoreType, payload: any) => {
     context.commit('createBill', payload);
   },

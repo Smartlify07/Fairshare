@@ -1,10 +1,10 @@
-import Component from "../../lib/component";
-import store from "../../store";
+import Component from '../../lib/component';
+import store from '../../store';
 
 export default class UserAvatar extends Component {
   constructor() {
     super({
-      element: document.querySelector("#user-avatar"),
+      element: document.querySelector('#user-avatar'),
       store: store,
     });
   }
@@ -15,7 +15,7 @@ export default class UserAvatar extends Component {
     const profileImage = `
           <img alt="${user?.user_metadata?.name + "'s avatar"}" src="${
       user?.user_metadata?.picture
-    }" class="size-8 avatar"/>
+    }" class="size-8 rounded-full! avatar"/>
         `;
     const profilePlaceHolder = `
           <div class="avatar-fallback">

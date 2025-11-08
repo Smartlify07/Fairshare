@@ -4,77 +4,55 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fairshare | Friends</title>
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <main class="min-h-screen flex flex-col">
-      <nav class="flex items-center px-6 py-4 justify-between">
-        <h1
-          class="text-3xl font-heading tracking-tighter font-medium text-primary"
-        >
-          FairShare
-        </h1>
+    <main class="min-h-screen bg-bg antialiased">
+      <!-- Top Nav -->
+      <nav class="top-nav">
+        <div class="nav-left flex items-center gap-2">
+          <div
+            class="rounded-sm bg-neutral-100 size-10 justify-center items-center flex"
+          >
+            F
+          </div>
+          <h1 class="font-heading text-size-lg font-medium text-text">
+            Fairshare
+          </h1>
+        </div>
 
-        <ul
-          class="flex items-center gap-4 lg:w-6/12 justify-center rounded-lg bg-bg py-4 px-4"
-        >
-          <li
-            class="px-2 py-1 rounded-lg text-text hover:text-primary text-lg font-display font-medium"
-          >
-            <a href="dashboard.html"> Dashboard </a>
-          </li>
-          <li
-            class="px-2 py-1 rounded-lg text-primary hover:text-primary text-lg font-display font-medium"
-          >
-            <a href="friends.html"> Friends </a>
-          </li>
-          <li
-            class="px-2 py-1 rounded-lg text-text hover:text-primary text-lg font-display font-medium"
-          >
-            <a href="#"> Bills </a>
-          </li>
-        </ul>
+        <div class="nav-links">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="bills.html">Bills</a>
+          <a href="friends.html" class="active">Friends</a>
+        </div>
 
-        <div id="user-profile">
-          <img
-            class="rounded-avatar size-10 cursor-pointer object-cover"
-            alt="user-profile-avatar"
-            id="user-profile-avatar"
-            src="/public/images/boy_avatar.png"
-          />
+        <div class="nav-right flex items-center gap-4">
+          <div id="user-avatar"></div>
         </div>
       </nav>
 
-      <section class="grid lg:grid-cols-2 px-6 py-10 gap-10">
-        <!-- Friends Section -->
-        <div id="friends-section" class="flex flex-col gap-4">
-          <h2 class="font-heading text-xl">Your Friends</h2>
-          <div
-            id="friend-list"
-            class="grid sm:grid-cols-2 lg:grid-cols-2 gap-4"
-          ></div>
-        </div>
-
-        <!-- Suggestions Section -->
-        <aside id="suggested-friends-section" class="flex flex-col gap-4">
-          <h2 class="font-heading text-xl">Suggested Friends</h2>
-          <div id="suggested-friends-list" class="grid gap-4">
-            <!-- Suggested Friend Card -->
-
-            <!-- More suggestions... -->
-          </div>
-        </aside>
-        <aside id="friend-requests-section" class="flex flex-col gap-4">
-          <h2 class="font-heading text-xl">Received Friend Requests</h2>
-          <div id="friend-requests-list" class="grid gap-4">
-            <!-- Suggested Friend Card -->
-
-            <!-- More suggestions... -->
-          </div>
-        </aside>
-        <aside id="sent-friend-requests-section" class="flex flex-col gap-4">
-          <h2 class="font-heading text-xl">Sent Friend Requests</h2>
-          <div id="sent-friend-requests-list" class="grid gap-4"></div>
-        </aside>
+      <!-- Main Content -->
+      <section class="main-content max-w-[1440px] w-full mx-auto">
+        <header class="mb-[var(--space-lg)]">
+          <h1 class="font-heading text-size-2xl">Friends</h1>
+        </header>
+        <div id="suggested-friends-section" class="mb-[var(--space-lg)]"></div>
+        <div id="friend-requests-section" class="mb-[var(--space-lg)]"></div>
+        <div id="friends-section"></div>
       </section>
     </main>
 

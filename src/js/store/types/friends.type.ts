@@ -11,3 +11,11 @@ export type Friend = Profile & {};
 export type FriendshipProfileJoin = Friendships & {
   profile: Profile;
 };
+
+export type SuggestedFriend = Profile & {
+  friendship_status: Friendships['status'];
+};
+
+export type FriendRequest = {
+  profile: Profile;
+} & Friendships;
