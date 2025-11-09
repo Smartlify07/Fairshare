@@ -15,6 +15,8 @@ const getURL = () => {
   url = url.endsWith('/') ? url : `${url}/`;
   return url;
 };
+console.log('URL', getURL());
+
 const handleSignUpWithGoogle = async () => {
   await supabase.auth.signInWithOAuth({
     provider: 'google',
@@ -23,7 +25,6 @@ const handleSignUpWithGoogle = async () => {
     },
   });
 };
-console.log('URL', getURL());
 signupButton.addEventListener('click', () => {
   handleSignUpWithGoogle();
 });
