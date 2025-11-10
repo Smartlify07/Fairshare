@@ -45,6 +45,14 @@ export default {
     context.commit('updateBillStatus', payload);
   },
 
+  updateSuggestedFriends: (context: StoreType, payload: any) => {
+    context.commit('updateSuggestedFriends', payload);
+  },
+
+  updateFriendRequest: (context: StoreType, payload: any) => {
+    context.commit('updateFriendRequest', payload);
+  },
+
   updateSelectedFilter: (
     context: StoreType,
     payload: State['selectedFilter']

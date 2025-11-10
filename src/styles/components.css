@@ -308,7 +308,7 @@
 }
 
 .avatar {
-  border-radius: var(--radius-sm);
+  border-radius: 9999px;
 }
 .avatar img {
   width: 40px;

@@ -25,7 +25,7 @@ export default class UserAvatar extends Component {
 
     if (!user) {
       self.element!.innerHTML = `
-            <div class="bg-muted/10 animate-pulse avatar size-8">
+            <div class="bg-muted/10 animate-pulse avatar rounded-full! size-8">
             </div>
           `;
     } else {
