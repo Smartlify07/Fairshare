@@ -56,14 +56,30 @@ export default class SuggestedFriendsList extends Component {
       .join('');
 
     this.element!.innerHTML = `
-        <div class="rounded-md grid gap-[var(--space-lg)]">
-                
+             <header class="flex items-center gap-2 mb-[var(--space-lg)]">
+                <h1 class="text-size-lg font-medium font-heading text-text">
+                 Suggested Friends
+                </h1>
+           
+            </header>
           ${
             suggestedFriends.length > 0
               ? `<ul class="flex flex-col gap-[var(--space-lg)]">${friendsList}</ul>`
-              : `<p class="text-muted text-center text-sm">No friends yet. Add one to start splitting!</p>`
+              : `<div class="card p-6 flex flex-col gap-5 justify-center items-center">
+              <div class="rounded-full bg-primary/10 flex items-center justify-center size-16">
+      <svg class="size-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.5 19.5L20 21M11 14C7.13401 14 4 17.134 4 21H11M19 17.5C19 18.8807 17.8807 20 16.5 20C15.1193 20 14 18.8807 14 17.5C14 16.1193 15.1193 15 16.5 15C17.8807 15 19 16.1193 19 17.5ZM15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="var(--color-primary)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>      
+              </div>
+
+              <div class="flex flex-col gap-2 items-center">
+              <h3 class="text-text font-medium text-xl">
+                No suggestions right now
+              </h3>
+              <p class="text-sm text-muted font-body">
+              Try searching for friends using the search bar
+              </p>
+              </div>
+      </div>`
           }
-        </div>
     `;
   }
 }
