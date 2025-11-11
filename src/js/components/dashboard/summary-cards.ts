@@ -1,16 +1,16 @@
-import Component from "../../lib/component";
-import store from "../../store";
+import Component from '../../lib/component';
+import store from '../../store';
 import {
   getPendingBalanceForThisMonth,
   getTotalAmountPaidThisMonth,
   getTotalAmountShared,
   getTotalBillsSplitThisMonth,
-} from "../../utils/dashboard.utils";
+} from '../../utils/dashboard.utils';
 
 export default class SummaryCards extends Component {
   constructor() {
     super({
-      element: document.querySelector("#summary-cards"),
+      element: document.querySelector('#summary-cards'),
       store: store,
     });
   }
@@ -28,7 +28,7 @@ export default class SummaryCards extends Component {
                 <div class="card-icon bg-primary/10 size-8 text-primary">
                   <i class="fa-solid fa-file-invoice-dollar"></i>
                 </div>
-                <p class="text-muted text-size-sm">Total Splits</p>
+                <p class="text-muted text-size-sm tracking-tight font-body">Total Splits</p>
               </div>
 
               <div class="card__info">

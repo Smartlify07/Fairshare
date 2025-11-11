@@ -17,7 +17,7 @@ export default class SummaryText extends Component {
       if (store.state.user) {
         this.element.innerHTML = `
              <h2
-              class="text-size-2xl font-medium font-heading text-text"
+              class="text-size-xl md:text-size-2xl font-medium font-heading text-text"
             >
               Hey, ${store.state.user?.user_metadata.name}
             </h2>
@@ -29,9 +29,9 @@ export default class SummaryText extends Component {
         `;
       } else {
         this.element.innerHTML = `
-          <div class="h-[54px] w-[357px] bg-muted/10 rounded-sm animate-pulse">
+          <div class="h-[54px] w-[247px] md:w-[357px] bg-muted/10 rounded-sm animate-pulse">
           </div>
-          <div class="h-[24px] w-[357px] bg-muted/10 rounded-sm animate-pulse">
+          <div class="h-[24px] w-[247px] md:w-[357px] bg-muted/10 rounded-sm animate-pulse">
           </div>
         `;
       }
