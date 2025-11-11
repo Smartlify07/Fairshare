@@ -8,6 +8,7 @@ import type { BillFriendCreationPayload } from '../store/types/bills.type';
 import RecentBills from '../components/dashboard/recent-bills';
 import NeedToPay from '../components/dashboard/need-to-pay';
 import { splitBill } from '../utils/bills.utils';
+import UserAvatarMobile from '../components/dashboard/user-avatar-mobile';
 
 const newBillBtn = document.querySelector('#add-new-bill-btn');
 const drawer = document.querySelector('.drawer') as HTMLDivElement;
@@ -16,6 +17,7 @@ const popover = document.querySelector('.backdrop') as HTMLDivElement;
 const openDrawer = () => {
   popover!.dataset.state = 'open';
   drawer!.dataset.state = 'open';
+  console.log('open drawer');
   let selectedFriends: string[] = [];
   const { friends, profile } = store.state;
 
@@ -123,15 +125,16 @@ billsForm?.addEventListener('submit', async (e) => {
 });
 
 closeBtn?.addEventListener('click', closeDrawer);
-newBillBtn?.addEventListener('click', openDrawer);
+
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement;
-  if (
-    target instanceof Node &&
-    !drawer.contains(target) &&
-    !target.matches('#add-new-bill-btn') &&
-    popover.dataset.state === 'open'
-  ) {
+  console.log(target);
+  if (!drawer.contains(target) && drawer.dataset.state === 'open') {
+    closeDrawer();
+  }
+  if (newBillBtn?.contains(target)) {
+    openDrawer();
+  } else if (target.matches('.icon-btn')) {
     closeDrawer();
   }
 });
@@ -144,6 +147,9 @@ SummaryTextInstance.render();
 
 const AvatarInstance = new UserAvatar();
 AvatarInstance.render();
+
+const MobileAvatarInstance = new UserAvatarMobile();
+MobileAvatarInstance.render();
 
 const RecentBillsInstance = new RecentBills();
 RecentBillsInstance.render();
