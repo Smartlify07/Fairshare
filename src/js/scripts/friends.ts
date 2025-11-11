@@ -1,5 +1,6 @@
 import { sendFriendRequest, updateFriendRequest } from '../../api/friends.api';
 import UserAvatar from '../components/dashboard/user-avatar';
+import UserAvatarMobile from '../components/dashboard/user-avatar-mobile';
 import FriendRequestsComponent from '../components/friends/friend-requests';
 import FriendsList from '../components/friends/friends-list';
 import SuggestedFriendsList from '../components/friends/suggested-friends-list';
@@ -60,8 +61,10 @@ const FriendList = new FriendsList();
 const SuggestedFriendsListElement = new SuggestedFriendsList();
 const FriendRequestsList = new FriendRequestsComponent();
 const AvatarInstance = new UserAvatar();
+const MobileAvatarInstance = new UserAvatarMobile();
 
 AvatarInstance.render();
+MobileAvatarInstance.render();
 FriendList.render();
 SuggestedFriendsListElement.render();
 FriendRequestsList.render();
