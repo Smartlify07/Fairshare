@@ -17,111 +17,97 @@ export default class RecentBills extends Component {
   render(): void {
     const { bills } = store.state;
     const billsToShow = sortBillsByRecent(bills).slice(0, 3);
-    let innerHTML = '';
     const pathname = window.location.pathname;
+
+    let contentHTML = '';
+
     if (billsToShow.length === 0) {
-      innerHTML = `
-         <div class="card grid gap-[var(--space-lg)] recent-bills-card">
-            <div class="flex items-center justify-between">
-            <h1 class="text-size-lg font-heading text-text">
-                Recent Bills
-              </h1>
-              <a href="bills.html" id="see-more-bills" class="text-sm text-muted">See more</a>
-            </div>
-            <div class="card__content">
-              <p class="text-muted text-center">
-                You have no recent bills. Create a new bill to get started!
-              </p>
-            </div>
-     </div>
+      contentHTML = `
+        <p class="text-muted text-center">
+          You have no recent bills. Create a new bill to get started!
+        </p>
       `;
     } else {
       const billsListHTML = billsToShow
         .map((bill) => {
-          let friendsAvatars = '';
           const now = new Date(bill.created_at);
+          const formattedDate = format(now, 'MMM dd, yyyy');
+          const formattedTime = format(now, 'hh:mma');
           const percentagePaid = calculateTotalPaidPercentage(
             bill.bill_friends,
             bill.amount
           );
           const remainingFriends = bill.bill_friends.length - 2;
 
-          // Format: "Dec 15, 2023"
-          const formattedDate = format(now, 'MMM dd, yyyy');
-          const formattedTime = format(now, 'hh:mma');
-          bill.bill_friends.slice(0, 2).forEach((friend) => {
-            const friendData = friend.friend;
-
-            friendsAvatars += `<div class='size-8 avatar-fallback bg-neutral-100 flex items-center justify-center nth-of-type-[2]:-ml-3 rounded-full! border-border border'>${friendData?.name.charAt(
-              0
-            )}</div>`;
-          });
+          const friendsAvatars = bill.bill_friends
+            .slice(0, 2)
+            .map(
+              (friend) => `
+                <div class='size-8 avatar-fallback bg-neutral-100 flex items-center justify-center nth-of-type-[2]:-ml-3 rounded-full! border-border border'>
+                  ${friend.friend?.name.charAt(0)}
+                </div>
+              `
+            )
+            .join('');
 
           return `
-          <div
-                  class="bg-bg p-4 flex flex-col gap-4 border border-border rounded-md"
-                >
-                  <div class="flex items-start justify-between">
-                    <div class="flex flex-col">
-                      <h3 class="text-text font-medium font-body">
-                        ${bill.title}
-                      </h3>
-                      <p class="text-muted text-sm flex items-center gap-2">
-                        <span>${formattedDate}</span>
-                        <span class="text-[10px]">•</span>
-                        <span>${formattedTime}</span>
-                      </p>
-                    </div>
+            <div class="bg-bg p-4 flex flex-col gap-4 border border-border rounded-md">
+              <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                  <h3 class="text-text font-medium font-body">${bill.title}</h3>
+                  <p class="text-muted text-sm flex items-center gap-2">
+                    <span>${formattedDate}</span>
+                    <span class="text-[10px]">•</span>
+                    <span>${formattedTime}</span>
+                  </p>
+                </div>
 
-                    <div class="relative friends-avatars flex items-center">
-                      ${friendsAvatars}
-
-                       <div
-                        class="size-8 avatar -bottom-4 text-text text-sm flex items-center justify-center left-5 bg-neutral-200 text-center rounded-full! border-border border -ml-3 z-10 ${
-                          remainingFriends <= 0 ? 'hidden' : ''
-                        }"
-                      >
-                        +${bill.bill_friends.length - 2}
-                      </div>
-                    </div>
-                  </div>
-
+                <div class="relative friends-avatars flex items-center">
+                  ${friendsAvatars}
                   <div
-                    class="border-t border-t-border w-full flex items-center justify-between pt-4"
+                    class="size-8 avatar -bottom-4 text-text text-sm flex items-center justify-center left-5 bg-neutral-200 text-center rounded-full! border-border border -ml-3 z-10 ${
+                      remainingFriends <= 0 ? 'hidden' : ''
+                    }"
                   >
-                    <p class="text-muted text-sm font-medium">
-                      Total <span class="text-text">₦${bill.amount.toLocaleString()}</span>
-                    </p>
-                    <p class="text-muted text-sm font-medium">
-                      <span class="text-accent-2">${percentagePaid}% </span>paid
-                    </p>
+                    +${bill.bill_friends.length - 2}
                   </div>
                 </div>
-        `;
+              </div>
+
+              <div class="border-t border-t-border w-full flex items-center justify-between pt-4">
+                <p class="text-muted text-sm font-medium">
+                  Total <span class="text-text">₦${bill.amount.toLocaleString()}</span>
+                </p>
+                <p class="text-muted text-sm font-medium">
+                  <span class="text-accent-2">${percentagePaid}% </span>paid
+                </p>
+              </div>
+            </div>
+          `;
         })
         .join('');
-      innerHTML = `
-     <div class="card grid gap-[var(--space-lg)] recent-bills-card">
-            <div class="flex items-center justify-between">
-            <h1 class="text-size-lg font-heading text-text">
-                Recent Bills
-              </h1>
-              ${
-                pathname.includes('dashboard.html')
-                  ? `
-              <a href="bills.html" class="text-sm text-muted">See more</a>
-                `
-                  : ''
-              }
-            </div>
-            <div class="card__content">
-              <ul id="recent-bills-list" class="grid gap-[var(--space-sm)]">
-                ${billsListHTML}
-              </ul>
-            </div>
-     </div>
+
+      contentHTML = `
+        <ul id="recent-bills-list" class="grid gap-[var(--space-sm)]">
+          ${billsListHTML}
+        </ul>
       `;
     }
-    this.element!.innerHTML = innerHTML;
+
+    this.element!.innerHTML = `
+      <div class="card grid gap-[var(--space-lg)] recent-bills-card">
+        <div class="flex items-center justify-between">
+          <h1 class="text-size-lg font-heading text-text">Recent Bills</h1>
+          ${
+            pathname.includes('dashboard.html')
+              ? `<a href="bills.html" class="text-sm text-muted">See more</a>`
+              : ''
+          }
+        </div>
+        <div class="card__content">
+          ${contentHTML}
+        </div>
+      </div>
+    `;
   }
 }
