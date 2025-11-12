@@ -1,6 +1,7 @@
 import { payBill } from '../../api/bills.api';
 import BillList from '../components/bills/bill-list';
 import UserAvatar from '../components/dashboard/user-avatar';
+import UserAvatarMobile from '../components/dashboard/user-avatar-mobile';
 import store from '../store';
 import type {
   BillFriend,
@@ -124,7 +125,7 @@ const openPayDrawer = (bill: ExtendedBillWithFriends) => {
                       Total
                     </p>
                     <p class="text-text text-sm font-medium">
-                      $${bill?.amount.toLocaleString()}
+                      ₦${bill?.amount.toLocaleString()}
                     </p>
                   </div>
                 </div>
@@ -153,7 +154,7 @@ const openPayDrawer = (bill: ExtendedBillWithFriends) => {
                   </h3>
                   <div class="p-2 bg-surface border border-border shadow-none! rounded-sm!">
                     <p class="text-text text-sm">
-                       $${(bill?.amount / bill?.bill_friends.length).toFixed(
+                       ₦${(bill?.amount / bill?.bill_friends.length).toFixed(
                          2
                        )} each
                     </p>
@@ -166,13 +167,13 @@ const openPayDrawer = (bill: ExtendedBillWithFriends) => {
                  <div class="flex items-center justify-between">
                   <h3 class="font-medium text-size-base font-heading text-text">Payment</h3>
                   <p class="text-muted text-sm">
-                   You owe <span class="text-error font-medium">$${owedAmount}</span>
+                   You owe <span class="text-error font-medium">₦${owedAmount}</span>
                   </p>
                 </div>
 
                   <div class="form-group">
                     <label class="label" for="amount">Amount to Pay</label>
-                    <input type="text" name="amount" id="amount" class="rounded-sm!" placeholder="$0.00" />
+                    <input type="text" name="amount" id="amount" class="rounded-sm!" placeholder="₦0.00" />
                     
                   </div>
                 </div>
@@ -245,6 +246,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 const AvatarInstance = new UserAvatar();
 AvatarInstance.render();
-
+const AvatarMobileInstance = new UserAvatarMobile();
+AvatarMobileInstance.render();
 const BillListInstance = new BillList();
 BillListInstance.render();

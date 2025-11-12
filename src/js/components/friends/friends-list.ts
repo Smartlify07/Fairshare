@@ -20,7 +20,9 @@ export default class FriendsList extends Component {
             0
           )}</div>
           
-        <h3 class="text-text text-sm font-medium">${friend.name}</h3>
+        <h3 class="text-text text-sm text-center font-medium">${
+          friend.name
+        }</h3>
       </li>
     
     `
@@ -61,10 +63,10 @@ export default class FriendsList extends Component {
               </div>
 
               <div class="flex flex-col gap-2 items-center">
-                <h3 class="text-text font-medium font-heading text-xl">
+                <h3 class="text-text font-medium text-center font-heading text-xl">
               You haven't added any friends yet
               </h3>
-              <p class="text-sm text-muted font-body">
+              <p class="text-sm text-muted text-center font-body">
               Start by inviting someone to split bills!
               </p>
               </div>
