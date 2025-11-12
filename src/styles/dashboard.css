@@ -7,7 +7,7 @@ main {
 
 .main-content {
   flex: 1;
-  padding: var(--space-lg);
+  @apply p-4 md:p-6;
 }
 
 .top-nav {

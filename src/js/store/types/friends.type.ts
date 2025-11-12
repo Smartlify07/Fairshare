@@ -4,7 +4,7 @@ export type Friendships = {
   receiver_id: string;
   requester_id: string;
   id: number;
-  status: 'pending' | 'accepted' | 'rejected';
+  status: 'pending' | 'accepted' | 'declined';
 };
 
 export type Friend = Profile & {};
