@@ -11,7 +11,6 @@ export default class FriendsList extends Component {
 
   render(): void {
     const { friends } = store.state;
-    console.log(store.status);
     const friendsList = friends
       .map(
         (friend) => `

@@ -126,7 +126,5 @@ export const getFriendRequests = async (userId: User['id']) => {
     throw new Error(error.message);
   }
 
-  console.log(data);
-
   return data as FriendRequest[];
 };

@@ -17,7 +17,6 @@ const popover = document.querySelector('.backdrop') as HTMLDivElement;
 const openDrawer = () => {
   popover!.dataset.state = 'open';
   drawer!.dataset.state = 'open';
-  console.log('open drawer');
   let selectedFriends: string[] = [];
   const { friends, profile } = store.state;
 
@@ -128,7 +127,6 @@ closeBtn?.addEventListener('click', closeDrawer);
 
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement;
-  console.log(target);
   if (!drawer.contains(target) && drawer.dataset.state === 'open') {
     closeDrawer();
   }

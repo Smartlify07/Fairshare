@@ -58,10 +58,20 @@ export default {
   },
 
   updateFriendRequest(state: State, payload: FriendRequest) {
-    const updatedFriendRequests = state.friendRequests.filter(
-      (request) => request.id === payload.id
-    );
+    const { friendRequests } = state;
+    const updatedFriendRequests = friendRequests.filter((request) => {
+      return Number(request.id) !== Number(payload.id);
+    });
+    const newFriend = friendRequests.find(
+      (request) => Number(request.id) === Number(payload.id)
+    )?.profile;
+    let updatedFriends = [];
+    if (!newFriend) {
+      updatedFriends = [...state.friends];
+    }
+    updatedFriends = [...state.friends, newFriend!];
     state.friendRequests = updatedFriendRequests;
+    state.friends = updatedFriends;
     return state;
   },
 };
