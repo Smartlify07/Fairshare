@@ -37,7 +37,7 @@ export default class SummaryCards extends Component {
                 >
                  ${totalBills}
                   <sub
-                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                    class="text-size-sm/[100%] text-muted shrink-0 whitespace-pre-line break-words max-w-[106px] text-wrap font-normal mt-2 font-body"
                     >splits this month</sub
                   >
                 </h3>
@@ -60,7 +60,7 @@ export default class SummaryCards extends Component {
                 >
                   ₦${totalAmountShared.toLocaleString()}
                   <sub
-                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                    class="text-size-sm/[100%] text-muted shrink-0 whitespace-pre-line break-words max-w-[106px] text-wrap font-normal mt-2 font-body"
                     >shared this month</sub
                   >
                 </h3>
@@ -84,7 +84,7 @@ export default class SummaryCards extends Component {
                 >
                   ₦${totalAmountPaid?.toLocaleString()}
                   <sub
-                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                    class="text-size-sm/[100%] text-muted shrink-0 whitespace-pre-line break-words max-w-[106px] text-wrap font-normal mt-2 font-body"
                   >
                     this month</sub
                   >
@@ -111,7 +111,7 @@ export default class SummaryCards extends Component {
                 >
                   ₦${pendingBalance.toLocaleString()}
                   <sub
-                    class="text-size-sm text-muted font-normal mt-2 font-body"
+                    class="text-size-sm/[100%] text-muted shrink-0 whitespace-pre-line break-words max-w-[106px] text-wrap font-normal mt-2 font-body"
                   >
                     left to clear</sub
                   >
