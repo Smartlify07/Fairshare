@@ -16,7 +16,7 @@ export default class RecentBills extends Component {
 
   render(): void {
     const { bills } = store.state;
-    const billsToShow = sortBillsByRecent(bills).slice(0, 3);
+    const billsToShow = sortBillsByRecent(bills.data).slice(0, 3);
     const pathname = window.location.pathname;
 
     let contentHTML = '';

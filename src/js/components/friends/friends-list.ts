@@ -11,7 +11,7 @@ export default class FriendsList extends Component {
 
   render(): void {
     const { friends } = store.state;
-    const friendsList = friends
+    const friendsList = friends.data
       .map(
         (friend) => `
 
@@ -37,7 +37,7 @@ export default class FriendsList extends Component {
         <div class="rounded-md grid gap-[var(--space-lg)]">
                 
           ${
-            friends.length > 0
+            friends.data.length > 0
               ? `<ul class="grid grid-cols-2 md:flex gap-[var(--space-lg)]">${friendsList}</ul>`
               : `<div class="card p-6 md:w-auto flex flex-col gap-5 justify-center items-center">
               <div class="rounded-full bg-primary/10 flex items-center justify-center size-16">

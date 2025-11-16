@@ -18,8 +18,15 @@ export default class BillList extends Component {
 
   render(): void {
     const { bills, user, selectedFilter } = store.state;
-    const filteredBills = filterBills(bills, selectedFilter, user?.id || '');
+    const filteredBills = filterBills(
+      bills.data,
+      selectedFilter,
+      user?.data?.id || ''
+    );
+
+    console.log(filteredBills);
     const sortedBills = sortBillsByRecent(filteredBills);
+    console.log(sortedBills);
     let innerHTML = '';
     const triggerInner = ` <div class="relative" id="filter-dropdown">
           <!-- Trigger -->
@@ -101,7 +108,7 @@ export default class BillList extends Component {
         );
         const owedAmount = calculateUserOwedAmount(
           bill.bill_friends,
-          user?.id!
+          user?.data?.id!
         );
         const remainingFriends = bill.bill_friends.length - 2;
 

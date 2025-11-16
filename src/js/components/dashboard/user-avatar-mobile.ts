@@ -13,13 +13,13 @@ export default class UserAvatarMobile extends Component {
     const { user } = store.state;
 
     const profileImage = `
-          <img alt="${user?.user_metadata?.name + "'s avatar"}" src="${
-      user?.user_metadata?.picture
+          <img alt="${user.data?.user_metadata?.name + "'s avatar"}" src="${
+      user.data?.user_metadata?.picture
     }" class="size-8 rounded-full! avatar"/>
         `;
     const profilePlaceHolder = `
           <div class="avatar-fallback">
-            ${user?.user_metadata?.name}
+            ${user.data?.user_metadata?.name}
           </div>
         `;
 
@@ -29,7 +29,7 @@ export default class UserAvatarMobile extends Component {
             </div>
           `;
     } else {
-      if (user?.user_metadata?.picture) {
+      if (user.data?.user_metadata?.picture) {
         self.element!.innerHTML = profileImage;
       } else {
         self.element!.innerHTML = profilePlaceHolder;

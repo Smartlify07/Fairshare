@@ -11,7 +11,7 @@ export default class FriendRequestsComponent extends Component {
 
   render(): void {
     const { friendRequests } = store.state;
-    const friendsList = friendRequests
+    const friendsList = friendRequests.data
       ?.map((friend) => {
         const receiver_id = friend.receiver_id;
         const requester_id = friend.requester_id;
@@ -63,13 +63,13 @@ export default class FriendRequestsComponent extends Component {
                   Friend Requests
                   </h1>
                   <span class="rounded-full bg-primary/10 text-primary size-6 text-sm inline-flex font-medium items-center justify-center">
-                    ${friendRequests?.length ?? 0}
+                    ${friendRequests.data?.length ?? 0}
                   </span>
             </header>
         <div class="rounded-md grid gap-[var(--space-lg)]">
                 
           ${
-            friendRequests?.length > 0
+            friendRequests.data?.length > 0
               ? `<ul class="flex flex-col gap-[var(--space-lg)]">${friendsList}</ul>`
               : `<div class="card p-6 flex flex-col gap-5 justify-center items-center">
               <div class="rounded-full bg-primary/10 flex items-center justify-center size-16">

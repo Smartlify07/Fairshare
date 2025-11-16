@@ -13,27 +13,31 @@ export default class UserAvatar extends Component {
     const { user } = store.state;
 
     const profileImage = `
-          <img alt="${user?.user_metadata?.name + "'s avatar"}" src="${
-      user?.user_metadata?.picture
+          <img alt="${user?.data?.user_metadata?.name + "'s avatar"}" src="${
+      user?.data?.user_metadata?.picture
     }" class="size-8 rounded-full! avatar"/>
         `;
     const profilePlaceHolder = `
           <div class="avatar-fallback">
-            ${user?.user_metadata?.name}
+            ${user?.data?.user_metadata?.name}
           </div>
         `;
 
-    if (!user) {
+    if (user.loading) {
       self.element!.innerHTML = `
             <div class="bg-muted/10 animate-pulse avatar rounded-full! size-8">
             </div>
           `;
-    } else {
-      if (user?.user_metadata?.picture) {
+    }
+    if (user.data) {
+      if (user?.data?.user_metadata?.picture) {
         self.element!.innerHTML = profileImage;
       } else {
         self.element!.innerHTML = profilePlaceHolder;
       }
+    }
+    if (user.error) {
+      self.element!.innerHTML = `<div class="text-error text-sm"></div>`;
     }
   }
 }
