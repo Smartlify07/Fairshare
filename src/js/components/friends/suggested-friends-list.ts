@@ -12,7 +12,7 @@ export default class SuggestedFriendsList extends Component {
   render(): void {
     const { suggestedFriends } = store.state;
 
-    const friendsList = suggestedFriends
+    const friendsList = suggestedFriends.data
       .map(
         (friend) => `
 
@@ -69,7 +69,7 @@ export default class SuggestedFriendsList extends Component {
            
             </header>
           ${
-            suggestedFriends.length > 0
+            suggestedFriends.data.length > 0
               ? `<ul class="flex flex-col gap-[var(--space-lg)]">${friendsList}</ul>`
               : `<div class="card p-6 flex flex-col gap-5 justify-center items-center">
               <div class="rounded-full bg-primary/10 flex items-center justify-center size-16">

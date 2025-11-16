@@ -21,7 +21,7 @@ const openDrawer = () => {
   const { friends, profile } = store.state;
 
   let innerHTML = '';
-  friends.forEach(async (friend) => {
+  friends.data.forEach(async (friend) => {
     const isImageBroken = await checkIsBrokenImage(friend?.avatar_url ?? '');
     innerHTML += `
     <button type="button" id="${friend.id}" class="friend">
@@ -35,17 +35,19 @@ const openDrawer = () => {
      <span>${friend.name}</span> 
     </button>`;
     document.querySelector('.friend-selector')!.innerHTML =
-      `<button type="button" id="${profile?.id}" class="friend">
+      `<button type="button" id="${profile.data?.id}" class="friend">
       <div class="avatar flex items-center justify-center gap-1">
       ${
         isImageBroken
-          ? `<img src=${profile?.avatar_url} alt=${
-              profile?.name + "'s avatar"
+          ? `<img src=${profile.data?.avatar_url} alt=${
+              profile.data?.name + "'s avatar"
             }/>`
-          : `<div class=${'avatar-fallback'}>${profile?.name.charAt(0)}</div>`
+          : `<div class=${'avatar-fallback'}>${profile.data?.name.charAt(
+              0
+            )}</div>`
       }
       </div>
-     <span>${profile?.name}</span> 
+     <span>${profile.data?.name}</span> 
     </button>` + innerHTML;
 
     document.querySelectorAll('.friend').forEach((element) => {
@@ -93,7 +95,7 @@ billsForm?.addEventListener('submit', async (e) => {
       return;
     } else {
       const response = await createBill(
-        user?.id!,
+        user.data?.id!,
         billTitleInput.value,
         Number(amountInput.value)
       );
@@ -104,7 +106,7 @@ billsForm?.addEventListener('submit', async (e) => {
       const payload = [...selectedFriendsToSplitWith].map((id, index) => ({
         friend_id: id as string,
         bill_id: response.id,
-        creator_id: user?.id!,
+        creator_id: user.data?.id!,
         amount_assigned: amount_assigned[index],
         payment_status: 'owing' as BillFriendCreationPayload['payment_status'],
       }));

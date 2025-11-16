@@ -12,14 +12,14 @@ export default class SummaryText extends Component {
 
   render(): void {
     if (this.element) {
-      const amountShared = getTotalAmountShared(store.state.bills);
-
-      if (store.state.user) {
+      const { user, bills } = store.state;
+      const amountShared = getTotalAmountShared(bills.data);
+      if (user) {
         this.element.innerHTML = `
              <h2
               class="text-size-xl md:text-size-2xl font-medium font-heading text-text"
             >
-              Hey, ${store.state.user?.user_metadata.name}
+              Hey, ${user.data?.user_metadata.name}
             </h2>
             <p id="summary-text" class="text-size-md text-muted">
               You've shared

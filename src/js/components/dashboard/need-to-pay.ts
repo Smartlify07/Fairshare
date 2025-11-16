@@ -17,12 +17,12 @@ export default class NeedToPay extends Component {
   render(): void {
     const { bills, user } = store.state;
 
-    const billsToShow = sortBillsByRecent(bills)
+    const billsToShow = sortBillsByRecent(bills.data)
       .filter((bill) =>
         bill.bill_friends.some(
           (bf) =>
-            bf.friend_id === user?.id &&
-            calculateUserOwedAmount(bill.bill_friends, user?.id) > 0
+            bf.friend_id === user.data?.id &&
+            calculateUserOwedAmount(bill.bill_friends, user.data?.id) > 0
         )
       )
       .slice(0, 3);
@@ -44,7 +44,7 @@ export default class NeedToPay extends Component {
           const remainingFriends = bill.bill_friends.length - 2;
           const owedAmount = calculateUserOwedAmount(
             bill.bill_friends,
-            user?.id!
+            user.data?.id!
           );
 
           const friendsAvatars = bill.bill_friends

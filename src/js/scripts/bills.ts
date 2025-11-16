@@ -66,7 +66,7 @@ const openPayDrawer = (bill: ExtendedBillWithFriends) => {
   ) as HTMLElement;
   const owedAmount = calculateUserOwedAmount(
     bill.bill_friends,
-    store.state.user?.id!
+    store.state.user?.data?.id!
   );
   let friends = ``;
   const owner = getBillOwner(bill.bill_friends, bill.creator_id);
@@ -94,7 +94,7 @@ const openPayDrawer = (bill: ExtendedBillWithFriends) => {
                     }
                       <p class="text-text text-sm font-body font-medium">
                         ${
-                          billFriend.friend_id === store.state.user?.id!
+                          billFriend.friend_id === store.state.user?.data?.id!
                             ? 'You'
                             : billFriend.friend.name.split(' ')[0]
                         }
@@ -197,7 +197,9 @@ document.addEventListener('click', (e) => {
 
   const billId = (payNowBtn.closest('[data-bill-id]') as HTMLElement)?.dataset
     .billId;
-  const selectedBill = store.state.bills.find((b) => b.id === Number(billId));
+  const selectedBill = store.state.bills.data.find(
+    (b) => b.id === Number(billId)
+  );
   if (!selectedBill) return;
 
   store.dispatch('updateSelectedBill', selectedBill);
@@ -215,7 +217,7 @@ document.addEventListener('submit', async (e) => {
   if (!selectedBill) return;
   const you = findFriendWithUserId(
     selectedBill.bill_friends,
-    store.state.user?.id!
+    store.state.user?.data?.id!
   );
   const assignedAmount = you?.amount_assigned;
   const amountEntered = Number(amountToPay);
@@ -225,13 +227,13 @@ document.addEventListener('submit', async (e) => {
   await payBill({
     bill_id: selectedBill.id,
     amount_paid: amountEntered + (you?.amount_paid || 0),
-    friend_id: store.state.user?.id!,
+    friend_id: store.state.user?.data?.id!,
     creator_id: selectedBill.creator_id,
     payment_status,
   });
   store.dispatch('updateBillStatus', {
     bill_id: selectedBill.id,
-    friend_id: store.state.user?.id!,
+    friend_id: store.state.user?.data?.id!,
     amount_paid: amountEntered + (you?.amount_paid || 0),
     payment_status,
   });

@@ -8,7 +8,7 @@ export default {
   },
 
   createBill(state: State, payload: any) {
-    state.bills.push(payload);
+    state.bills.data.push(payload);
     return state;
   },
 
@@ -24,7 +24,7 @@ export default {
     return state;
   },
   updateBillStatus(state: State, payload: BillFriend) {
-    const updatedBills = state.bills.map((bill) => {
+    const updatedBills = state.bills.data.map((bill) => {
       return bill.id === payload.bill_id
         ? {
             ...bill,
@@ -36,7 +36,7 @@ export default {
           }
         : bill;
     });
-    state.bills = updatedBills;
+    state.bills.data = updatedBills;
     return state;
   },
   updateSelectedFilter(state: State, payload: State['selectedFilter']) {
@@ -45,7 +45,7 @@ export default {
   },
 
   updateSuggestedFriends(state: State, payload: SuggestedFriend) {
-    const updateSuggestions = state.suggestedFriends.map((suggestion) => {
+    const updateSuggestions = state.suggestedFriends.data.map((suggestion) => {
       return suggestion.id === payload.id
         ? {
             ...suggestion,
@@ -53,25 +53,25 @@ export default {
           }
         : suggestion;
     });
-    state.suggestedFriends = updateSuggestions;
+    state.suggestedFriends.data = updateSuggestions;
     return state;
   },
 
   updateFriendRequest(state: State, payload: FriendRequest) {
     const { friendRequests } = state;
-    const updatedFriendRequests = friendRequests.filter((request) => {
+    const updatedFriendRequests = friendRequests.data.filter((request) => {
       return Number(request.id) !== Number(payload.id);
     });
-    const newFriend = friendRequests.find(
+    const newFriend = friendRequests.data.find(
       (request) => Number(request.id) === Number(payload.id)
     )?.profile;
     let updatedFriends = [];
     if (!newFriend) {
-      updatedFriends = [...state.friends];
+      updatedFriends = [...state.friends.data];
     }
-    updatedFriends = [...state.friends, newFriend!];
-    state.friendRequests = updatedFriendRequests;
-    state.friends = updatedFriends;
+    updatedFriends = [...state.friends.data, newFriend!];
+    state.friendRequests.data = updatedFriendRequests;
+    state.friends.data = updatedFriends;
     return state;
   },
 };

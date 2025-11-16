@@ -17,10 +17,16 @@ export default class SummaryCards extends Component {
 
   render(): void {
     const { bills, user } = store.state;
-    const totalBills = getTotalBillsSplitThisMonth(bills);
-    const totalAmountShared = getTotalAmountShared(bills);
-    const totalAmountPaid = getTotalAmountPaidThisMonth(bills, user?.id!);
-    const pendingBalance = getPendingBalanceForThisMonth(bills, user?.id!);
+    const totalBills = getTotalBillsSplitThisMonth(bills.data);
+    const totalAmountShared = getTotalAmountShared(bills.data);
+    const totalAmountPaid = getTotalAmountPaidThisMonth(
+      bills.data,
+      user.data?.id!
+    );
+    const pendingBalance = getPendingBalanceForThisMonth(
+      bills.data,
+      user.data?.id!
+    );
 
     const totalBillsSummaryCard = ` <div data-summary-type="bills" class="card summary-card">
             <div class="card__content gap-[var(--space-md)]">
