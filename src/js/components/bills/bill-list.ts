@@ -24,9 +24,7 @@ export default class BillList extends Component {
       user?.data?.id || ''
     );
 
-    console.log(filteredBills);
     const sortedBills = sortBillsByRecent(filteredBills);
-    console.log(sortedBills);
     let innerHTML = '';
     const triggerInner = ` <div class="relative" id="filter-dropdown">
           <!-- Trigger -->
