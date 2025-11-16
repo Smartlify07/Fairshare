@@ -67,7 +67,7 @@ export default class SummaryCards extends Component {
                   ₦${totalAmountShared.toLocaleString()}
                   <sub
                     class="text-size-sm/[100%] text-muted shrink-0 whitespace-pre-line break-words max-w-[106px] text-wrap font-normal mt-2 font-body"
-                    >shared this month</sub
+                    > this month</sub
                   >
                 </h3>
               </div>

@@ -1,12 +1,14 @@
 import { getAuthState } from '../../api/auth.ts';
 
+const callToActionButton = document.querySelector(
+  '#landing-call-to-action'
+) as HTMLAnchorElement;
 const getUser = async () => {
   const user = await getAuthState();
 
   if (user) {
-    window.location.href = '/src/pages/dashboard.html';
-  } else {
-    window.location.href = '/src/pages/signup.html';
+    callToActionButton.href = '/src/pages/dashboard.html';
+    callToActionButton.textContent = 'Go to App';
   }
 };
 

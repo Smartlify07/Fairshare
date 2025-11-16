@@ -1,9 +1,9 @@
-import PubSub from "../lib/pubsub";
+import PubSub from '../lib/pubsub';
 
 export default class Store<State extends {}> {
   actions: Record<string, any> = {};
   mutations: Record<string, any> = {};
-  status: string = "resting";
+  status: string = 'resting';
   state!: State;
   events: any;
   queries: any;
@@ -12,30 +12,29 @@ export default class Store<State extends {}> {
     self.actions = {};
     self.mutations = {};
     self.queries = {};
-    self.status = "resting";
+    self.status = 'resting';
     self.state = params.state || ({} as State);
     self.events = new PubSub();
 
-    if (params.hasOwnProperty("actions")) {
+    if (params.hasOwnProperty('actions')) {
       self.actions = params.actions;
     }
 
-    if (params.hasOwnProperty("mutations")) {
+    if (params.hasOwnProperty('mutations')) {
       self.mutations = params.mutations;
     }
 
-    if (params.hasOwnProperty("queries")) {
+    if (params.hasOwnProperty('queries')) {
       self.queries = params.queries;
     }
 
     self.state = new Proxy(params.state || {}, {
       set: function (state, key, value) {
         state[key as keyof State] = value;
-        self.events.publish("stateChange", self.state);
-        if (self.status !== "mutation") {
-          console.warn(`You should use a mutation to set ${String(key)}`);
+        self.events.publish('stateChange', self.state);
+        if (self.status !== 'mutation') {
         }
-        self.status = "resting";
+        self.status = 'resting';
 
         return true;
       },
@@ -47,25 +46,23 @@ export default class Store<State extends {}> {
 
   dispatch(actionKey: string, payload: any) {
     let self = this;
-    if (typeof self.actions[actionKey] !== "function") {
+    if (typeof self.actions[actionKey] !== 'function') {
       console.error(`Action "${actionKey}" doesn't exist`);
       return false;
     }
 
-    console.groupCollapsed(`ACTION: ${actionKey}`);
-    self.status = "action";
+    self.status = 'action';
     self.actions[actionKey](self, payload);
-    console.groupEnd();
     return true;
   }
 
   commit(mutationKey: string, payload: any) {
     let self = this;
 
-    if (typeof self.mutations[mutationKey] !== "function") {
+    if (typeof self.mutations[mutationKey] !== 'function') {
       return false;
     }
-    self.status = "mutation";
+    self.status = 'mutation';
     let newState = self.mutations[mutationKey](self.state, payload);
     self.state = Object.assign(self.state, newState);
 
@@ -74,13 +71,13 @@ export default class Store<State extends {}> {
 
   async query(queryKey: string) {
     let self = this;
-    self.status = "query";
+    self.status = 'query';
 
     try {
       const result = await self.queries[queryKey](self.state);
 
-      self.commit("setQueryResult", result);
-      self.status = "resting";
+      self.commit('setQueryResult', result);
+      self.status = 'resting';
       return result;
     } catch (error) {
       console.error(error);
