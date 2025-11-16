@@ -24,9 +24,9 @@ export default class SummaryText extends Component {
       } else {
         this.element.innerHTML = `
                <h2
-                class="text-size-xl md:text-size-2xl font-medium font-heading text-text"
+                class="text-size-xl md:text-size-2xl w-[246px] overflow-ellipsis max-w-[246px] truncate font-medium font-heading text-text"
               >
-                Hey, ${user.data?.user_metadata.name}
+                Hey, ${user.data?.user_metadata.name.split(' ')[0]}
               </h2>
               <p id="summary-text" class="text-size-md text-muted">
                 You've shared

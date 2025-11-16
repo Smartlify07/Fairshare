@@ -5,7 +5,7 @@ main {
 }
 
 .main-content {
-  @apply p-4 flex-1  min-h-screen pb-[90px] md:pb-4 md:p-6;
+  @apply p-4 pt-6 flex-1  min-h-screen pb-[90px] md:pb-4 md:p-6;
 }
 
 .top-nav {

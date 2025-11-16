@@ -23,7 +23,7 @@ export default class UserAvatarMobile extends Component {
           </div>
         `;
 
-    if (!user) {
+    if (user.loading) {
       self.element!.innerHTML = `
             <div class="bg-muted/10 animate-pulse avatar rounded-full! size-8">
             </div>
