@@ -61,6 +61,40 @@ export default class SuggestedFriendsList extends Component {
       )
       .join('');
 
+    if (suggestedFriends.loading) {
+      this.element!.innerHTML = `
+      <header class="flex items-center gap-2 mb-[var(--space-lg)]">
+        <h1 class="text-size-lg font-medium font-heading text-text">Suggested Friends</h1>
+    
+      </header>
+
+      <div class="rounded-md grid gap-[var(--space-lg)]">
+        <ul class="flex flex-col gap-[var(--space-lg)]">
+        
+          ${Array.from({ length: 3 })
+            .map(
+              () => `
+            <li class="flex justify-between items-center gap-[var(--space-sm)] w-full p-4 rounded-xl bg-surface  shadow-2xs animate-pulse">
+              <div class="flex items-center gap-2">
+                <div class="size-10 rounded-full bg-muted/10"></div>
+                <div class="flex flex-col gap-2">
+                  <div class="h-4 w-24 rounded-md bg-muted/10"></div>
+                  <div class="h-3 w-16 rounded-md bg-muted/10"></div>
+                </div>
+              </div>
+
+                <div class="h-8 w-24 rounded-md bg-muted/10"></div>
+            </li>
+          `
+            )
+            .join('')}
+          
+        </ul>
+      </div>
+    `;
+      return;
+    }
+
     this.element!.innerHTML = `
              <header class="flex items-center gap-2 mb-[var(--space-lg)]">
                 <h1 class="text-size-lg font-medium font-heading text-text">

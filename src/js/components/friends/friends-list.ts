@@ -29,6 +29,35 @@ export default class FriendsList extends Component {
       )
       .join('');
 
+    if (friends.loading) {
+      this.element!.innerHTML = `
+      <section>
+        <h1 class="text-size-lg font-medium mb-[var(--space-lg)] font-heading text-text">
+          Your Friends
+        </h1>
+
+        <div class="rounded-md grid gap-[var(--space-lg)]">
+          <ul class="grid grid-cols-2 md:flex gap-[var(--space-lg)]">
+
+            ${Array.from({ length: 3 })
+              .map(
+                () => `
+              <li class="flex flex-col items-center gap-[var(--space-sm)] min-w-[140px] w-full md:max-w-[140px]! p-4 rounded-xl border border-border bg-surface animate-pulse">
+                  <div class="size-14 rounded-full bg-muted/10"></div>
+
+                  <div class="h-4 w-20 rounded-md bg-muted/10"></div>
+              </li>
+            `
+              )
+              .join('')}
+
+          </ul>
+        </div>
+      </section>
+    `;
+      return;
+    }
+
     this.element!.innerHTML = `
       <section class="">
           <h1 class="text-size-lg font-medium mb-[var(--space-lg)] font-heading text-text">

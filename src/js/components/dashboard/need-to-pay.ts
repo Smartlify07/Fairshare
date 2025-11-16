@@ -29,6 +29,68 @@ export default class NeedToPay extends Component {
 
     let contentHTML = '';
 
+    if (bills.loading) {
+      const skeletonItems = Array.from({ length: 3 })
+        .map(
+          () => `
+      <li class="bg-bg p-4 flex flex-col gap-4 border border-border rounded-md animate-pulse">
+
+        <!-- Top section -->
+        <div class="flex items-start justify-between">
+
+          <!-- Title + date -->
+          <div class="flex flex-col gap-2 w-full max-w-[70%]">
+            <!-- Title -->
+            <div class="h-5 w-32 bg-muted/10 rounded-md"></div>
+
+            <!-- Date + Time -->
+            <div class="flex gap-2 items-center">
+              <div class="h-4 w-20 bg-muted/10 rounded-md"></div>
+              <div class="h-4 w-4 bg-muted/10 rounded-md"></div>
+              <div class="h-4 w-16 bg-muted/10 rounded-md"></div>
+            </div>
+          </div>
+
+          <!-- Avatars -->
+          <div class="flex items-center -space-x-3">
+            <div class="size-8 bg-muted/10 rounded-full border border-border"></div>
+            <div class="size-8 bg-muted/10 rounded-full border border-border"></div>
+            <div class="size-8 bg-muted/10 rounded-full border border-border"></div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-t-border w-full pt-4"></div>
+
+        <!-- Footer -->
+        <div class="flex items-center justify-between">
+          <div class="h-4 w-24 bg-muted/10 rounded-md"></div>
+          <div class="h-4 w-16 bg-muted/10 rounded-md"></div>
+        </div>
+
+      </li>
+    `
+        )
+        .join('');
+
+      this.element!.innerHTML = `
+    <div class="card grid gap-[var(--space-lg)] recent-bills-card">
+      <div class="flex items-center justify-between">
+        <h1 class="text-size-lg font-heading text-text">Need to pay</h1>
+     
+            <div class="h-4 w-20 bg-muted/10 animate-pulse rounded-md"></div>
+      </div>
+
+      <div class="card__content">
+        <ul class="grid gap-[var(--space-sm)]">
+          ${skeletonItems}
+        </ul>
+      </div>
+    </div>
+  `;
+      return;
+    }
+
     if (billsToShow.length === 0) {
       contentHTML = `
         <p class="text-muted text-center">
@@ -104,7 +166,7 @@ export default class NeedToPay extends Component {
     this.element!.innerHTML = `
       <div class="card grid gap-[var(--space-lg)] need-to-pay-card">
         <div class="flex items-center justify-between">
-          <h1 class="text-size-lg font-heading text-text">Need to Pay</h1>
+          <h1 class="text-size-lg font-heading text-text">Need to pay</h1>
           <button class="text-sm text-muted">See more</button>
         </div>
         <div class="card__content">

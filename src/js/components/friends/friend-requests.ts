@@ -11,6 +11,7 @@ export default class FriendRequestsComponent extends Component {
 
   render(): void {
     const { friendRequests } = store.state;
+
     const friendsList = friendRequests.data
       ?.map((friend) => {
         const receiver_id = friend.receiver_id;
@@ -56,6 +57,45 @@ export default class FriendRequestsComponent extends Component {
     `;
       })
       .join('');
+
+    if (friendRequests.loading) {
+      this.element!.innerHTML = `
+      <header class="flex items-center gap-2 mb-[var(--space-lg)]">
+        <h1 class="text-size-lg font-medium font-heading text-text">Friend Requests</h1>
+        <span class="rounded-full bg-primary/10 text-primary size-6 text-sm inline-flex font-medium items-center justify-center">
+          0
+        </span>
+      </header>
+
+      <div class="rounded-md grid gap-[var(--space-lg)]">
+        <ul class="flex flex-col gap-[var(--space-lg)]">
+        
+          ${Array.from({ length: 3 })
+            .map(
+              () => `
+            <li class="flex justify-between items-center gap-[var(--space-sm)] w-full p-4 rounded-xl bg-surface  shadow-2xs animate-pulse">
+              <div class="flex items-center gap-2">
+                <div class="size-10 rounded-full bg-muted/10"></div>
+                <div class="flex flex-col gap-2">
+                  <div class="h-4 w-24 rounded-md bg-muted/10"></div>
+                  <div class="h-3 w-16 rounded-md bg-muted/10"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="h-8 w-16 rounded-md bg-muted/10"></div>
+                <div class="h-8 w-16 rounded-md bg-muted/10"></div>
+              </div>
+            </li>
+          `
+            )
+            .join('')}
+          
+        </ul>
+      </div>
+    `;
+      return;
+    }
 
     this.element!.innerHTML = `
             <header class="flex items-center gap-2 mb-[var(--space-lg)]">
