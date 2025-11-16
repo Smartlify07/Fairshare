@@ -14,26 +14,26 @@ export default class SummaryText extends Component {
     if (this.element) {
       const { user, bills } = store.state;
       const amountShared = getTotalAmountShared(bills.data);
-      if (user) {
-        this.element.innerHTML = `
-             <h2
-              class="text-size-xl md:text-size-2xl font-medium font-heading text-text"
-            >
-              Hey, ${user.data?.user_metadata.name}
-            </h2>
-            <p id="summary-text" class="text-size-md text-muted">
-              You've shared
-              <strong class="text-primary">₦${amountShared.toLocaleString()}</strong> with friends this
-              month
-            </p>
-        `;
-      } else {
+      if (user.loading) {
         this.element.innerHTML = `
           <div class="h-[54px] w-[247px] md:w-[357px] bg-muted/10 rounded-sm animate-pulse">
           </div>
           <div class="h-[24px] w-[247px] md:w-[357px] bg-muted/10 rounded-sm animate-pulse">
           </div>
         `;
+      } else {
+        this.element.innerHTML = `
+               <h2
+                class="text-size-xl md:text-size-2xl font-medium font-heading text-text"
+              >
+                Hey, ${user.data?.user_metadata.name}
+              </h2>
+              <p id="summary-text" class="text-size-md text-muted">
+                You've shared
+                <strong class="text-primary">₦${amountShared.toLocaleString()}</strong> with friends this
+                month
+              </p>
+          `;
       }
     }
   }

@@ -2,14 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Fairshare — Split bills, stay in sync</title>
+    <link rel="stylesheet" href="/src/styles/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div id="app">
-      <h1 class="text-2xl font-medium tracking-tighter">Split the bills</h1>
-    </div>
-    <script type="module" src="/src/js/scripts/main.ts"></script>
+
+  <body class="antialiased">
+    <!-- HERO SECTION -->
+    <section
+      class="min-h-screen flex flex-col items-center justify-center px-6 text-center"
+    >
+      <!-- Brand -->
+      <h1
+        class="text-5xl text-text font-heading md:text-size-4xl font-medium tracking-tighter max-w-3xl leading-tight"
+      >
+        Split bills without the stress.
+      </h1>
+
+      <p
+        class="mt-4 text-lg text-muted md:text-size-lg font-body text- max-w-xl"
+      >
+        Fairshare helps you track shared expenses with friends. Simple, clean,
+        and effortlessly organized.
+      </p>
+
+      <!-- CTA -->
+      <div class="mt-8">
+        <a
+          id="landing-call-to-action"
+          href="src/pages/signup.html"
+          class="px-8 py-3 rounded-xl button button-primary text-white"
+        >
+          Start splitting
+        </a>
+      </div>
+    </section>
+    <script src="src/js/scripts/main.ts" type="module"></script>
   </body>
 </html>
