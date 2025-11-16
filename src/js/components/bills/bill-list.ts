@@ -97,9 +97,9 @@ export default class BillList extends Component {
               <div class="flex flex-col gap-2">
                 <div class="h-5 w-40 bg-muted/10 rounded-md"></div>
                 <div class="flex gap-2 items-center">
-                  <div class="h-4 w-20 bg-muted/10 rounded-md"></div>
-                  <div class="h-2 w-2 bg-muted/10 rounded-md"></div>
                   <div class="h-4 w-16 bg-muted/10 rounded-md"></div>
+                  <div class="h-2 w-2 bg-muted/10 rounded-md"></div>
+                  <div class="h-4 w-14 bg-muted/10 rounded-md"></div>
                 </div>
               </div>
 
