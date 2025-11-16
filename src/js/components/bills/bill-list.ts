@@ -75,6 +75,59 @@ export default class BillList extends Component {
             </li>
           </ul>   
         </div>`;
+
+    if (bills.loading) {
+      this.element!.innerHTML = `
+    <div class="flex items-center mb-[var(--space-lg)] justify-between">
+      <div class="h-7 w-32 bg-muted/10 animate-pulse rounded-md"></div>
+
+      <div class="h-9 w-32 bg-muted/10 animate-pulse rounded-md"></div>
+    </div>
+
+    <div class="card grid recent-bills-card">
+      <div class="card__content">
+        <ul class="grid md:grid-cols-2 gap-[var(--space-md)]">
+
+          ${Array.from({ length: 4 })
+            .map(
+              () => `
+          <li class="bg-bg p-4 flex flex-col gap-4 border border-border rounded-md animate-pulse">
+
+            <div class="flex items-start justify-between">
+              <div class="flex flex-col gap-2">
+                <div class="h-5 w-40 bg-muted/10 rounded-md"></div>
+                <div class="flex gap-2 items-center">
+                  <div class="h-4 w-20 bg-muted/10 rounded-md"></div>
+                  <div class="h-2 w-2 bg-muted/10 rounded-md"></div>
+                  <div class="h-4 w-16 bg-muted/10 rounded-md"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center -space-x-3">
+                <div class="size-8 bg-border rounded-full border border-border"></div>
+                <div class="size-8 bg-border rounded-full border border-border"></div>
+                <div class="size-8 bg-border rounded-full border border-border"></div>
+              </div>
+            </div>
+
+            <div class="border-t border-t-border w-full pt-4"></div>
+
+            <div class="flex items-center justify-between">
+              <div class="h-4 w-24 bg-muted/10 rounded-md"></div>
+              <div class="h-4 w-16 bg-muted/10 rounded-md"></div>
+            </div>
+
+          </li>
+          `
+            )
+            .join('')}
+        </ul>
+      </div>
+    </div>
+  `;
+      return;
+    }
+
     if (sortedBills.length === 0) {
       innerHTML = `
           <div class="flex items-center mb-[var(--space-lg)] justify-between">

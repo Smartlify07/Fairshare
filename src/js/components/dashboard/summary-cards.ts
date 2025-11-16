@@ -126,7 +126,7 @@ export default class SummaryCards extends Component {
             </div>
           </div>
 `;
-    if (!user) {
+    if (bills.loading) {
       const skeleton = `
 <div class="card summary-card animate-pulse h-[109px]">
   <div class="card__content gap-[var(--space-md)]">
@@ -143,7 +143,9 @@ export default class SummaryCards extends Component {
     </div>
   </div>
 </div>`;
-      this.element!.innerHTML = `${skeleton} ${skeleton} ${skeleton}${skeleton}`;
+      this.element!.innerHTML = Array.from({ length: 4 })
+        .map(() => skeleton)
+        .join('');
     } else {
       this.element!.innerHTML = `
         ${totalBillsSummaryCard} ${totalAmountSharedSummaryCard} ${totalSharePaidCard} ${totalPendingBalanceCard}
