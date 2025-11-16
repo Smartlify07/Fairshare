@@ -6,103 +6,83 @@ import {
   getSuggestedFriends,
 } from '../../api/friends.api';
 import { supabase } from '../../supabase';
+import { tryCatch } from '../utils/try-catch';
 import type { State } from './types/state.type';
 
 export default {
   async getUser(state: State) {
-    try {
-      const { data } = await supabase.auth.getUser();
-      state.user.data = data.user;
-      return state;
-    } catch (error) {
-      console.error(error);
-      state.user.error = error;
-      return state;
-    } finally {
-      state.user.loading = false;
-    }
+    const { error, data } = await tryCatch(supabase.auth.getUser());
+
+    state.user.loading = false;
+    state.user.error = error?.message ?? null;
+    state.user.data = data?.data.user ?? null;
+
+    return state;
   },
 
   async getUserProfile(state: State) {
     state.profile.loading = true;
-    try {
-      await this.getUser(state);
-      console.log(state);
-      const data = await getProfile(state.user?.data?.id!);
-      state.profile.data = data;
-      return state;
-    } catch (error) {
-      console.error(error);
-      state.profile.error = error;
-    } finally {
-      state.profile.loading = false;
-    }
+
+    await this.getUser(state);
+
+    const { error, data } = await tryCatch(
+      getProfile(state.user.data?.id ?? '')
+    );
+
+    state.profile.loading = false;
+    state.profile.error = error?.message ?? null;
+    state.profile.data = data ?? null; // ✅ complete data assignment
   },
 
   async getBills(state: State) {
     state.bills.loading = true;
 
-    try {
-      const bills = await getBills();
-      state.bills.data = bills;
-      return state;
-    } catch (error) {
-      console.error(error);
-      state.bills.error = error instanceof Error ? error?.message : error;
-    } finally {
-      state.bills.loading = false;
-    }
+    const { error, data } = await tryCatch(getBills());
+
+    state.bills.loading = false;
+    state.bills.error = error?.message ?? null;
+    state.bills.data = data ?? []; // ✅ complete data assignment
   },
 
   async getFriends(state: State) {
-    try {
-      await this.getUser(state);
-      const friends = await getFriends(state.user?.data?.id!);
+    state.friends.loading = true;
 
-      state.friends.data = friends;
-      return state;
-    } catch (error) {
-      console.error(error);
-      state.friends.error = error instanceof Error ? error?.message : error;
-    } finally {
-      state.friends.loading = false;
-    }
+    await this.getUser(state);
+
+    const { error, data } = await tryCatch(
+      getFriends(state.user?.data?.id ?? '')
+    );
+
+    state.friends.loading = false;
+    state.friends.error = error?.message ?? null;
+    state.friends.data = data ?? []; // ✅ complete data assignment
   },
 
   async getSuggestedFriends(state: State) {
     state.suggestedFriends.loading = true;
 
-    try {
-      await this.getUser(state);
-      const suggestedFriends = await getSuggestedFriends(
-        state?.user?.data?.id ?? ''
-      );
-      state.suggestedFriends.data = suggestedFriends;
-      return state;
-    } catch (error) {
-      console.error(error);
-      state.suggestedFriends.error =
-        error instanceof Error ? error?.message : error;
-    } finally {
-      state.suggestedFriends.loading = false;
-    }
+    await this.getUser(state);
+
+    const { error, data } = await tryCatch(
+      getSuggestedFriends(state.user?.data?.id ?? '')
+    );
+
+    state.suggestedFriends.loading = false;
+    state.suggestedFriends.error = error?.message ?? null;
+    state.suggestedFriends.data = data ?? []; // ✅ complete data assignment
   },
 
   async getFriendRequests(state: State) {
-    try {
-      await this.getUser(state);
-      const friendRequests = await getFriendRequests(
-        state?.user?.data?.id ?? ''
-      );
+    state.friendRequests.loading = true;
 
-      state.friendRequests.data = friendRequests;
-      return state;
-    } catch (error) {
-      console.error(error);
-      state.friendRequests.error =
-        error instanceof Error ? error?.message : error;
-    } finally {
-      state.friendRequests.loading = false;
-    }
+    await this.getUser(state);
+
+    const { error, data } = await tryCatch(
+      getFriendRequests(state.user?.data?.id ?? '')
+    );
+
+    state.friendRequests.loading = false;
+    state.friendRequests.error = error?.message ?? null;
+    state.friendRequests.data = data ?? []; // ✅ complete data assignment
   },
 };

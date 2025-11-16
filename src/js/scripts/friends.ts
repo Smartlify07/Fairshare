@@ -12,7 +12,7 @@ const handleSendFriendRequest = async (receiver_id: string) => {
     throw new Error('Receiver id is required');
   }
 
-  await sendFriendRequest(store.state.user?.id!, receiver_id);
+  await sendFriendRequest(store.state.user.data?.id!, receiver_id);
   store.dispatch('updateSuggestedFriends', {
     friendship_status: 'pending',
     id: receiver_id,
